@@ -1,3 +1,5 @@
+![](https://i.ibb.co/9bjpH82/image.png)
+
 # Noun Site
 
 A feature complete customizable template for Nouns Builder DAOs built with
