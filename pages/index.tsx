@@ -135,8 +135,6 @@ export default function SiteComponent({
             <Hero />
           </div>
         </div>
-        <Image src={cobrinha} className="md:hidden" alt="cobrinha divisora" priority={true} style={{width: '100%'}}/>
-        <Image src={cobrinha_lg} className="hidden md:block" alt="cobrinha divisora" priority={true} style={{width: '100%'}}/>
         <div className="max-w-[1400px] w-full">
           <div>
             <div className="bg-skin-backdrop lg:px-24 xl:px-52 mt-8">
