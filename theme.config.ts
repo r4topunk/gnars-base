@@ -1,8 +1,8 @@
 import { ThemeConfig } from "types/ThemeConfig";
-import { lightTheme } from "theme/default";
+import { darkTheme, lightTheme } from "theme/default";
 import merge from "lodash.merge";
 
-export const theme: ThemeConfig = merge(lightTheme, {
+export const theme: ThemeConfig = merge(darkTheme, {
   styles: {
     fonts: {
       heading: "Londrina Solid",
@@ -12,7 +12,7 @@ export const theme: ThemeConfig = merge(lightTheme, {
     colors: {
       muted: `115, 210, 222`,
       backdrop: `33, 131, 128`,
-      fill: `216, 17, 89`,
+      fill: `0, 0, 0`,
       stroke: `251, 177, 70`,
       "text-base": `255, 255, 255`,
       "text-muted": `115, 210, 222`,
@@ -30,13 +30,13 @@ export const theme: ThemeConfig = merge(lightTheme, {
   },
   nav: {
     primary: [
-      { label: "Ponziverso", href: "https://ponziverso.com" },
-      /*{ label: "About", href: "/about" },*/
+      { label: "Gnars", href: "https://gnars.com" },
+      { label: "About", href: "/about" },
     ],
     secondary: [],
   },
   brand: {
-    title: "NAJINHAS"
+    title: "Gnars"
   },
-  
+
 } as Partial<ThemeConfig>);

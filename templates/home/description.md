@@ -1,4 +1,4 @@
-# Najinha DAO
+# Gnars Dao
 
 Temos um único propósito e objetivo. CONSTRUIR UMA PIRÂMIDE GIGANTE NA FARIA LIMA.
 
