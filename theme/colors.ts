@@ -13,10 +13,10 @@ const fullConfig = resolveConfig(tailwindConfig);
 const colors = fullConfig.theme!.colors as any;
 
 export const lightColors: ThemeColors = {
-  fill: withRGB(colors.gray["100"]),
+  fill: withRGB("#FFFFFF"), // white background
   muted: withRGB(colors.gray["100"]),
   stroke: withRGB(colors.gray["300"]),
-  backdrop: "256, 256, 256",
+  backdrop: withRGB("#FFFFFF"),
   "text-base": withRGB(colors.gray["900"]),
   "text-muted": withRGB(colors.gray["500"]),
   "text-inverted": "256, 256, 256",
@@ -31,7 +31,7 @@ export const lightColors: ThemeColors = {
 };
 
 export const darkColors: ThemeColors = {
-  fill: "2, 4, 8",
+  fill: withRGB("#FFFFFF"), // white background
   muted: withRGB(colors.neutral["800"]),
   stroke: withRGB(colors.neutral["700"]),
   backdrop: withRGB(colors.neutral["900"]),

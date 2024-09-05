@@ -66,16 +66,14 @@ export default function Hero() {
               height={450}
               width={450}
               alt="logo"
-              className={`rounded-md object-scale-down relative z-20 w-100 h-100  ${
-                imageLoaded ? "visible" : "invisible"
-              }`}
-            priority />
+              className={`rounded-md object-scale-down relative z-20 w-100 h-100  ${imageLoaded ? "visible" : "invisible"
+                }`}
+              priority />
           </div>
         )}
         <div
-          className={`absolute top-0 right-0 w-[450px] h-[450px] hidden lg:flex items-center justify-around lg:pr-12 ${
-            imageLoaded ? "invisible" : "visible"
-          }`}
+          className={`absolute top-0 right-0 w-[450px] h-[450px] hidden lg:flex items-center justify-around lg:pr-12 ${imageLoaded ? "invisible" : "visible"
+            }`}
         >
           <Image src={"/spinner.svg"} alt="spinner" width={30} height={30} />
         </div>
@@ -84,32 +82,28 @@ export default function Hero() {
         <div className="flex items-center mb-4">
           <button
             onClick={pageBack}
-            className={`flex items-center ${
-              tokenId === "0x00"
+            className={`flex items-center ${tokenId === "0x00"
                 ? "border border-skin-stroke"
                 : "bg-skin-backdrop"
-            } rounded-full p-2 mr-4`}
+              } rounded-full p-2 mr-4`}
           >
             <ArrowLeftIcon
-              className={`h-4 ${
-                tokenId === "0x00" ? "text-skin-muted" : "text-skin-base"
-              }`}
+              className={`h-4 ${tokenId === "0x00" ? "text-skin-muted" : "text-skin-base"
+                }`}
             />
           </button>
           <button
             onClick={pageForward}
-            className={`flex items-center ${
-              tokenId === currentTokenId
+            className={`flex items-center ${tokenId === currentTokenId
                 ? "border border-skin-stroke"
                 : "bg-skin-backdrop"
-            } rounded-full p-2 mr-4`}
+              } rounded-full p-2 mr-4`}
           >
             <ArrowRightIcon
-              className={`h-4 ${
-                tokenId === currentTokenId
+              className={`h-4 ${tokenId === currentTokenId
                   ? "text-skin-muted"
                   : "text-skin-base"
-              }`}
+                }`}
             />
           </button>
         </div>
@@ -230,7 +224,7 @@ const CurrentAuction = ({
           </div>
           <div className="lg:w-64">
             <div className="text-lg text-skin-muted">{"Held by"}</div>
-  
+
             <div className="flex items-center mt-2">
               <UserAvatar
                 diameter={32}
@@ -285,7 +279,7 @@ const CurrentAuction = ({
           ethers.constants.AddressZero
         ) && <HighestBidder address={auctionInfo?.highestBidder} />*/}
 
-        <BidHistory bids={auctionInfo?.bids} numToShow={bidsShow} title="Last Bids" imgsrc={tokenImg.replace("api.zora.co", "nouns.build/api")} tokenName={tokenName} />
+      <BidHistory bids={auctionInfo?.bids} numToShow={bidsShow} title="Last Bids" imgsrc={tokenImg.replace("api.zora.co", "nouns.build/api")} tokenName={tokenName} />
     </Fragment>
   );
 };

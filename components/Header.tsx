@@ -23,6 +23,9 @@ export default function Header() {
   const { data: treasury } = useTreasuryBalance({
     treasuryContract: addresses?.treasury,
   });
+
+  console.log(addresses?.treasury || "0x0");
+  console.log(treasury || "0");
   const [theme] = useTheme();
   const [showMobile, setShowMobile] = useState(false);
 
@@ -33,7 +36,7 @@ export default function Header() {
       <div className="flex items-center justify-between w-full px-6 py-8 xl:w-[1200px]">
         <div className="flex items-center z-20">
           <Link href={"/"} className="flex items-center mr-2 sm:mr-4">
-            {/*theme.brand.logo !== null && contractInfo?.image && (
+            {theme.brand.logo !== null && contractInfo?.image && (
               <Image
                 src={theme.brand.logo || contractInfo?.image}
                 height={90}
@@ -42,14 +45,14 @@ export default function Header() {
                 alt="logo"
                 className="object-scale-down w-auto"
               />
-            )*/}
-            {theme.brand.title !== null && contractInfo?.name && (
+            )}
+            {/* {theme.brand.title !== null && contractInfo?.name && (
               <div
                 className={`ml-4 text-skin-base font-bold text-3xl font-heading  `}
               >
                 {theme.brand.title || contractInfo?.name}
               </div>
-            )}
+            )} */}
           </Link>
 
           <Link

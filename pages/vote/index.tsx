@@ -116,6 +116,8 @@ const ProposalPlacard = ({
   proposal: Proposal;
   proposalNumber: number;
 }) => {
+
+  console.log(proposal)
   return (
     <Link
       href={`/vote/${proposal.proposalId}`}

@@ -2,7 +2,7 @@ import { ThemeConfig } from "types/ThemeConfig";
 import { darkTheme, lightTheme } from "theme/default";
 import merge from "lodash.merge";
 
-export const theme: ThemeConfig = merge(darkTheme, {
+export const theme: ThemeConfig = merge(lightTheme, {
   styles: {
     fonts: {
       heading: "Londrina Solid",
@@ -10,13 +10,13 @@ export const theme: ThemeConfig = merge(darkTheme, {
       body: "Londrina Solid"
     },
     colors: {
-      muted: `115, 210, 222`,
-      backdrop: `33, 131, 128`,
-      fill: `0, 0, 0`,
-      stroke: `251, 177, 70`,
-      "text-base": `255, 255, 255`,
-      "text-muted": `115, 210, 222`,
-      "text-inverted": `143, 45, 86`,
+      muted: `255, 255, 255`, // white background
+      backdrop: `255, 255, 255`, // white background
+      fill: `255, 255, 255`, // black text
+      stroke: `251, 177, 70`, // orange stroke
+      "text-base": `0 , 0 , 0 `,
+      "text-muted": `0 , 0 , 0 `,
+      "text-inverted": `0 , 0 , 0 `,
       "text-highlighted": `251, 177, 70`,
       "text-pink": `216, 17, 89`,
       "button-accent": `33, 131, 128`,
@@ -32,11 +32,14 @@ export const theme: ThemeConfig = merge(darkTheme, {
     primary: [
       { label: "NounsBr", href: "https://NounsBr.com" },
       { label: "About", href: "/about" },
+      { label: "Proposals", href: "/vote" },
     ],
-    secondary: [],
+    secondary: [
+    ],
   },
   brand: {
-    title: "NounsBr"
+    title: "NounsBr",
+    logo: "https://nounsbr.wtf/static/media/logo.701015cd.svg",
   },
 
 } as Partial<ThemeConfig>);

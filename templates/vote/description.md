@@ -1,3 +1,3 @@
-# My DAO Governance
+# Propostas Da Dao 
 
-Edit your voting description in the `templates/vote/description.md` file
+Aqui na Nouns Brasil tudo é decidido pela comunidade 
