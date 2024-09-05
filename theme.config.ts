@@ -30,13 +30,13 @@ export const theme: ThemeConfig = merge(darkTheme, {
   },
   nav: {
     primary: [
-      { label: "Gnars", href: "https://gnars.com" },
+      { label: "NounsBr", href: "https://NounsBr.com" },
       { label: "About", href: "/about" },
     ],
     secondary: [],
   },
   brand: {
-    title: "Gnars"
+    title: "NounsBr"
   },
 
 } as Partial<ThemeConfig>);
