@@ -24,8 +24,7 @@ export default function Header() {
     treasuryContract: addresses?.treasury,
   });
 
-  console.log(addresses?.treasury || "0x0");
-  console.log(treasury || "0");
+
   const [theme] = useTheme();
   const [showMobile, setShowMobile] = useState(false);
 
@@ -39,20 +38,19 @@ export default function Header() {
             {theme.brand.logo !== null && contractInfo?.image && (
               <Image
                 src={theme.brand.logo || contractInfo?.image}
-                height={90}
-                width={90}
-                style={{ height: theme.styles.logoHeight }}
+                height={100}
+                width={100}
                 alt="logo"
                 className="object-scale-down w-auto"
               />
             )}
-            {/* {theme.brand.title !== null && contractInfo?.name && (
+            {theme.brand.title !== null && contractInfo?.name && (
               <div
                 className={`ml-4 text-skin-base font-bold text-3xl font-heading  `}
               >
                 {theme.brand.title || contractInfo?.name}
               </div>
-            )} */}
+            )}
           </Link>
 
           <Link

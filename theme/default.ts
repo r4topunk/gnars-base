@@ -9,7 +9,20 @@ export const lightTheme: ThemeConfig = {
   brand: {},
   nav: {
     primary: [],
-    secondary: [],
+    secondary: [
+      {
+        label: 'Farcaster',
+        href: 'https://nounspace.com/s/gnars'
+      },
+      {
+        label: 'Discord',
+        href: 'https://discord.gg/gnars'
+      },
+      {
+        label: 'YouTube',
+        href: 'https://nounspace.com/s/gnars'
+      },
+    ],
   },
 };
 

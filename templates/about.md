@@ -2,6 +2,8 @@
 align: left
 ---
 
-## Welcome to your custom page 🎉
+## Official Gnars Links
 
-To edit this page head to `/templates/about.md`
+### ThatsGnarly 
+
+### Gnars.com

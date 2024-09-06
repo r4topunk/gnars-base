@@ -1,6 +1,6 @@
 ---
-title: Como faremos isso?
+title: How does it work ? 
 order: 0
 ---
 
-Toda vez que você compra um token o dinheiro vai para o tesouro da DAO. Com esse dinheiro vamos construir a pirâmide.
+Nobody knows 

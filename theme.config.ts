@@ -30,7 +30,7 @@ export const theme: ThemeConfig = merge(lightTheme, {
   },
   nav: {
     primary: [
-      { label: "NounsBr", href: "https://NounsBr.com" },
+      { label: "Gnars", href: "https://Gnars.com" },
       { label: "About", href: "/about" },
       { label: "Proposals", href: "/vote" },
     ],
@@ -38,8 +38,8 @@ export const theme: ThemeConfig = merge(lightTheme, {
     ],
   },
   brand: {
-    title: "NounsBr",
-    logo: "https://nounsbr.wtf/static/media/logo.701015cd.svg",
+    title: "Gnars",
+    logo: "https://gnarsdocs.vercel.app/img/favicon.ico",
   },
 
 } as Partial<ThemeConfig>);
