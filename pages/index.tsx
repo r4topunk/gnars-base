@@ -1,27 +1,28 @@
-
-import Image from "next/image";
-import cobrinha from "../public/cobrinha.png";
-import cobrinha_lg from "../public/cobrinha-lg.png";
-import Header from "../components/Header";
-import { useIsMounted } from "hooks/useIsMounted";
-import { Fragment } from "react";
-import Hero from "../components/Hero/Hero";
-import { GetStaticPropsResult, InferGetStaticPropsType } from "next";
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { SWRConfig } from "swr";
+import { getAddresses } from "@/services/nouns-builder/manager";
+import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import {
   ContractInfo,
   getContractInfo,
   getTokenInfo,
   TokenInfo,
 } from "data/nouns-builder/token";
-import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import { promises as fs } from "fs";
+import { useIsMounted } from "hooks/useIsMounted";
+import { GetStaticPropsResult, InferGetStaticPropsType } from "next";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
-import Footer from "@/components/Footer";
-import FaqElement from "@/components/FaqElement";
-import { getAddresses } from "@/services/nouns-builder/manager";
+import { Fragment } from "react";
+import { SWRConfig } from "swr";
+import {
+  HomeIcon,
+  LightBulbIcon,
+  LinkIcon,
+  MagnifyingGlassIcon,
+  QueueListIcon,
+  TableCellsIcon,
+} from "@heroicons/react/20/solid";
+import CustomConnectButton from "@/components/CustomConnectButton";
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 
@@ -128,39 +129,79 @@ export default function SiteComponent({
         },
       }}
     >
-      <div className="bg-skin-backdrop text-skin-base min-h-screen flex flex-col items-center justify-around">
-        <div className="bg-skin-fill w-full flex items-center justify-around pb-8 lg:pb-0">
-          <div className="max-w-[1400px]">
-            <Header />
-            <Hero />
-          </div>
-        </div>
-        <div className="max-w-[1400px] w-full">
-          <div>
-            <div className="bg-skin-backdrop lg:px-24 xl:px-52 mt-8">
-              <div className="h-full w-full wrapper focus:outline-none pt-12 p-6 break-words text-4xl prose prose-skin prose-headings:font-heading max-w-none text-pink">
-                <MDXRemote {...descriptionSource} />
-              </div>
-
-              <div className="pt-12 p-8 ">
-                {faqSources.map((x, i) => (
-                  <div key={i} className="mb-10">
-                    <FaqElement
-                      className={
-                        "flex items-center font-semibold justify-between w-full text-left text-4xl font-heading text-skin-base hover:text-skin-highlighted"
-                      }
-                      title={x.frontmatter?.title || ""}
-                    >
-                      <div className="prose prose-skin prose-headings:font-heading break-words max-w-none mt-8 text-2xl">
-                        <MDXRemote {...x} />
-                      </div>
-                    </FaqElement>
-                  </div>
-                ))}
-              </div>
+      <div className="bg-skin-backdrop text-skin-base h-screen flex">
+        <div className="w-[220px] flex flex-col px-8 py-4 border-zinc-100 border border-r-1">
+          <a className="text-3xl mb-8">Gnars</a>
+          <div className="w-[220px] flex flex-col">
+            <a>MENU</a>
+            <div className="font-xl flex flex-col pt-4 gap-4">
+              <button className="flex gap-2 items-center">
+                <div className="p-2 rounded-lg bg-[#CA6CFF]">
+                  <HomeIcon width={"18px"} color="white" />
+                </div>
+                <a className="">Discover</a>
+              </button>
+              <button className="flex gap-2 items-center">
+                <div className="p-2 bg-zinc-200 rounded-lg">
+                  <LinkIcon width={"18px"} color="black" />
+                </div>
+                <a className="">Gnars</a>
+              </button>
+              <button className="flex gap-2 items-center">
+                <div className="p-2 bg-zinc-200 rounded-lg">
+                  <LightBulbIcon width={"18px"} color="black" />
+                </div>
+                <a className="">About</a>
+              </button>
+              <button className="flex gap-2 items-center">
+                <div className="p-2 bg-zinc-200 rounded-lg">
+                  <QueueListIcon width={"18px"} color="black" />
+                </div>
+                <a className="">Proposals</a>
+              </button>
+              <button className="flex gap-2 items-center">
+                <div className="p-2 bg-zinc-200 rounded-lg">
+                  <TableCellsIcon width={"18px"} color="black" />
+                </div>
+                <a className="">Propdates</a>
+              </button>
             </div>
           </div>
-          <Footer />
+        </div>
+        <div className="flex flex-col flex-grow h-full overflow-y-auto overflow-x-hidden">
+          <div className="w-full p-4 flex justify-between ml-2">
+            <div className="flex w-full max-w-[450px] bg-gray-200 rounded-lg pr-2 items-center">
+              <input
+                type="text"
+                className="w-full h-[34px] border-none bg-transparent text-sm font-medium pl-4 pr-2 shadow-sm placeholder-gray-400 focus:outline-none"
+                placeholder="Search..."
+              />
+              <MagnifyingGlassIcon width={"18px"} />
+            </div>
+            <CustomConnectButton className="px-6 h-10 rounded-xl border transition ease-in-out hover:scale-110 text-xl" />
+          </div>
+          <div className="flex flex-col flex-grow p-4">
+            <a className="text-5xl ml-2 mb-2">Discover</a>
+            <div className="grid grid-cols-3 gap-4 h-[420px]">
+              <div className="col-span-2 bg-lime-300 rounded-3xl"></div>
+              <div className="col-span-1 bg-red-300 rounded-3xl"></div>
+            </div>
+            <a className="text-3xl mt-4 mb-2 ml-2">News</a>
+            <div className="grid grid-cols-3 gap-4 h-[220px]">
+              <div className="bg-lime-300 rounded-3xl"></div>
+              <div className="bg-red-300 rounded-3xl"></div>
+              <div className="bg-blue-300 rounded-3xl"></div>
+            </div>
+            <a className="text-3xl mt-4 mb-2 ml-2">Updates</a>
+            <div className="grid grid-cols-6 gap-4 h-[220px]">
+              <div className="bg-lime-300 rounded-3xl"></div>
+              <div className="bg-red-300 rounded-3xl"></div>
+              <div className="bg-blue-300 rounded-3xl"></div>
+              <div className="bg-lime-300 rounded-3xl"></div>
+              <div className="bg-red-300 rounded-3xl"></div>
+              <div className="bg-blue-300 rounded-3xl"></div>
+            </div>
+          </div>
         </div>
       </div>
     </SWRConfig>
