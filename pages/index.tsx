@@ -170,6 +170,7 @@ export default function SiteComponent({
         </div>
         <div className="flex flex-col flex-grow h-full overflow-y-auto overflow-x-hidden">
           <div className="w-full p-4 flex justify-between ml-2">
+            <div></div>
             <div className="flex w-full max-w-[450px] bg-gray-200 rounded-lg pr-2 items-center">
               <input
                 type="text"
