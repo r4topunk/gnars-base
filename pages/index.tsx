@@ -1,3 +1,4 @@
+import Hero from "@/components/Hero/Hero";
 import { getAddresses } from "@/services/nouns-builder/manager";
 import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import {
@@ -14,16 +15,6 @@ import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 import { Fragment } from "react";
 import { SWRConfig } from "swr";
-import {
-  HomeIcon,
-  LightBulbIcon,
-  LinkIcon,
-  MagnifyingGlassIcon,
-  QueueListIcon,
-  TableCellsIcon,
-} from "@heroicons/react/20/solid";
-import CustomConnectButton from "@/components/CustomConnectButton";
-import Hero from "@/components/Hero/Hero";
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 
@@ -130,88 +121,35 @@ export default function SiteComponent({
         },
       }}
     >
-      <div className="bg-skin-backdrop text-skin-base h-screen flex">
-        <div className="w-[140px] lg:w-[220px] md:flex flex-col px-4 lg:px-8 py-4 hidden">
-          <a className="text-3xl mb-8">Gnars</a>
-          <div className="w-[220px] flex flex-col">
-            <a>MENU</a>
-            <div className="font-xl flex flex-col pt-4 gap-4">
-              <button className="flex gap-2 items-center">
-                <div className="p-2 rounded-lg bg-[#CA6CFF]">
-                  <HomeIcon width={"18px"} color="white" />
-                </div>
-                <a className="">Discover</a>
-              </button>
-              <button className="flex gap-2 items-center group">
-                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
-                  <LinkIcon width={"18px"} color="black" className="color-white" />
-                </div>
-                <a className="">Gnars</a>
-              </button>
-              <button className="flex gap-2 items-center group">
-                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
-                  <LightBulbIcon width={"18px"} color="black" />
-                </div>
-                <a className="">About</a>
-              </button>
-              <button className="flex gap-2 items-center group">
-                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
-                  <QueueListIcon width={"18px"} color="black" />
-                </div>
-                <a className="">Proposals</a>
-              </button>
-              <button className="flex gap-2 items-center group">
-                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
-                  <TableCellsIcon width={"18px"} color="black" />
-                </div>
-                <a className="">Propdates</a>
-              </button>
-            </div>
+      <div className="flex flex-col flex-grow">
+        <a className="text-2xl sm:text-3xl lg:text-5xl mb-2">Discover</a>
+        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 2xl:h-[460px]">
+          <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
+            <iframe
+              src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/6/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
+              sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
+              width="100%"
+              height="100%"
+            ></iframe>
+          </div>
+          <div className="col-span-1 rounded-xl border border-zinc-200 max-w-full">
+            <Hero />
           </div>
         </div>
-        <div className="flex flex-col flex-grow h-full overflow-y-auto overflow-x-hidden">
-          <div className="w-full p-4 pb-0 md:pb-4 flex justify-between ml-2 gap-8">
-            <div className="flex w-full max-w-[450px] bg-gray-200 rounded-lg pr-2 items-center">
-              <input
-                type="text"
-                className="w-full h-[34px] border-none bg-transparent text-sm font-medium pl-4 pr-2 shadow-sm placeholder-gray-400 focus:outline-none"
-                placeholder="Search..."
-              />
-              <MagnifyingGlassIcon width={"18px"} />
-            </div>
-            <CustomConnectButton className="px-6 h-10 rounded-xl border transition ease-in-out hover:scale-110 text-sm whitespace-nowrap lg:text-lg" />
-          </div>
-          <div className="flex flex-col flex-grow p-4">
-            <a className="text-2xl sm:text-3xl lg:text-5xl ml-2 mb-2">Discover</a>
-            <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 2xl:h-[460px]">
-              <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
-                <iframe
-                  src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/6/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
-                  sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
-                  width="100%"
-                  height="100%"
-                ></iframe>
-              </div>
-              <div className="col-span-1 rounded-xl border border-zinc-200 max-w-full">
-                <Hero />
-              </div>
-            </div>
-            <a className="text-xl lg:text-3xl mt-4 mb-2 ml-2">News</a>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
-              <div className="bg-lime-300 rounded-xl"></div>
-              <div className="bg-red-300 rounded-xl"></div>
-              <div className="bg-blue-300 rounded-xl"></div>
-            </div>
-            <a className="text-xl lg:text-3xl mt-4 mb-2 ml-2">Updates</a>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
-              <div className="bg-lime-300 rounded-xl"></div>
-              <div className="bg-red-300 rounded-xl"></div>
-              <div className="bg-blue-300 rounded-xl"></div>
-              <div className="bg-lime-300 rounded-xl"></div>
-              <div className="bg-red-300 rounded-xl"></div>
-              <div className="bg-blue-300 rounded-xl"></div>
-            </div>
-          </div>
+        <a className="text-xl lg:text-3xl mt-4 mb-2">News</a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
+          <div className="bg-lime-300 rounded-xl"></div>
+          <div className="bg-red-300 rounded-xl"></div>
+          <div className="bg-blue-300 rounded-xl"></div>
+        </div>
+        <a className="text-xl lg:text-3xl mt-4 mb-2">Updates</a>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
+          <div className="bg-lime-300 rounded-xl"></div>
+          <div className="bg-red-300 rounded-xl"></div>
+          <div className="bg-blue-300 rounded-xl"></div>
+          <div className="bg-lime-300 rounded-xl"></div>
+          <div className="bg-red-300 rounded-xl"></div>
+          <div className="bg-blue-300 rounded-xl"></div>
         </div>
       </div>
     </SWRConfig>

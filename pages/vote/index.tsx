@@ -59,7 +59,8 @@ export default function Vote({
   };
 
   return (
-    <Layout>
+    // <Layout>
+    <>
       <div className="text-2xl relative font-heading text-skin-muted">
         Governance
       </div>
@@ -105,7 +106,8 @@ export default function Vote({
           ))}
         </div>
       </div>
-    </Layout>
+    {/* </Layout> */}
+      </>
   );
 }
 
