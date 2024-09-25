@@ -56,7 +56,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] lg:py-4">
+    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] p-4">
       <div className="lg:w-1/2 mx-4 flex flex-col min-h-[350px] min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-5 relative">
         {tokenInfo && (
           <div className="w-full h-full flex items-center justify-around">
@@ -78,7 +78,7 @@ export default function Hero() {
           <Image src={"/spinner.svg"} alt="spinner" width={30} height={30} />
         </div>
       </div>
-      <div className="px-4 w-screen lg:w-auto min-h-64 lg:h-full flex flex-col justify-stretch items-stretch mt-6 lg:mt-0">
+      <div className="px-4 w-full lg:w-auto min-h-64 lg:h-full flex flex-col justify-stretch items-stretch mt-6 lg:mt-0">
         <div className="flex items-center mb-4">
           <button
             onClick={pageBack}

@@ -131,7 +131,7 @@ export default function SiteComponent({
       }}
     >
       <div className="bg-skin-backdrop text-skin-base h-screen flex">
-        <div className="w-[220px] flex flex-col px-8 py-4 border-zinc-100 border border-r-1">
+        <div className="w-[220px] flex flex-col px-8 py-4">
           <a className="text-3xl mb-8">Gnars</a>
           <div className="w-[220px] flex flex-col">
             <a>MENU</a>
@@ -184,8 +184,8 @@ export default function SiteComponent({
           </div>
           <div className="flex flex-col flex-grow p-4">
             <a className="text-5xl ml-2 mb-2">Discover</a>
-            <div className="grid grid-cols-2 gap-4 h-[460px]">
-              <div className="col-span-1 bg-lime-300 rounded-xl">
+            <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 2xl:h-[460px]">
+              <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
                 <iframe
                   src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/6/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
                   sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
@@ -193,18 +193,18 @@ export default function SiteComponent({
                   height="100%"
                 ></iframe>
               </div>
-              <div className="col-span-1 rounded-xl border border-zinc-200">
+              <div className="col-span-1 rounded-xl border border-zinc-200 max-w-full">
                 <Hero />
               </div>
             </div>
             <a className="text-3xl mt-4 mb-2 ml-2">News</a>
-            <div className="grid grid-cols-3 gap-4 h-[220px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
               <div className="bg-lime-300 rounded-xl"></div>
               <div className="bg-red-300 rounded-xl"></div>
               <div className="bg-blue-300 rounded-xl"></div>
             </div>
             <a className="text-3xl mt-4 mb-2 ml-2">Updates</a>
-            <div className="grid grid-cols-6 gap-4 h-[220px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
               <div className="bg-lime-300 rounded-xl"></div>
               <div className="bg-red-300 rounded-xl"></div>
               <div className="bg-blue-300 rounded-xl"></div>
