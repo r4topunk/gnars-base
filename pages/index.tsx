@@ -131,7 +131,7 @@ export default function SiteComponent({
       }}
     >
       <div className="bg-skin-backdrop text-skin-base h-screen flex">
-        <div className="w-[220px] flex flex-col px-8 py-4">
+        <div className="w-[140px] lg:w-[220px] md:flex flex-col px-4 lg:px-8 py-4 hidden">
           <a className="text-3xl mb-8">Gnars</a>
           <div className="w-[220px] flex flex-col">
             <a>MENU</a>
@@ -170,8 +170,7 @@ export default function SiteComponent({
           </div>
         </div>
         <div className="flex flex-col flex-grow h-full overflow-y-auto overflow-x-hidden">
-          <div className="w-full p-4 flex justify-between ml-2">
-            <div></div>
+          <div className="w-full p-4 pb-0 md:pb-4 flex justify-between ml-2 gap-8">
             <div className="flex w-full max-w-[450px] bg-gray-200 rounded-lg pr-2 items-center">
               <input
                 type="text"
@@ -180,10 +179,10 @@ export default function SiteComponent({
               />
               <MagnifyingGlassIcon width={"18px"} />
             </div>
-            <CustomConnectButton className="px-6 h-10 rounded-xl border transition ease-in-out hover:scale-110 text-xl" />
+            <CustomConnectButton className="px-6 h-10 rounded-xl border transition ease-in-out hover:scale-110 text-sm whitespace-nowrap lg:text-lg" />
           </div>
           <div className="flex flex-col flex-grow p-4">
-            <a className="text-5xl ml-2 mb-2">Discover</a>
+            <a className="text-2xl sm:text-3xl lg:text-5xl ml-2 mb-2">Discover</a>
             <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 2xl:h-[460px]">
               <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
                 <iframe
@@ -197,13 +196,13 @@ export default function SiteComponent({
                 <Hero />
               </div>
             </div>
-            <a className="text-3xl mt-4 mb-2 ml-2">News</a>
+            <a className="text-xl lg:text-3xl mt-4 mb-2 ml-2">News</a>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
               <div className="bg-lime-300 rounded-xl"></div>
               <div className="bg-red-300 rounded-xl"></div>
               <div className="bg-blue-300 rounded-xl"></div>
             </div>
-            <a className="text-3xl mt-4 mb-2 ml-2">Updates</a>
+            <a className="text-xl lg:text-3xl mt-4 mb-2 ml-2">Updates</a>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
               <div className="bg-lime-300 rounded-xl"></div>
               <div className="bg-red-300 rounded-xl"></div>
