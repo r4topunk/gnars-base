@@ -23,6 +23,7 @@ import {
   TableCellsIcon,
 } from "@heroicons/react/20/solid";
 import CustomConnectButton from "@/components/CustomConnectButton";
+import Hero from "@/components/Hero/Hero";
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 
@@ -141,26 +142,26 @@ export default function SiteComponent({
                 </div>
                 <a className="">Discover</a>
               </button>
-              <button className="flex gap-2 items-center">
-                <div className="p-2 bg-zinc-200 rounded-lg">
-                  <LinkIcon width={"18px"} color="black" />
+              <button className="flex gap-2 items-center group">
+                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
+                  <LinkIcon width={"18px"} color="black" className="color-white" />
                 </div>
                 <a className="">Gnars</a>
               </button>
-              <button className="flex gap-2 items-center">
-                <div className="p-2 bg-zinc-200 rounded-lg">
+              <button className="flex gap-2 items-center group">
+                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
                   <LightBulbIcon width={"18px"} color="black" />
                 </div>
                 <a className="">About</a>
               </button>
-              <button className="flex gap-2 items-center">
-                <div className="p-2 bg-zinc-200 rounded-lg">
+              <button className="flex gap-2 items-center group">
+                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
                   <QueueListIcon width={"18px"} color="black" />
                 </div>
                 <a className="">Proposals</a>
               </button>
-              <button className="flex gap-2 items-center">
-                <div className="p-2 bg-zinc-200 rounded-lg">
+              <button className="flex gap-2 items-center group">
+                <div className="p-2 bg-zinc-200 rounded-lg group-hover:bg-[#CA6CFF] group-hover:shadow-sm">
                   <TableCellsIcon width={"18px"} color="black" />
                 </div>
                 <a className="">Propdates</a>
@@ -183,24 +184,33 @@ export default function SiteComponent({
           </div>
           <div className="flex flex-col flex-grow p-4">
             <a className="text-5xl ml-2 mb-2">Discover</a>
-            <div className="grid grid-cols-3 gap-4 h-[420px]">
-              <div className="col-span-2 bg-lime-300 rounded-3xl"></div>
-              <div className="col-span-1 bg-red-300 rounded-3xl"></div>
+            <div className="grid grid-cols-2 gap-4 h-[460px]">
+              <div className="col-span-1 bg-lime-300 rounded-xl">
+                <iframe
+                  src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/6/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
+                  sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
+                  width="100%"
+                  height="100%"
+                ></iframe>
+              </div>
+              <div className="col-span-1 rounded-xl border border-zinc-200">
+                <Hero />
+              </div>
             </div>
             <a className="text-3xl mt-4 mb-2 ml-2">News</a>
             <div className="grid grid-cols-3 gap-4 h-[220px]">
-              <div className="bg-lime-300 rounded-3xl"></div>
-              <div className="bg-red-300 rounded-3xl"></div>
-              <div className="bg-blue-300 rounded-3xl"></div>
+              <div className="bg-lime-300 rounded-xl"></div>
+              <div className="bg-red-300 rounded-xl"></div>
+              <div className="bg-blue-300 rounded-xl"></div>
             </div>
             <a className="text-3xl mt-4 mb-2 ml-2">Updates</a>
             <div className="grid grid-cols-6 gap-4 h-[220px]">
-              <div className="bg-lime-300 rounded-3xl"></div>
-              <div className="bg-red-300 rounded-3xl"></div>
-              <div className="bg-blue-300 rounded-3xl"></div>
-              <div className="bg-lime-300 rounded-3xl"></div>
-              <div className="bg-red-300 rounded-3xl"></div>
-              <div className="bg-blue-300 rounded-3xl"></div>
+              <div className="bg-lime-300 rounded-xl"></div>
+              <div className="bg-red-300 rounded-xl"></div>
+              <div className="bg-blue-300 rounded-xl"></div>
+              <div className="bg-lime-300 rounded-xl"></div>
+              <div className="bg-red-300 rounded-xl"></div>
+              <div className="bg-blue-300 rounded-xl"></div>
             </div>
           </div>
         </div>

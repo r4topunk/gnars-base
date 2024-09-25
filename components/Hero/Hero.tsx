@@ -56,8 +56,8 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex flex-col relative z-20 bg-skin-fill lg:flex-row items-top lg:h-[80vh] lg:max-h-[600px] lg:pt-10">
-      <div className="lg:w-1/2 mx-4 flex flex-col min-h-[350px] min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-12 relative">
+    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] lg:py-10">
+      <div className="lg:w-1/2 mx-4 flex flex-col min-h-[350px] min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-5 relative">
         {tokenInfo && (
           <div className="w-full h-auto flex items-center justify-around">
             <Image
