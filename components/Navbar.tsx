@@ -62,9 +62,7 @@ function Navbar() {
 interface NavbarItemProps {
   text: string;
   href: string;
-  icon: ForwardRefExoticComponent<
-    SVGProps<SVGSVGElement> & RefAttributes<SVGSVGElement>
-  >;
+  icon: React.ElementType;
   className?: string;
   color: string;
 }
