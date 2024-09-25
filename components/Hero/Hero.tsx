@@ -56,17 +56,17 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] lg:py-10">
+    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] lg:py-4">
       <div className="lg:w-1/2 mx-4 flex flex-col min-h-[350px] min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-5 relative">
         {tokenInfo && (
-          <div className="w-full h-auto flex items-center justify-around">
+          <div className="w-full h-full flex items-center justify-around">
             <Image
               src={tokenInfo.image.replace("api.zora.co", "nouns.build/api")}
               onLoad={() => setImageLoaded(true)}
               height={450}
               width={450}
               alt="logo"
-              className={`rounded-md object-scale-down relative z-20 w-100 h-100  ${imageLoaded ? "visible" : "invisible"
+              className={`h-full w-full object-cover rounded-md relative z-20  ${imageLoaded ? "visible" : "invisible"
                 }`}
               priority />
           </div>
