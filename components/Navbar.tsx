@@ -70,7 +70,7 @@ interface NavbarItemProps {
 function NavbarItem(props: NavbarItemProps) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
-  const active = router.asPath === props.href || isHovered;
+  const active = router.asPath.startsWith(props.href) || isHovered;
 
   useEffect(() => {
     setIsHovered(false);
