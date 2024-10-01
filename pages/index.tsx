@@ -123,10 +123,10 @@ export default function SiteComponent({
     >
       <div className="flex flex-col flex-grow">
         <a className="text-2xl sm:text-3xl lg:text-5xl mb-2">Discover</a>
-        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 2xl:h-[460px]">
+        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4">
           <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
             <iframe
-              src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/6/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
+              src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/8/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
               sandbox="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
               width="100%"
               height="100%"

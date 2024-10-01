@@ -49,7 +49,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 </div>
                 <CustomConnectButton className="px-6 h-10 rounded-xl border transition ease-in-out hover:scale-110 text-sm whitespace-nowrap lg:text-lg" />
               </div>
-                <Component {...pageProps} />
+              <Component {...pageProps} />
             </div>
           </div>
         </RainbowKitProvider>

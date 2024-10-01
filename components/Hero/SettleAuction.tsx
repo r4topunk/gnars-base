@@ -36,8 +36,8 @@ export const SettleAuction = ({ auction }: { auction?: string }) => {
           openConnectModal?.();
         }
       }}
-      className="w-full bg-skin-button-accent hover:scale-110 hover:bg-skin-button-accent-hover text-skin-base font-bold h-12 mt-6 rounded-lg flex items-center justify-around"
-    >
+      className="w-full bg-skin-button-accent hover:scale-105 hover:bg-skin-button-accent-hover text-skin-base font-bold h-12 mt-6 rounded-lg flex items-center justify-around"
+      >
       {isLoading ? (
         <Image src="/spinner.svg" height={26} width={26} alt="spinner" />
       ) : (
