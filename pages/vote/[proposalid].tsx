@@ -83,7 +83,7 @@ export default function ProposalComponent() {
   };
 
   return (
-    <Layout>
+    <>
       <div className="flex flex-col sm:flex-row items-baseline justify-between">
         <div className="flex items-baseline">
           <Link
@@ -203,7 +203,7 @@ export default function ProposalComponent() {
           />
         ))}
       </div>
-    </Layout>
+    </>
   );
 }
 
