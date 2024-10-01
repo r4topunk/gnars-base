@@ -61,14 +61,9 @@ export default function Vote({
   return (
     // <Layout>
     <>
-      <div className="text-2xl relative font-heading text-skin-muted">
+      <div className="text-4xl relative font-heading text-skin-muted">
         Governance
       </div>
-
-      <div className="h-full w-full wrapper focus:outline-none pt-4 break-words prose prose-skin prose-headings:font-heading lg:prose-xl max-w-none">
-        <MDXRemote {...descriptionSource} />
-      </div>
-
       <div className="border border-skin-stroke rounded-2xl py-6 sm:py-0 px-6 mt-6 flex flex-col sm:flex-row sm:items-center justify-between sm:h-32">
         <div className="sm:py-6 h-full">
           <div className="font-heading text-2xl text-skin-muted">Treasury</div>
@@ -84,7 +79,7 @@ export default function Vote({
 
       <div className="mt-12">
         <div className="flex items-center justify-between">
-          <div className="text-4xl font-heading text-skin-base">Proposals</div>
+          <div className="text-3xl font-heading text-skin-base">Proposals</div>
           {userVotes && userVotes >= (currentThreshold || 0) ? (
             <Link
               href={"/create-proposal"}
