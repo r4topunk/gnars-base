@@ -83,7 +83,7 @@ export default function ProposalComponent() {
   };
 
   return (
-    <>
+    <div className="max-w-[1000px] mx-auto mt-4">
       <div className="flex flex-col sm:flex-row items-baseline justify-between">
         <div className="flex items-baseline">
           <Link
@@ -181,7 +181,7 @@ export default function ProposalComponent() {
         </div>
 
         <ReactMarkdown
-          className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-[90vw] sm:max-w-[1000px]"
+          className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-full"
           rehypePlugins={[rehypeRaw, rehypeSanitize]}
           remarkPlugins={[remarkGfm]}
         >
@@ -203,7 +203,7 @@ export default function ProposalComponent() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
