@@ -37,7 +37,7 @@ const CustomConnectButton = ({ className }: CustomConnectButtonProps) => {
                     onClick={openConnectModal}
                     type="button"
                   >
-                    {theme.strings.connectWallet || "Connect Wallet"}
+                    {theme.strings.connectWallet || "Login"}
                   </button>
                 );
               }
