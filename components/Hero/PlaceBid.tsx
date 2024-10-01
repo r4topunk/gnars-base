@@ -41,7 +41,7 @@ export const PlaceBid = ({
   const { isLoading } = useWaitForTransaction({
     hash: data?.hash,
   });
-  
+
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
 
@@ -67,7 +67,7 @@ export const PlaceBid = ({
           value={bid}
           type="number"
           onChange={(e) => setBid(e.target.value)}
-          className="bg-skin-backdrop text-skin-base placeholder:text-skin-muted px-3 py-3 rounded-lg w-full text-2xl mr-2 focus:outline-none"
+          className="bg-gray text-skin-base placeholder:text-skin-muted px-2 py-2 rounded-lg w-full text-xl mr-2 border border-black focus:outline-dashed focus:ring-2 focus:ring-skin-button-accent focus:ring-opacity-50"
           placeholder={
             nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
           }
@@ -76,7 +76,7 @@ export const PlaceBid = ({
           onClick={(e) => {
             e.preventDefault();
             if (isConnected) {
-            write?.();
+              write?.();
             } else {
               openConnectModal?.();
             }

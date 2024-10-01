@@ -59,7 +59,7 @@ export default function Hero() {
     <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] p-4">
       <div className="flex flex-col min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-4 relative mx-auto lg:mx-0">
         <div className="h-full aspect-square flex items-center justify-around">
-        {tokenInfo && (
+          {tokenInfo && (
             <Image
               src={tokenInfo.image.replace("api.zora.co", "nouns.build/api")}
               onLoad={() => setImageLoaded(true)}
@@ -68,8 +68,8 @@ export default function Hero() {
               alt="logo"
               className={`h-full object-cover rounded-md relative z-20 `}
               priority />
-            )}
-            </div>
+          )}
+        </div>
         <div
           className={`absolute top-0 right-0 w-[450px] h-[450px] hidden lg:flex items-center justify-around lg:pr-12 ${imageLoaded ? "invisible" : "visible"
             }`}
@@ -82,8 +82,8 @@ export default function Hero() {
           <button
             onClick={pageBack}
             className={`flex items-center ${tokenId === "0x00"
-                ? "border border-skin-stroke"
-                : "bg-skin-backdrop"
+              ? "border border-skin-stroke"
+              : "bg-skin-backdrop"
               } rounded-full p-2 mr-4`}
           >
             <ArrowLeftIcon
@@ -94,14 +94,14 @@ export default function Hero() {
           <button
             onClick={pageForward}
             className={`flex items-center ${tokenId === currentTokenId
-                ? "border border-skin-stroke"
-                : "bg-skin-backdrop"
+              ? "border border-skin-stroke"
+              : "bg-skin-backdrop"
               } rounded-full p-2 mr-4`}
           >
             <ArrowRightIcon
               className={`h-4 ${tokenId === currentTokenId
-                  ? "text-skin-muted"
-                  : "text-skin-base"
+                ? "text-skin-muted"
+                : "text-skin-base"
                 }`}
             />
           </button>
@@ -159,11 +159,11 @@ const EndedAuction = ({
         <div className="lg:border-r mr-8 lg:mr-0 border-skin-stroke">
           <div className="text-lg text-skin-muted">{"Winning Bid"}</div>
           {auctionData ? (
-            <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
               Ξ {utils.formatEther(auctionData.amount || "0")}
             </div>
           ) : (
-            <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
               n/a
             </div>
           )}
@@ -177,7 +177,7 @@ const EndedAuction = ({
               className="w-8 h-8 rounded-full mr-2"
               address={owner || ethers.constants.AddressZero}
             />
-            <div className="text-xl font-semibold sm:text-3xl text-skin-base">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
               {ensName?.ensName || shortenAddress(owner ? getAddress(owner) : ethers.constants.AddressZero, 0)}
             </div>
           </div>
@@ -212,11 +212,11 @@ const CurrentAuction = ({
           <div className="lg:border-r lg:mr-0 border-skin-stroke">
             <div className="text-lg text-skin-muted">{"Winning Bid"}</div>
             {auctionInfo ? (
-              <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+              <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
                 Ξ {utils.formatEther(auctionInfo.highestBid || "0")}
               </div>
             ) : (
-              <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+              <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
                 n/a
               </div>
             )}
@@ -230,7 +230,7 @@ const CurrentAuction = ({
                 className="w-8 h-8 rounded-full mr-2"
                 address={auctionInfo?.highestBidder || ethers.constants.AddressZero}
               />
-              <div className="text-xl font-semibold sm:text-3xl text-skin-base">
+              <div className="text-xl font-semibold sm:text-2xl text-skin-base">
                 {ensName?.ensName || shortenAddress(auctionInfo?.highestBidder ? getAddress(auctionInfo?.highestBidder) : ethers.constants.AddressZero, 2)}
               </div>
             </div>
@@ -250,7 +250,7 @@ const CurrentAuction = ({
             {theme.strings.currentBid || "Current Bid"}
           </div>
           {auctionInfo && (
-            <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
               Ξ {utils.formatEther(auctionInfo.highestBid || "0")}
             </div>
           )}
@@ -260,7 +260,7 @@ const CurrentAuction = ({
             {theme.strings.auctionEndsIn || "Auction ends in"}
           </div>
           {auctionInfo && (
-            <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
               <CountdownDisplay to={auctionInfo.endTime || "0"} />
             </div>
           )}
