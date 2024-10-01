@@ -178,7 +178,7 @@ const EndedAuction = ({
               address={owner || ethers.constants.AddressZero}
             />
             <div className="text-xl font-semibold sm:text-3xl text-skin-base">
-              {ensName?.ensName || shortenAddress(owner ? getAddress(owner) : ethers.constants.AddressZero, 4)}
+              {ensName?.ensName || shortenAddress(owner ? getAddress(owner) : ethers.constants.AddressZero, 0)}
             </div>
           </div>
         </div>
@@ -208,8 +208,8 @@ const CurrentAuction = ({
   if ((auctionInfo?.endTime || 0) < Math.round(Date.now() / 1000)) {
     return (
       <Fragment>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-10 lg:w-96 pb-8 lg:pb-0">
-          <div className="lg:border-r mr-8 lg:mr-0 border-skin-stroke">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 mt-10 pb-8 lg:pb-0">
+          <div className="lg:border-r lg:mr-0 border-skin-stroke">
             <div className="text-lg text-skin-muted">{"Winning Bid"}</div>
             {auctionInfo ? (
               <div className="text-2xl font-semibold sm:text-3xl text-skin-base mt-2">
@@ -231,7 +231,7 @@ const CurrentAuction = ({
                 address={auctionInfo?.highestBidder || ethers.constants.AddressZero}
               />
               <div className="text-xl font-semibold sm:text-3xl text-skin-base">
-                {ensName?.ensName || shortenAddress(auctionInfo?.highestBidder ? getAddress(auctionInfo?.highestBidder) : ethers.constants.AddressZero, 4)}
+                {ensName?.ensName || shortenAddress(auctionInfo?.highestBidder ? getAddress(auctionInfo?.highestBidder) : ethers.constants.AddressZero, 2)}
               </div>
             </div>
           </div>
