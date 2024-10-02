@@ -10,7 +10,7 @@ export default function Loading({ text }: { text?: string }) {
           </h1>
         </div>
       )}
-      <img src="/sktloading.gif" className="w-full h-auto object-cover scale-[0.13]" />
+      <img src="/sktloading.gif" width={500} height={500} className="object-cover scale-[0.2]" />
     </div>
   );
 }
