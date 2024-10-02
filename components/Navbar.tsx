@@ -21,7 +21,7 @@ function Navbar() {
   return (
     <div className="w-[140px] lg:w-[220px] md:flex flex-col px-4 lg:px-8 py-4 hidden justify-between h-full">
       <div>
-        <a className="text-3xl mb-8">Gnars</a>
+        <span className="text-3xl mb-8">Gnars</span>
         <div className="w-[220px] flex flex-col mt-5">
           <a>MENU</a>
           <div className="font-xl flex flex-col pt-4 gap-4">
@@ -119,11 +119,11 @@ function TreasureBoxItem() {
     >
       <div className="border border-gray-300 rounded-md p-1" style={{ textAlign: "center" }}>
         <div >
-          <a className="text-lg">Treasure </a>
+          <span className="text-lg">Treasure </span>
         </div>
         <hr />
         <div>
-          <a className="text-lg">126,023 USD</a>
+          <span className="text-lg">126,023 USD</span>
         </div>
       </div>
     </Link>

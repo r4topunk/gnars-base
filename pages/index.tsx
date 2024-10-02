@@ -124,7 +124,7 @@ export default function SiteComponent({
       }}
     >
       <div className="flex flex-col flex-grow">
-        <a className="text-2xl sm:text-3xl lg:text-5xl mb-2">Discover</a>
+        <span className="text-2xl sm:text-3xl lg:text-5xl mb-2">Discover</span>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
             <iframe
@@ -138,9 +138,9 @@ export default function SiteComponent({
             <Hero />
           </div>
         </div>
-        <a className="text-xl lg:text-3xl mt-4 mb-2">Props</a>
+        <span className="text-xl lg:text-3xl mt-4 mb-2">Props</span>
         <ProposalCards />
-        <a className="text-xl lg:text-3xl mt-4 mb-2">Propdates and News</a>
+        <span className="text-xl lg:text-3xl mt-4 mb-2">Propdates and News</span>
         <NewsCard />
       </div>
     </SWRConfig>
