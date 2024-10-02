@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero/Hero";
+import { NewsCard } from "@/components/News/NewsCard";
+import ProposalCards from "@/components/Proposals/ProposalCards";
 import { getAddresses } from "@/services/nouns-builder/manager";
 import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import {
@@ -123,7 +125,7 @@ export default function SiteComponent({
     >
       <div className="flex flex-col flex-grow">
         <a className="text-2xl sm:text-3xl lg:text-5xl mb-2">Discover</a>
-        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           <div className="col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto">
             <iframe
               src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/8/embed?referrer=0x39a7B6fa1597BB6657Fe84e64E3B836c37d6F75d"
@@ -136,21 +138,10 @@ export default function SiteComponent({
             <Hero />
           </div>
         </div>
-        <a className="text-xl lg:text-3xl mt-4 mb-2">News</a>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
-          <div className="bg-lime-300 rounded-xl"></div>
-          <div className="bg-red-300 rounded-xl"></div>
-          <div className="bg-blue-300 rounded-xl"></div>
-        </div>
-        <a className="text-xl lg:text-3xl mt-4 mb-2">Updates</a>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
-          <div className="bg-lime-300 rounded-xl"></div>
-          <div className="bg-red-300 rounded-xl"></div>
-          <div className="bg-blue-300 rounded-xl"></div>
-          <div className="bg-lime-300 rounded-xl"></div>
-          <div className="bg-red-300 rounded-xl"></div>
-          <div className="bg-blue-300 rounded-xl"></div>
-        </div>
+        <a className="text-xl lg:text-3xl mt-4 mb-2">Props</a>
+        <ProposalCards />
+        <a className="text-xl lg:text-3xl mt-4 mb-2">Propdates and News</a>
+        <NewsCard />
       </div>
     </SWRConfig>
   );
