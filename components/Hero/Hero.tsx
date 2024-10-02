@@ -18,6 +18,7 @@ import useEnsName from "@/hooks/fetch/useEnsName";
 import UserAvatar from "../UserAvatar";
 import { useRouter } from "next/router";
 import BidHistory from "./BidHistory";
+import Loading from "../Loading";
 
 // number of bids in history before full history button
 const bidsShow = 2;
@@ -56,25 +57,22 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex flex-col relative bg-transparent lg:flex-row items-top h-full lg:max-h-[600px] p-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 relative bg-transparent items-top h-full lg:max-h-[600px] p-4">
       <div className="flex flex-col min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-4 relative mx-auto lg:mx-0">
-        <div className="h-full aspect-square flex items-center justify-around">
+        <div className="h-full w-full aspect-square flex items-center justify-around">
           {tokenInfo && (
             <Image
               src={tokenInfo.image.replace("api.zora.co", "nouns.build/api")}
               onLoad={() => setImageLoaded(true)}
               height={450}
               width={450}
-              alt="logo"
-              className={`h-full object-cover rounded-md relative z-20 `}
+              alt="Token"
+              className={`h-full object-cover rounded-md z-20 ${imageLoaded ? "relative" : "hidden"}`}
               priority />
           )}
         </div>
-        <div
-          className={`absolute top-0 right-0 w-[450px] h-[450px] hidden lg:flex items-center justify-around lg:pr-12 ${imageLoaded ? "invisible" : "visible"
-            }`}
-        >
-          <Image src={"/spinner.svg"} alt="spinner" width={30} height={30} />
+        <div className={`${imageLoaded ? "hidden" : "absolute"} inset-0 flex justify-center items-center`}>
+          <Loading />
         </div>
       </div>
       <div className="px-4 w-full lg:w-auto min-h-64 lg:h-full flex flex-col justify-stretch items-stretch mt-6 lg:mt-0">
@@ -155,19 +153,17 @@ const EndedAuction = ({
 
   return (
     <Fragment>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 mt-10 lg:w-96 pb-8 lg:pb-0">
-        <div className="lg:border-r mr-8 lg:mr-0 border-skin-stroke">
-          <div className="text-lg text-skin-muted">{"Winning Bid"}</div>
-          {auctionData ? (
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
-              Ξ {utils.formatEther(auctionData.amount || "0")}
+        <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+          <div>
+            <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+              {auctionData ? (
+                <>Ξ {utils.formatEther(auctionData.amount || "0")}</>
+              ) : (
+                <>n/a</>
+              )}
             </div>
-          ) : (
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
-              n/a
-            </div>
-          )}
-        </div>
+          </div>
         <div className="lg:w-64">
           <div className="text-lg text-skin-muted">{"Held by"}</div>
 
@@ -208,29 +204,27 @@ const CurrentAuction = ({
   if ((auctionInfo?.endTime || 0) < Math.round(Date.now() / 1000)) {
     return (
       <Fragment>
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 mt-10 pb-8 lg:pb-0">
-          <div className="lg:border-r lg:mr-0 border-skin-stroke">
-            <div className="text-lg text-skin-muted">{"Winning Bid"}</div>
-            {auctionInfo ? (
-              <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
-                Ξ {utils.formatEther(auctionInfo.highestBid || "0")}
-              </div>
-            ) : (
-              <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
-                n/a
-              </div>
-            )}
+        <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+          <div>
+            <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+              {auctionInfo ? (
+                <>Ξ {utils.formatEther(auctionInfo.highestBid || "0")}</>
+              ) : (
+                <>n/a</>
+              )}
+            </div>
           </div>
-          <div className="lg:w-64">
+          <div className="w-auto">
             <div className="text-lg text-skin-muted">{"Held by"}</div>
 
-            <div className="flex items-center mt-2">
+            <div className="flex items-center">
               <UserAvatar
                 diameter={32}
                 className="w-8 h-8 rounded-full mr-2"
                 address={auctionInfo?.highestBidder || ethers.constants.AddressZero}
               />
-              <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+              <div className="text-xl font-semibold sm:text-2xl text-skin-base text-nowrap">
                 {ensName?.ensName || shortenAddress(auctionInfo?.highestBidder ? getAddress(auctionInfo?.highestBidder) : ethers.constants.AddressZero, 2)}
               </div>
             </div>
@@ -244,17 +238,17 @@ const CurrentAuction = ({
 
   return (
     <Fragment>
-      <div className="grid grid-cols-2 gap-12 mt-10 lg:w-96">
-        <div className="border-r border-skin-stroke">
-          <div className="text-lg text-skin-muted">
-            {theme.strings.currentBid || "Current Bid"}
-          </div>
-          {auctionInfo && (
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
-              Ξ {utils.formatEther(auctionInfo.highestBid || "0")}
+      <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+          <div>
+            <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+              {auctionInfo ? (
+                <>Ξ {utils.formatEther(auctionInfo.highestBid || "0")}</>
+              ) : (
+                <>n/a</>
+              )}
             </div>
-          )}
-        </div>
+          </div>
         <div className="lg:w-64">
           <div className="text-lg text-skin-muted">
             {theme.strings.auctionEndsIn || "Auction ends in"}
