@@ -35,14 +35,13 @@ const ProposalCards = () => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
             {DummyProposals.map((proposal, index) => (
-                <ProposalCard index={index} proposal={proposal} />
+                <ProposalCard key={index} proposal={proposal} />
             ))}
         </div>
     );
 };
 
 interface ProposalCardProps {
-    index: number
     proposal: {
         title: string;
         description: string;
@@ -54,12 +53,11 @@ interface ProposalCardProps {
     }
 }
 
-function ProposalCard({ index, proposal }: ProposalCardProps) {
+function ProposalCard({ proposal }: ProposalCardProps) {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
         <div
-            key={index}
             className="relative rounded-lg overflow-hidden shadow-lg h-full aspect-video"
         >
             {/* Image Container */}

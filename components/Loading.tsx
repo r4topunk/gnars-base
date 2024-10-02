@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Loading({ text }: { text?: string }) {
   return (
-    <div className="flex w-full h-full flex-col justify-center items-center">
+    <div className="flex w-full h-full flex-col justify-center items-center animate-spin">
       {text && (
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-4xl lg:text-2xl font-semibold tracking-tight text-black">
