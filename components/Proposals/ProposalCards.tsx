@@ -32,11 +32,11 @@ const DummyProposals = [
 
 const ProposalCards = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px] md:h-[220px]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
             {DummyProposals.map((proposal, index) => (
                 <div
                     key={index}
-                    className="relative rounded-lg overflow-hidden shadow-lg h-full"
+                    className="relative rounded-lg overflow-hidden shadow-lg h-full aspect-video"
                 >
                     {/* Image Container */}
                     <img
