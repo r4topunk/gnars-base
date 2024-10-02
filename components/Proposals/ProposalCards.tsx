@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loading from "../Loading";
+import Image from "next/image";
 
 const DummyProposals = [
     {
@@ -64,7 +65,7 @@ function ProposalCard({ proposal }: ProposalCardProps) {
             <div className={`${imageLoaded ? "hidden" : "absolute"} inset-0 flex justify-center items-center`}>
                 <Loading />
             </div>
-            <img
+            <Image
                 onLoad={() => setImageLoaded(true)}
                 className="w-full h-full object-cover"
                 src={proposal.thumbnail}
@@ -90,7 +91,7 @@ function ProposalCard({ proposal }: ProposalCardProps) {
                 <div className="flex justify-between items-center">
                     {/* Proposer Information */}
                     <div className="flex items-center mb-2">
-                        <img
+                        <Image
                             src={proposal.proposerAvatar}
                             alt={`${proposal.proposer} avatar`}
                             className="w-8 h-8 rounded-full object-cover"
