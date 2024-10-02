@@ -70,6 +70,8 @@ function ProposalCard({ proposal }: ProposalCardProps) {
                 className="w-full h-full object-cover"
                 src={proposal.thumbnail}
                 alt="proposal thumbnail"
+                width={16}
+                height={9}
             />
 
             {/* Overlay Container */}
@@ -95,6 +97,8 @@ function ProposalCard({ proposal }: ProposalCardProps) {
                             src={proposal.proposerAvatar}
                             alt={`${proposal.proposer} avatar`}
                             className="w-8 h-8 rounded-full object-cover"
+                            width={32}
+                            height={32}
                         />
                         <p className="ml-2 text-sm text-white">{proposal.proposer}</p>
                     </div>
