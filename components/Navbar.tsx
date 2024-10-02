@@ -5,23 +5,23 @@ import {
   QueueListIcon,
   TableCellsIcon,
 } from "@heroicons/react/20/solid";
-import { StarIcon } from "@mantine/core";
 import clsx from "clsx";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
-  ForwardRefExoticComponent,
-  RefAttributes,
-  SVGProps,
   useEffect,
-  useState,
+  useState
 } from "react";
 
 function Navbar() {
   return (
     <div className="w-[140px] lg:w-[220px] md:flex flex-col px-4 lg:px-8 py-4 hidden justify-between h-full">
       <div>
-        <span className="text-3xl mb-8">Gnars</span>
+        <div className="flex gap-2 items-center mb-6">
+          <Image src={"/logo.png"} alt="logo" width={24} height={24} className="w-6 h-6" />
+          <span className="text-3xl">Gnars</span>
+        </div>
         <div className="w-[220px] flex flex-col mt-5">
           <a>MENU</a>
           <div className="font-xl flex flex-col pt-4 gap-4">
@@ -119,7 +119,7 @@ function TreasureBoxItem() {
     >
       <div className="border border-gray-300 rounded-md p-1" style={{ textAlign: "center" }}>
         <div >
-          <span className="text-lg">Treasure </span>
+          <span className="text-lg">Treasure</span>
         </div>
         <hr />
         <div>
