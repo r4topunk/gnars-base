@@ -57,7 +57,7 @@ const NewsItem = ({ news }: NewsItemProps) => {
                         />
                     </div>
                     {/* Title and Content Type */}
-                    <div className="bg-black bg-opacity-50 rounded-lg h-10 lg:h-16 pt-1 pl-1">
+                    <div className="bg-black bg-opacity-50 rounded-lg h-10 lg:h-16 flex items-center justify-center">
                         <p className="text-sm lg:text-lg text-white text-center">{news.title}</p>
                     </div>
                 </div>
