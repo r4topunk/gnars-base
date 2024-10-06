@@ -27,7 +27,7 @@ const DummyNews = [
         title: "Top 10 Skate Spots in NYC",
         description: "Explore the best places to skate in New York City.",
         type: "Blog Post",
-        thumbnail: "https://nycgo.com/images/articles/31843/dsp-nyc-skateparks_brooklynbridge_52031.jpg",
+        thumbnail: "https://gnars.com/images/93ciofh34f.jpeg",
         updates: 0,
         proposerAvatar: "https://i.ibb.co/F76Q1J8/image.png",
         proposer: "skaterank.eth",
@@ -45,16 +45,16 @@ const DummyNews = [
         title: "How to Land a Kickflip",
         description: "Step-by-step guide to mastering a perfect kickflip.",
         type: "Blog Post",
-        thumbnail: "https://skateboarding.transworld.net/wp-content/uploads/2017/09/Kickflip.jpg",
+        thumbnail: "https://gateway.pinata.cloud/ipfs/QmWUzfArhZVvyDjCBhEiQkAF5Q6npwYhKS5eMXWq1akqco",
         updates: 0,
         proposerAvatar: "https://i.ibb.co/F76Q1J8/image.png",
         proposer: "skateblogger.eth",
     },
     {
-        title: "Interview with Tony Hawk",
+        title: "KnowHow is Hot",
         description: "Tony Hawk shares his thoughts on the future of skateboarding.",
         type: "Blog Post",
-        thumbnail: "https://upload.wikimedia.org/wikipedia/commons/5/52/Tony_Hawk.jpg",
+        thumbnail: "https://ipfs.decentralized-content.com/ipfs/bafybeifaquuf42pfb35zempkoscudmkuhqczlipuqa4jr6clex45a3wh64",
         updates: 0,
         proposerAvatar: "https://i.ibb.co/ChbsDSr/Screenshot-1.png",
         proposer: "skateboard.⌐◨-◨",
@@ -121,9 +121,9 @@ const NewsItem = ({ news }: NewsItemProps) => {
                     <p className="text-sm lg:text-lg font-semibold text-white">
                         {news.title}
                     </p>
-                    <span className="text-xs lg:text-sm text-gray-300 italic">
+                    {/* <span className="text-xs lg:text-sm text-gray-300 italic">
                         {news.type}
-                    </span>
+                    </span> */}
                 </div>
 
                 {/* Proposer Information and Badge */}
