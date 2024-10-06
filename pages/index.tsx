@@ -149,7 +149,7 @@ const IframeLoader = ({ src }: { src: string }) => {
   };
 
   return (
-    <div className={`col-span-1 rounded-xl h-[240px] lg:h-[440px] 2xl:h-auto relative ${isLoaded ? "" : "border border-zinc-200"}`}>
+    <div className={`col-span-1 rounded-xl h-[240px] lg:h-full 2xl:h-auto relative ${isLoaded ? "" : "border border-zinc-200"}`}>
       {!isLoaded && (
         <div className="absolute inset-0 flex justify-center items-center">
           <Loading />

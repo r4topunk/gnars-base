@@ -58,8 +58,8 @@ export default function Hero() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 relative bg-transparent items-top h-full lg:max-h-[600px] p-4">
-      <div className="flex flex-col min-h-auto lg:min-h-auto justify-baseline items-end lg:pr-4 relative mx-auto lg:mx-0">
-        <div className="h-full w-full aspect-square flex items-center justify-around">
+      <div className="flex flex-col min-h-auto lg:min-h-auto justify-center items-end lg:pr-4 relative mx-auto lg:mx-0">
+        <div className="w-full aspect-square flex items-center justify-around">
           {tokenInfo && (
             <Image
               src={tokenInfo.image.replace("api.zora.co", "nouns.build/api")}
@@ -153,7 +153,7 @@ const EndedAuction = ({
 
   return (
     <Fragment>
-      <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+      <div className="flex flex-col gap-4 mt-2 pb-8 lg:pb-0">
         <div>
           <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
           <div className="text-xl font-semibold sm:text-2xl text-skin-base">
@@ -204,7 +204,7 @@ const CurrentAuction = ({
   if ((auctionInfo?.endTime || 0) < Math.round(Date.now() / 1000)) {
     return (
       <Fragment>
-        <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+        <div className="flex flex-col gap-1 mt-2 pb-8 mb-auto lg:pb-0">
           <div>
             <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
             <div className="text-xl font-semibold sm:text-2xl text-skin-base">
