@@ -44,20 +44,20 @@ function Navbar() {
               color="#51DB6E"
             />
             <NavbarItem
-              href="/#"
+              href="/propdates"
               text="Propdates"
               icon={TableCellsIcon}
               color="#CAEB00"
             />
-            <NavbarItem
+            {/* <NavbarItem
               href="https://gnars.com"
               text="Gnars"
               icon={LinkIcon}
               color="#EA8C3F"
-            />
+            /> */}
             <NavbarItem
-              href="https://nounspace.com"
-              text="Nounspace"
+              href="https://nounspace.com/s/gnars"
+              text="Farcaster"
               icon={FarcasterIcon}
               color="#CA6CFF"
             />
@@ -139,7 +139,7 @@ function TreasureBoxItem() {
 export default Navbar;
 
 
-function FarcasterIcon({width, height, color}: {width?: number, height?: number, color?: string}) {
+function FarcasterIcon({ width, height, color }: { width?: number, height?: number, color?: string }) {
   return (<svg width={width} height={height} viewBox={`0 0 1000 1000`} fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M257.778 155.556H742.222V844.445H671.111V528.889H670.414C662.554 441.677 589.258 373.333 500 373.333C410.742 373.333 337.446 441.677 329.586 528.889H328.889V844.445H257.778V155.556Z" fill={color} />
     <path d="M128.889 253.333L157.778 351.111H182.222V746.667C169.949 746.667 160 756.616 160 768.889V795.556H155.556C143.283 795.556 133.333 805.505 133.333 817.778V844.445H382.222V817.778C382.222 805.505 372.273 795.556 360 795.556H355.556V768.889C355.556 756.616 345.606 746.667 333.333 746.667H306.667V253.333H128.889Z" fill={color} />

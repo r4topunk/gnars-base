@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero/Hero";
 import Loading from "@/components/Loading";
-import { NewsCard } from "@/components/News/NewsCard";
+import NewsCard from "@/components/News/NewsCard";
 import ProposalCards from "@/components/Proposals/ProposalCards";
 import { getAddresses } from "@/services/nouns-builder/manager";
 import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";

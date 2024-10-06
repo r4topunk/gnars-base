@@ -14,6 +14,7 @@ import { formatTreasuryBalance } from "@/utils/formatTreasuryBalance";
 import { Fragment } from "react";
 import { useUserVotes } from "@/hooks/fetch/useUserVotes";
 import { useCurrentThreshold } from "@/hooks/fetch/useCurrentThreshold";
+import Loading from "@/components/Loading";
 
 export const getStaticProps = async (): Promise<
   GetStaticPropsResult<{
@@ -91,6 +92,9 @@ export default function Vote({
             <Fragment />
           )}
         </div>
+        <div className={`${proposals ? "hidden" : "absolute"} inset-0 flex justify-center items-center`}>
+          <Loading />
+        </div>
         <div>
           {proposals?.map((x, i) => (
             <ProposalPlacard
@@ -101,8 +105,8 @@ export default function Vote({
           ))}
         </div>
       </div>
-    {/* </Layout> */}
-      </>
+      {/* </Layout> */}
+    </>
   );
 }
 

@@ -153,17 +153,17 @@ const EndedAuction = ({
 
   return (
     <Fragment>
-        <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
-          <div>
-            <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
-              {auctionData ? (
-                <>Ξ {utils.formatEther(auctionData.amount || "0")}</>
-              ) : (
-                <>n/a</>
-              )}
-            </div>
+      <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
+        <div>
+          <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
+          <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+            {auctionData ? (
+              <>Ξ {utils.formatEther(auctionData.amount || "0")}</>
+            ) : (
+              <>n/a</>
+            )}
           </div>
+        </div>
         <div className="lg:w-64">
           <div className="text-lg text-skin-muted">{"Held by"}</div>
 
@@ -238,23 +238,23 @@ const CurrentAuction = ({
 
   return (
     <Fragment>
-      <div className="flex flex-col gap-4 mt-4 pb-8 lg:pb-0">
-          <div>
-            <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
-              {auctionInfo ? (
-                <>Ξ {utils.formatEther(auctionInfo.highestBid || "0")}</>
-              ) : (
-                <>n/a</>
-              )}
-            </div>
+      <div className="flex flex-row gap-4 mt-4 pb-8 lg:pb-0">
+        <div>
+          <div className="text-lg text-skin-muted text-nowrap">{"Winning Bid"}</div>
+          <div className="text-xl font-semibold sm:text-2xl text-skin-base">
+            {auctionInfo ? (
+              <>Ξ {utils.formatEther(auctionInfo.highestBid || "0")}</>
+            ) : (
+              <>n/a</>
+            )}
           </div>
+        </div>
         <div className="lg:w-64">
           <div className="text-lg text-skin-muted">
             {theme.strings.auctionEndsIn || "Auction ends in"}
           </div>
           {auctionInfo && (
-            <div className="text-xl font-semibold sm:text-2xl text-skin-base mt-2">
+            <div className="text-xl font-semibold sm:text-2xl text-skin-base">
               <CountdownDisplay to={auctionInfo.endTime || "0"} />
             </div>
           )}
@@ -265,12 +265,12 @@ const CurrentAuction = ({
         auction={contractInfo?.auction}
         tokenId={tokenId}
       />
-
-      {/*auctionInfo?.highestBidder &&
+      {/* 
+      {auctionInfo?.highestBidder &&
         !compareAddress(
           auctionInfo?.highestBidder,
           ethers.constants.AddressZero
-        ) && <HighestBidder address={auctionInfo?.highestBidder} />*/}
+        ) && <HighestBidder address={auctionInfo?.highestBidder} />} */}
 
       {/* <BidHistory bids={auctionInfo?.bids} numToShow={bidsShow} title="Last Bids" imgsrc={tokenImg.replace("api.zora.co", "nouns.build/api")} tokenName={tokenName} /> */}
     </Fragment>
