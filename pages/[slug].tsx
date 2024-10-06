@@ -51,6 +51,7 @@ export default function SiteComponent(
 ) {
   const { data } = props;
   const align = data.frontmatter?.align;
+  const title = data.frontmatter?.title as string || null;
 
   const getAlignment = () => {
     switch (align) {
@@ -62,13 +63,14 @@ export default function SiteComponent(
         return "";
     }
   };
+
   return (
-    <Layout>
       <div
-        className={`h-full flex flex-col ${getAlignment()} w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl max-w-none`}
+        className={`flex-col ${getAlignment()} w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl max-w-none mt-4 sm:mt-0`}
       >
+        {title ? <h1>{title}</h1> : null }
+        <iframe src="https://www.youtube.com/embed/JQSmfSnRGVk" width={"100%"} className="aspect-video max-w-[600px]"/>
         <MDXRemote {...data} />
       </div>
-    </Layout>
   );
 }
