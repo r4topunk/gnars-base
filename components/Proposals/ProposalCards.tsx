@@ -74,8 +74,7 @@ function ProposalCard({ proposal }: ProposalCardProps) {
 
             {/* Overlay Container */}
             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-between p-4">
-
-                <div className="flex justify-between items-center gap-2">
+                <div className="flex justify-between items-start gap-2">
                     {/* Title and Status */}
                     <p className="text-lg font-semibold text-white">{getProposalName(proposal.description)}</p>
                     <ProposalStatus proposal={proposal} />
