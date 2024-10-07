@@ -7,7 +7,7 @@ const DummyNews = [
         title: "Rodrigo Panajotti in the House",
         description: "Final updates from Rodrigo's onboarding proposal.",
         type: "Proposal Update",
-        thumbnail: "https://hackmd.io/_uploads/B10FNss3R.jpg",
+        thumbnail: "https://ipfs.skatehive.app/ipfs/QmXeMcdcL1HuGYgJugdx8veh3nLYopEKkhEaqhBkKVLiz6",
         updates: 1,
         proposerAvatar: "https://i.ibb.co/ChbsDSr/Screenshot-1.png",
         proposer: "skateboard.⌐◨-◨",
