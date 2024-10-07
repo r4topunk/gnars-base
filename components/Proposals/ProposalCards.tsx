@@ -9,6 +9,7 @@ import { useState } from "react";
 import Loading from "../Loading";
 import ProposalStatus from "../ProposalStatus";
 import UserAvatar from "../UserAvatar";
+import Link from "next/link";
 
 const ProposalCards = () => {
     const { data: addresses } = useDAOAddresses({
@@ -20,9 +21,11 @@ const ProposalCards = () => {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
-            {proposals ? proposals.slice(0, 3).map((proposal, index) => (
-                <ProposalCard key={index} proposal={proposal} />
-            )) : null}
+            {
+                proposals ? proposals.slice(0, 3).map((proposal, index) => (
+                    <ProposalCard key={index} proposal={proposal} />
+                )) : [...Array(3)].map((_, index) => <ProposalCardLoading key={index} />)
+            }
         </div>
     );
 };
@@ -31,10 +34,18 @@ function extractFirstImageFromMarkdown(markdown: string) {
     const imageRegex = /!\[.*?\]\((.*?)\)/;
     const match = markdown.match(imageRegex);
     return match ? match[1] : null;
-  }
+}
 
 interface ProposalCardProps {
     proposal: Proposal
+}
+
+function ProposalCardLoading() {
+    return <div className="relative rounded-lg overflow-hidden h-full aspect-video border border-zinc-200">
+        <div className={`absolute inset-0 flex justify-center items-center`}>
+            <Loading />
+        </div>
+    </div>
 }
 
 function ProposalCard({ proposal }: ProposalCardProps) {
@@ -44,8 +55,9 @@ function ProposalCard({ proposal }: ProposalCardProps) {
     const { data: ensName } = useEnsName(proposer);
 
     return (
-        <div
+        <Link
             className="relative rounded-lg overflow-hidden shadow-lg h-full aspect-video"
+            href={`/vote/${proposal.proposalId}`}
         >
             {/* Image Container */}
             <div className={`${imageLoaded ? "hidden" : "absolute"} inset-0 flex justify-center items-center`}>
@@ -76,7 +88,7 @@ function ProposalCard({ proposal }: ProposalCardProps) {
                     </div>
                 </div>
             </div>
-        </div>)
+        </Link>)
 }
 
 export default ProposalCards;
