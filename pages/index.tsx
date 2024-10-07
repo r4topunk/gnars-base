@@ -132,9 +132,9 @@ export default function SiteComponent({
             <Hero />
           </div>
         </div>
-        <span className="text-xl lg:text-3xl mt-4 mb-2">Props</span>
+        <span className="text-xl lg:text-3xl mt-8 mb-2">Props</span>
         <ProposalCards />
-        <span className="text-xl lg:text-3xl mt-4 mb-2">Propdates and News</span>
+        <span className="text-xl lg:text-3xl mt-8 mb-2">Propdates and News</span>
         <NewsCard />
       </div>
     </SWRConfig>
