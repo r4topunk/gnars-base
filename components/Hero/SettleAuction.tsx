@@ -36,12 +36,12 @@ export const SettleAuction = ({ auction }: { auction?: string }) => {
           openConnectModal?.();
         }
       }}
-      className="w-full bg-skin-button-accent hover:scale-105 hover:bg-skin-button-accent-hover text-skin-base font-bold h-12 mt-6 rounded-lg flex items-center justify-around"
+      className="w-full bg-skin-button-accent hover:bg-skin-button-accent-hover text-skin-base font-bold h-12 rounded-lg flex items-center justify-around mt-2"
       >
       {isLoading ? (
         <Image src="/spinner.svg" height={26} width={26} alt="spinner" />
       ) : (
-        <span>Settle Auction</span>
+        <span>Settle</span>
       )}
     </button>
   );
