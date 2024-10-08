@@ -42,7 +42,7 @@ const Propdates = () => {
             title: "Top 10 Skate Spots in NYC",
             description: "Explore the best places to skate in New York City.",
             type: "Blog Post",
-            thumbnail: "https://nycgo.com/images/articles/31843/dsp-nyc-skateparks_brooklynbridge_52031.jpg",
+            thumbnail: "https://ipfs.skatehive.app/ipfs/QmZ7r5qLoEMG8VSge8bs6HrDKrPUSgevLjchSjnxJZLTpN",
             updates: 0,
             proposerAvatar: "https://i.ibb.co/F76Q1J8/image.png",
             proposer: "skaterank.eth",
@@ -74,7 +74,7 @@ const Propdates = () => {
                     <div className="ml-4 flex-grow">
                         <div className="flex justify-between">
                             <span className="font-bold text-gray-900">{cast.proposer}</span>
-                            <span className="text-gray-500 text-sm">3h ago</span>
+                            <span className="text-gray-500 text-sm">3h ago about Proposal {cast.proposalId}1</span>
                         </div>
                         <p className="text-gray-600">{cast.title}</p>
                         <div className="mt-2">
