@@ -1,6 +1,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface cast {
     title: string;
@@ -77,12 +78,14 @@ const Propdates = () => {
                             <span className="text-gray-500 text-sm">3h ago</span>
                         </div>
                         <p className="text-gray-600">{cast.title}</p>
-                        <div className="mt-2">
+                        <div className="mt-2 border border-zinc-200 rounded-lg aspect-video overflow-hidden">
                             <Link href={`/propdates/${cast.proposalId}/${cast.updateIndex}`}>
-                                <img
+                                <Image
                                     src={cast.thumbnail}
+                                    width={1920}
+                                    height={1080}
                                     alt="thumbnail"
-                                    className="w-full h-56 object-cover rounded-lg"
+                                    className="w-full h-full object-cover text-center"
                                 />
                             </Link>
                         </div>
@@ -97,7 +100,7 @@ const Propdates = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto p-4">
+        <div className="max-w-[800px] w-full mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Propdates</h1>
             <div className="border border-gray-300 rounded-lg p-3 mb-4">
                 <textarea

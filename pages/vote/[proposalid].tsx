@@ -85,7 +85,7 @@ export default function ProposalComponent() {
   };
 
   return (
-    <div className="max-w-[1000px] mx-auto mt-4">
+    <div className="max-w-[800px] mx-auto mt-4">
       <div className="flex flex-col sm:flex-row items-baseline justify-between">
         <div className="flex items-baseline">
           <Link
