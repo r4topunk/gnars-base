@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { Address, formatUnits } from "viem";
 import UserAvatar from "../UserAvatar";
 import useEnsName from "@/hooks/fetch/useEnsName";
+import Image from "next/image";
 
 type EtherActorResponse = {
   name: string;
@@ -128,11 +129,14 @@ export function TransferTransaction({
       <div className="flex flex-col ml-2">
         {/* Token */}
         <div className="flex gap-2">
-          <span>Token:</span>
-          <span>USDC</span>
+          <span className="font-bold">Token:</span>
+          <div className="flex gap-1">
+            <Image className="object-contain" width={16} height={16} src={"/usdc-logo.png"} alt="usdc logo"/> 
+            <span>USDC</span>
+          </div>
         </div>
         <div className="flex gap-2">
-          <span>Value:</span>
+          <span className="font-bold">Value:</span>
           {
             data?.decoded?.length ? <TokenRender address={target} value={BigInt(data.decoded[1])} /> : !valueBN.isZero() && (
               <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
@@ -142,7 +146,7 @@ export function TransferTransaction({
         </div>
         {/* Params */}
         <div>
-          <span className="mr-2">To:</span>
+          <span className="mr-2 font-bold">To:</span>
           <FormatedTransactionValue address={toAddress} />
         </div>
       </div>
