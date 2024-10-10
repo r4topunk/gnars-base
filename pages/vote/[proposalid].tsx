@@ -12,7 +12,7 @@ import { shortenAddress } from "@/utils/shortenAddress";
 import { getProposalDescription } from "@/utils/getProposalDescription";
 import ModalWrapper from "@/components/ModalWrapper";
 import VoteModal from "@/components/VoteModal";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Proposal } from "@/services/nouns-builder/governor";
 import useSWR from "swr";
 import { ETHERSCAN_BASEURL, ETHER_ACTOR_BASEURL } from "constants/urls";
@@ -22,6 +22,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import { MockProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
+import { BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 
 export default function ProposalComponent() {
   const { data: addresses } = useDAOAddresses({
@@ -193,14 +195,21 @@ export default function ProposalComponent() {
         Proposed Transactions
       </div>
 
-      <div className="mt-4 max-w-[75vw]">
+      <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
         {proposal.targets.map((_, index) => (
-          <ProposedTransactions
-            key={index}
-            target={proposal.targets[index]}
-            value={proposal.values[index]}
-            calldata={proposal.calldatas[index]}
-          />
+          proposal.targets[index] === BASE_USDC_TOKEN_ADDRESS ?
+            <TransferTransaction
+              key={index}
+              target={proposal.targets[index]}
+              value={proposal.values[index]}
+              calldata={proposal.calldatas[index]}
+            /> :
+            <ProposedTransactions
+              key={index}
+              target={proposal.targets[index]}
+              value={proposal.values[index]}
+              calldata={proposal.calldatas[index]}
+            />
         ))}
       </div>
     </div>
@@ -229,6 +238,12 @@ const ProposedTransactions = ({
   const valueBN = BigNumber.from(value);
 
   if (!data || error) return <Fragment />;
+
+  console.log("ProposedTransactions")
+  console.log(data)
+  // useEffect(() => {
+  // }, [data])
+
 
   const linkIfAddress = (value: string) => {
     if (ethers.utils.isAddress(value))
