@@ -23,7 +23,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { MockProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
-import { BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
+import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 
 export default function ProposalComponent() {
   const { data: addresses } = useDAOAddresses({
@@ -197,7 +197,7 @@ export default function ProposalComponent() {
 
       <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
         {proposal.targets.map((_, index) => (
-          proposal.targets[index] === BASE_USDC_TOKEN_ADDRESS ?
+          [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS].includes(proposal.targets[index]) ?
             <TransferTransaction
               key={index}
               target={proposal.targets[index]}

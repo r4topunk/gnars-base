@@ -1,5 +1,5 @@
 import { shortenAddress } from "@/utils/shortenAddress";
-import { BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
+import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 import { ETHERSCAN_BASEURL, ETHER_ACTOR_BASEURL } from "constants/urls";
 import { BigNumber, ethers } from "ethers";
 import Link from "next/link";
@@ -112,20 +112,11 @@ export function TransferTransaction({
   calldata: string;
 }) {
   const valueBN = BigNumber.from(value);
-  
+
   const { data, error } = useSWR<EtherActorResponse>(
     calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
   );
   if (!data || error) return <Fragment />;
-  // let data = {
-  //   name: "transfer(address,uint256)",
-  //   decoded: [
-  //     "0x9D4E88f7f2CCBB005426c1ed91eB2BB7d235937F",
-  //     "6969000000"
-  //   ],
-  //   functionName: "transfer",
-  //   isVerified: false
-  // }
 
   const toAddress = data.decoded[0] as Address
 
@@ -138,16 +129,13 @@ export function TransferTransaction({
       <div className="flex flex-col ml-2 p-2 items-center">
         {/* Token */}
         <div className="flex gap-2">
-          <span className="font-bold">Token:</span>
-          <div className="flex gap-1">
-            <Image className="object-contain" width={16} height={16} src={"/usdc-logo.png"} alt="usdc logo"/> 
-            <span>USDC</span>
-          </div>
+          <span className="">Token:</span>
+          <TokenDataRender address={target} />
         </div>
         <div className="flex gap-2">
-          <span className="font-bold">Value:</span>
+          <span className="">Value:</span>
           {
-            data?.decoded?.length ? <TokenRender address={target} value={BigInt(data.decoded[1])} /> : !valueBN.isZero() && (
+            data?.decoded?.length ? <TokenValueRender address={target} value={BigInt(data.decoded[1])} /> : !valueBN.isZero() && (
               <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
             )
           }
@@ -155,7 +143,7 @@ export function TransferTransaction({
         </div>
         {/* Params */}
         <div>
-          <span className="mr-2 font-bold">To:</span>
+          <span className="mr-2 ">To:</span>
           <FormatedTransactionValue address={toAddress} />
         </div>
       </div>
@@ -163,12 +151,39 @@ export function TransferTransaction({
   )
 }
 
-function TokenRender({ address, value }: { address: string, value: bigint }) {
+function TokenValueRender({ address, value }: { address: string, value: bigint }) {
   if (address === BASE_USDC_TOKEN_ADDRESS) {
     return (
       <div className="flex">
         <span>$</span>
         <span>{formatUnits(value, 6)}</span>
+      </div>
+    )
+  } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
+    return (
+      <div className="flex">
+        <span>↗</span>
+        <span>{formatUnits(value, 14)}</span>
+      </div>
+    )
+  }
+
+  return null;
+}
+
+function TokenDataRender({ address }: { address: string }) {
+  if (address === BASE_USDC_TOKEN_ADDRESS) {
+    return (
+      <div className="flex gap-1">
+        <Image className="object-contain" width={16} height={16} src={"/usdc-logo.png"} alt="usdc logo" />
+        <span>USDC</span>
+      </div>
+    )
+  } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
+    return (
+      <div className="flex gap-1">
+        <Image className="object-contain" width={16} height={16} src={"/sendit-logo.png"} alt="sendit logo" />
+        <span>Sendit</span>
       </div>
     )
   }
