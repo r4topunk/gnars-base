@@ -111,22 +111,31 @@ export function TransferTransaction({
   value: number;
   calldata: string;
 }) {
+  const valueBN = BigNumber.from(value);
+  
   const { data, error } = useSWR<EtherActorResponse>(
     calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
   );
-  const valueBN = BigNumber.from(value);
-
   if (!data || error) return <Fragment />;
+  // let data = {
+  //   name: "transfer(address,uint256)",
+  //   decoded: [
+  //     "0x9D4E88f7f2CCBB005426c1ed91eB2BB7d235937F",
+  //     "6969000000"
+  //   ],
+  //   functionName: "transfer",
+  //   isVerified: false
+  // }
 
   const toAddress = data.decoded[0] as Address
 
   return (
-    <div className="flex flex-col gap-2bg-skin-muted border border-skin-stroke rounded-xl p-4 w-fit">
+    <div className="flex max-w-72 w-full flex-col gap-2 bg-skin-muted border border-skin-stroke rounded-xl overflow-hidden">
       {/* Function */}
-      <div className="text-xl w-fit">
+      <div className="text-xl w-full bg-skin-button-accent p-2 text-center">
         {data?.functionName || "transfer"}
       </div>
-      <div className="flex flex-col ml-2">
+      <div className="flex flex-col ml-2 p-2 items-center">
         {/* Token */}
         <div className="flex gap-2">
           <span className="font-bold">Token:</span>
