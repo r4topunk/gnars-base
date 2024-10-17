@@ -61,7 +61,7 @@ export default function Vote({
 
   return (
     // <Layout>
-    <>
+    <div className="max-w-[800px] mx-auto">
       <div className="text-4xl relative font-heading text-skin-muted">
         Governance
       </div>
@@ -106,7 +106,7 @@ export default function Vote({
         </div>
       </div>
       {/* </Layout> */}
-    </>
+    </div>
   );
 }
 

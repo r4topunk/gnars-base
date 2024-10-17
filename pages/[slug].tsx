@@ -66,7 +66,7 @@ export default function SiteComponent(
 
   return (
       <div
-        className={`flex-col bg-skin-muted max-w-[1000px] mx-auto mt-4 ${getAlignment()} w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl mt-4 sm:mt-0`}
+        className={`flex-col bg-skin-muted max-w-[800px] mx-auto w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl mt-4 sm:mt-0 ${getAlignment()}`}
       >
         {title ? <h1 className="mb-4">{title}</h1> : null }
         <iframe src="https://www.youtube.com/embed/JQSmfSnRGVk" width={"100%"} className="aspect-video rounded-xl"/>
