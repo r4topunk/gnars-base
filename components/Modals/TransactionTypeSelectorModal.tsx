@@ -1,4 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { transactionType } from "viem";
 
 const TransactionTypeSelectorModal = ({
     onClose,
@@ -27,8 +28,14 @@ const TransactionTypeSelectorModal = ({
                     >
                         SEND ETH
                     </button>
-                    <button className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500">
-                        <div>USDC (SOON)</div>
+                    <button
+                        onClick={() => {
+                            arrayHelpers.push({ address: "", valueInUSDC: 0, transactionType: "USDC" });
+                            onClose(); // Close modal after adding
+                        }}
+                        className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500"
+                    >
+                        SEND USDC
                     </button>
                     <button className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500">
                         <div>SEND GNAR (SOON)</div>
