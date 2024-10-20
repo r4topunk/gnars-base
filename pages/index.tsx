@@ -127,7 +127,7 @@ export default function SiteComponent({
       <div className="flex flex-col flex-grow">
         <span className="text-4xl lg:text-5xl mb-2 mt-4 md:mt-0">Discover</span>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <IframeLoader src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/10/embed?referrer=0x41CB654D1F47913ACAB158a8199191D160DAbe4A" />
+          <IframeLoader src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/11/embed?referrer=0x41CB654D1F47913ACAB158a8199191D160DAbe4A" />
           <div className="col-span-1 rounded-xl border border-zinc-200 max-w-full">
             <Hero />
           </div>
