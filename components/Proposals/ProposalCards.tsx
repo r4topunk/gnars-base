@@ -66,7 +66,7 @@ function ProposalCard({ proposal }: ProposalCardProps) {
             <Image
                 onLoad={() => setImageLoaded(true)}
                 className="w-full h-full object-cover"
-                src={thumbnail}
+                src={thumbnail || "/sktloading.gif"}
                 alt="proposal thumbnail"
                 width={16}
                 height={9}
