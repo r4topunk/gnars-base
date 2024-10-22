@@ -23,7 +23,7 @@ export const theme: ThemeConfig = merge(lightTheme, {
       "button-accent-hover": `250, 198, 116`,
       "button-muted": `143, 45, 86`,
       "proposal-success": `141, 224, 58`,
-      "proposal-danger": `232, 46, 59`,
+      "proposal-danger": `240, 50, 50`,
       "proposal-muted": `216, 17, 89`,
       "proposal-highlighted": `251, 177, 70`,
     }
