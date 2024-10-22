@@ -22,7 +22,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import { MockProposedTransactions, ProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
+import { ProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
 import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 
 export default function ProposalComponent() {
