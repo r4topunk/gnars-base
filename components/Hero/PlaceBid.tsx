@@ -62,16 +62,19 @@ export const PlaceBid = ({
 
   return (
     <Fragment>
-      <div className="mt-12 sm:mt-6 flex flex-col sm:flex-row">
-        <input
-          value={bid}
-          type="number"
-          onChange={(e) => setBid(e.target.value)}
-          className="bg-gray text-skin-base placeholder:text-stone-400 px-2 py-2 rounded-lg w-full text-xl mr-2 border border-black focus:border-amber-400 focus:outline-none"
-          placeholder={
-            nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
-          }
-        />
+      <div className="mt-12 sm:mt-6 flex flex-col sm:flex-row gap-2">
+        <div className="w-full relative group">
+          <input
+            value={bid}
+            type="number"
+            onChange={(e) => setBid(e.target.value)}
+            className="bg-gray text-skin-base placeholder:text-neutral-400 px-2 py-2 rounded-lg w-full text-xl mr-2 border border-neutral-400 focus:border-amber-400 focus:outline-none"
+            placeholder={
+              nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
+            }
+          />
+          <div onClick={(e) => setBid(utils.formatEther(nextBidAmount))} className="invisible group-hover:visible absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 rounded-md bg-amber-400 px-2">min</div>
+        </div>
         <button
           onClick={(e) => {
             e.preventDefault();
