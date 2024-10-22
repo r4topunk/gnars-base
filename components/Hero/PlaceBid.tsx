@@ -73,7 +73,7 @@ export const PlaceBid = ({
               nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
             }
           />
-          <div onClick={(e) => setBid(utils.formatEther(nextBidAmount))} className="invisible group-hover:visible absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 rounded-md bg-amber-400 px-2">min</div>
+          <div onClick={(e) => bid ? setBid("") : setBid(utils.formatEther(nextBidAmount))} className="md:invisible group-hover:visible absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 rounded-md bg-amber-400 px-2">{bid ? "x" : "min"}</div>
         </div>
         <button
           onClick={(e) => {
@@ -84,7 +84,7 @@ export const PlaceBid = ({
               openConnectModal?.();
             }
           }}
-          className="bg-skin-button-accent transition ease-in-out hover:scale-[1.04] text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 mt-4 sm:mt-0 sm:w-40 flex items-center justify-around"
+          className="bg-skin-button-accent transition ease-in-out hover:scale-[1.04] text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 sm:mt-0 sm:w-40 flex items-center justify-around"
         >
           {isLoading ? (
             <Image src="/spinner.svg" height={24} width={24} alt="spinner" />
