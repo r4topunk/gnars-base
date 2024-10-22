@@ -73,11 +73,11 @@ const DummyNews = [
 
 const NewsCard = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:h-[220px] h-[840px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 h-fit">
             {DummyNews.map((news, index) => (
                 <div
                     key={index}
-                    className={`rounded-xl overflow-hidden shadow-lg ${index % 3 === 0 ? "bg-lime-300" : index % 3 === 1 ? "bg-red-300" : "bg-blue-300"
+                    className={`aspect-video rounded-xl overflow-hidden shadow-lg ${index % 3 === 0 ? "bg-lime-300" : index % 3 === 1 ? "bg-red-300" : "bg-blue-300"
                         }`}
                 >
                     <NewsItem news={news} />
