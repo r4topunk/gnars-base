@@ -30,7 +30,7 @@ const TransactionTypeSelectorModal = ({
                     </button>
                     <button
                         onClick={() => {
-                            arrayHelpers.push({ address: "", valueInUSDC: 0, transactionType: "USDC" });
+                            arrayHelpers.push({ address: "0x41CB654D1F47913ACAB158a8199191D160DAbe4A", valueInUSDC: 0, transactionType: "USDC" });
                             onClose(); // Close modal after adding
                         }}
                         className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500"

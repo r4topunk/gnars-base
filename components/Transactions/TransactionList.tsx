@@ -43,4 +43,3 @@ const TransactionList = ({ values }: { values: any }) => {
 };
 
 export default TransactionList;
-import { render } from "react-dom";
