@@ -21,6 +21,25 @@ import { SWRConfig } from "swr";
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 
+const readMarkdownFiles = async (directory: string) => {
+  const files = await fs.readdir(directory, { withFileTypes: true });
+  const markdownFiles = files
+    .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".md"))
+    .map((file) => path.join(directory, file.name));
+
+  const fileContents = await Promise.all(
+    markdownFiles.map(async (filePath) => {
+      const content = await fs.readFile(filePath, "utf8");
+      return {
+        filePath,
+        content,
+      };
+    })
+  );
+
+  return fileContents;
+};
+
 export const getStaticProps = async (): Promise<
   GetStaticPropsResult<{
     tokenContract: string;
@@ -30,6 +49,7 @@ export const getStaticProps = async (): Promise<
     auction: AuctionInfo;
     descriptionSource: MarkdownSource;
     faqSources: MarkdownSource[];
+    posts: any[];
   }>
 > => {
   // Get token and auction info
@@ -50,7 +70,6 @@ export const getStaticProps = async (): Promise<
   });
 
   // Get description and faq markdown
-
   const templateDirectory = path.join(process.cwd(), "templates");
   const descFile = await fs.readFile(
     templateDirectory + "/home/description.md",
@@ -87,6 +106,19 @@ export const getStaticProps = async (): Promise<
 
   if (!contract.image) contract.image = "";
 
+  // Get posts markdown
+  const postsDirectory = path.join(process.cwd(), "posts");
+  const files = await readMarkdownFiles(postsDirectory);
+  const posts = await Promise.all(
+    files.map(async (file) => {
+      const mdxSource = await serialize(file.content, { parseFrontmatter: true });
+      return {
+        ...mdxSource.frontmatter,
+        content: mdxSource,
+      };
+    })
+  );
+
   return {
     props: {
       tokenContract,
@@ -96,6 +128,7 @@ export const getStaticProps = async (): Promise<
       auction,
       descriptionSource: descMD,
       faqSources,
+      posts,
     },
     revalidate: 60,
   };
@@ -109,6 +142,7 @@ export default function SiteComponent({
   auction,
   descriptionSource,
   faqSources,
+  posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const isMounted = useIsMounted();
 
@@ -135,7 +169,7 @@ export default function SiteComponent({
         <span className="text-xl lg:text-3xl mt-8 mb-2">Props</span>
         <ProposalCards />
         <span className="text-xl lg:text-3xl mt-8 mb-2">Propdates and News</span>
-        <NewsCard />
+        <NewsCard posts={posts} />
       </div>
     </SWRConfig>
   );
