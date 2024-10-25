@@ -115,6 +115,7 @@ export const getStaticProps = async (): Promise<
       return {
         ...mdxSource.frontmatter,
         content: mdxSource,
+        file: path.basename(file.filePath, path.extname(file.filePath)),
       };
     })
   );

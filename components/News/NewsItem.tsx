@@ -9,6 +9,7 @@ import { width, height } from "tailwindcss/defaultTheme";
 interface NewsItemProps {
     news: {
         title: string;
+        file: string;
         description: string;
         type: string;
         thumbnail: string;
@@ -24,7 +25,7 @@ const NewsItem = ({ news }: NewsItemProps) => {
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (
-        <Link href={news.type === "Blog Post" ? `/blog/${news.proposalId}` : `/propdates/${news.proposalId}/${news.updateIndex}`}>
+        <Link href={`/blog/${news.file}`}>
             <div className="relative rounded-lg overflow-hidden h-full group ">
                 {/* Enhanced Ribbon for Proposal Updates */}
                 {/* {news.type === "Proposal Update" && (
@@ -60,13 +61,17 @@ const NewsItem = ({ news }: NewsItemProps) => {
                     </div>
                     {/* Title and Content Type */}
                     <div className="bg-opacity-0 group-hover:bg-yellow-400 group-hover:bg-opacity-100 rounded-lg p-1 lg:p-2 flex items-center space-x-2 lg:space-x-4 h-12 lg:h-12 transition duration-300">
-                        <Image
-                            src={news.proposerAvatar}
-                            alt={`${news.proposer} avatar`}
-                            className="w-8 h-8 rounded-full object-cover"
-                            width={8}
-                            height={8}
-                        />
+                        {
+                            news.proposerAvatar ?
+                                <Image
+                                    src={news.proposerAvatar}
+                                    alt={`${news.proposer} avatar`}
+                                    className="w-8 h-8 rounded-full object-cover"
+                                    width={8}
+                                    height={8}
+                                /> :
+                                null
+                        }
                         <p className="text-sm lg:text-md text-white group-hover:text-black font-normal max-w-full transition duration-300">
                             {news.title}
                         </p>
