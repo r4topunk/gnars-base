@@ -52,6 +52,7 @@ export default function PostComponent(
   const align = data.frontmatter?.align;
   const title = data.frontmatter?.title as string || null;
   const thumbnail = data.frontmatter?.thumbnail as string || null;
+  const embed = data.frontmatter?.embed as string || null;
 
   const getAlignment = () => {
     switch (align) {
@@ -69,7 +70,14 @@ export default function PostComponent(
       className={`flex-col bg-skin-muted max-w-[800px] mx-auto w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl mt-4 sm:mt-0 ${getAlignment()}`}
     >
       {title ? <h1 className="mb-4">{title}</h1> : null}
-      {thumbnail ? (
+      {embed ? (
+          <iframe
+            src={embed}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full rounded-xl mb-4 aspect-video"
+          />
+      ) : thumbnail ? (
         <img
           src={thumbnail}
           alt="Banner"
