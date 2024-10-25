@@ -1,4 +1,5 @@
 import {
+  BookOpenIcon,
   HomeIcon,
   LightBulbIcon,
   LinkIcon,
@@ -35,6 +36,12 @@ function Navbar() {
               href="/about"
               text="About"
               icon={LightBulbIcon}
+              color="#8FD1F9"
+            />
+            <NavbarItem
+              href="/blog"
+              text="Blog"
+              icon={BookOpenIcon}
               color="#8FD1F9"
             />
             <NavbarItem

@@ -73,7 +73,7 @@ export default function Vote({
     // <Layout>
     <div className="max-w-[800px] mx-auto">
       <div className="flex justify-between">
-        <div className="text-4xl relative font-heading text-skin-muted">
+        <div className="text-4xl lg:text-5xl relative font-heading text-skin-muted">
           Governance
         </div>
         {userVotes && userVotes >= (currentThreshold || 0) ? (
