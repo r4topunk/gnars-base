@@ -17,7 +17,7 @@ type EtherActorResponse = {
   isVerified: boolean;
 };
 
-export const MockProposedTransactions = ({
+export const ProposedTransactions = ({
   target,
   value,
   calldata,
@@ -26,16 +26,14 @@ export const MockProposedTransactions = ({
   value: number;
   calldata: string;
 }) => {
+  const { data, error } = useSWR<EtherActorResponse>(
+    calldata && calldata !== "0x" ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
+  );
   const valueBN = BigNumber.from(value);
-  let data = {
-    name: "transfer(address,uint256)",
-    decoded: [
-      "0x9D4E88f7f2CCBB005426c1ed91eB2BB7d235937F",
-      "6969000000"
-    ],
-    functionName: "transfer",
-    isVerified: false
-  }
+
+  console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
+
+  if (calldata !== "0x" && (!data || error)) return <Fragment />;
 
   const linkIfAddress = (value: string) => {
     if (ethers.utils.isAddress(value))
@@ -46,60 +44,35 @@ export const MockProposedTransactions = ({
           target="_blank"
           className="text-skin-highlighted underline"
         >
-          {shortenAddress(value, 4)}
+          {value}
         </Link>
       );
 
     return value;
-  }
+  };
 
   return (
-    <div className="flex flex-col gap-8">
-      {/* <TransferTransaction target={target} value={value} /> */}
-      <div className="w-full">
-        <div className="break-words">
-          {linkIfAddress(target)}
-          <span>{`.${data?.functionName || "transfer"}(`}</span>
-        </div>
-        {!data?.decoded && !valueBN.isZero() && (
-          <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
-        )}
-        {data?.decoded?.map((decoded, index) => (
-          <div className="ml-4" key={index}>
-            {linkIfAddress(decoded)}
-          </div>
-        ))}
-        <div>{")"}</div>
+    <div className="w-full">
+      <div className="break-words">
+        {linkIfAddress(target)}
+        <span>{`.${data?.functionName || "transfer"}(`}</span>
       </div>
+      {
+        data?.decoded.length ? (
+          data.decoded.map((decoded, index) => (
+            <div className="ml-4" key={index}>
+              {linkIfAddress(decoded)}
+            </div>
+          ))
+        ) : (
+          !valueBN.isZero() && (
+            <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
+          )
+        )
+      }
+      <div>{")"}</div>
     </div>
   );
-};
-
-const FormatedTransactionValue = ({ address }: { address: Address }) => {
-  const { data: ensName } = useEnsName(address);
-
-  if (ensName?.ensName) {
-    return (
-      <div className="flex items-center mb-2">
-        <UserAvatar address={address} className="rounded-full" diameter={18} />
-        <p className="ml-2 text-sm">{ensName?.ensName || shortenAddress(address, 4)}</p>
-      </div>
-    )
-  }
-
-  if (ethers.utils.isAddress(address))
-    return (
-      <Link
-        href={`${ETHERSCAN_BASEURL}/address/${address}`}
-        rel="noopener noreferrer"
-        target="_blank"
-        className="text-skin-highlighted underline"
-      >
-        {shortenAddress(address, 4)}
-      </Link>
-    );
-
-  return <span>{address}</span>;
 };
 
 export function TransferTransaction({
@@ -190,3 +163,30 @@ function TokenDataRender({ address }: { address: string }) {
 
   return null;
 }
+
+const FormatedTransactionValue = ({ address }: { address: Address }) => {
+  const { data: ensName } = useEnsName(address);
+
+  if (ensName?.ensName) {
+    return (
+      <div className="flex items-center mb-2">
+        <UserAvatar address={address} className="rounded-full" diameter={18} />
+        <p className="ml-2 text-sm">{ensName?.ensName || shortenAddress(address, 4)}</p>
+      </div>
+    )
+  }
+
+  if (ethers.utils.isAddress(address))
+    return (
+      <Link
+        href={`${ETHERSCAN_BASEURL}/address/${address}`}
+        rel="noopener noreferrer"
+        target="_blank"
+        className="text-skin-highlighted underline"
+      >
+        {shortenAddress(address, 4)}
+      </Link>
+    );
+
+  return <span>{address}</span>;
+};

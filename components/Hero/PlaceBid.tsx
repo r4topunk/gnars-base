@@ -62,16 +62,19 @@ export const PlaceBid = ({
 
   return (
     <Fragment>
-      <div className="mt-12 sm:mt-6 flex flex-col sm:flex-row">
-        <input
-          value={bid}
-          type="number"
-          onChange={(e) => setBid(e.target.value)}
-          className="bg-gray text-skin-base placeholder:text-skin-muted px-2 py-2 rounded-lg w-full text-xl mr-2 border border-black focus:outline-dashed focus:ring-2 focus:ring-skin-button-accent focus:ring-opacity-50"
-          placeholder={
-            nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
-          }
-        />
+      <div className="mt-12 sm:mt-6 flex flex-col sm:flex-row gap-2">
+        <div className="w-full relative group">
+          <input
+            value={bid}
+            type="number"
+            onChange={(e) => setBid(e.target.value)}
+            className="bg-gray text-skin-base placeholder:text-neutral-400 px-2 py-2 rounded-lg w-full text-xl mr-2 border border-neutral-400 focus:border-amber-400 focus:outline-none"
+            placeholder={
+              nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
+            }
+          />
+          <div onClick={(e) => bid ? setBid("") : setBid(utils.formatEther(nextBidAmount))} className="md:invisible group-hover:visible absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 rounded-md bg-amber-400 px-2">{bid ? "x" : "min"}</div>
+        </div>
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -81,7 +84,7 @@ export const PlaceBid = ({
               openConnectModal?.();
             }
           }}
-          className="bg-skin-button-accent transition ease-in-out hover:scale-110 hover:bg-skin-button-accent-hover text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 mt-4 sm:mt-0 sm:w-40 flex items-center justify-around"
+          className="bg-skin-button-accent transition ease-in-out hover:scale-[1.04] text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 sm:mt-0 sm:w-40 flex items-center justify-around"
         >
           {isLoading ? (
             <Image src="/spinner.svg" height={24} width={24} alt="spinner" />

@@ -74,17 +74,17 @@ function ProposalCard({ proposal }: ProposalCardProps) {
 
             {/* Overlay Container */}
             <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-between p-4">
-                <div className="flex justify-between items-start gap-2">
+                <div className="flex justify-between items-start gap-2 bg-opacity-20 tracking-wide">
                     {/* Title and Status */}
                     <p className="text-lg font-semibold text-white">{getProposalName(proposal.description)}</p>
-                    <ProposalStatus proposal={proposal} />
                 </div>
                 <div className="flex justify-between items-center">
                     {/* Proposer Information */}
-                    <div className="flex items-center mb-2">
+                    <div className="flex items-center">
                         <UserAvatar address={proposal.proposal.proposer} className="rounded-full" diameter={32} />
                         <p className="ml-2 text-sm text-white">{ensName?.ensName || shortenAddress(proposer)}</p>
                     </div>
+                    <ProposalStatus proposal={proposal} />
                 </div>
             </div>
         </Link>)

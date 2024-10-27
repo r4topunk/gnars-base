@@ -22,7 +22,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import { MockProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
+import { ProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
 import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 
 export default function ProposalComponent() {
@@ -215,70 +215,6 @@ export default function ProposalComponent() {
     </div>
   );
 }
-
-type EtherActorResponse = {
-  name: string;
-  decoded: string[];
-  functionName: string;
-  isVerified: boolean;
-};
-
-const ProposedTransactions = ({
-  target,
-  value,
-  calldata,
-}: {
-  target: string;
-  value: number;
-  calldata: string;
-}) => {
-  const { data, error } = useSWR<EtherActorResponse>(
-    calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
-  );
-  const valueBN = BigNumber.from(value);
-
-  if (!data || error) return <Fragment />;
-
-  console.log("ProposedTransactions")
-  console.log(data)
-  // useEffect(() => {
-  // }, [data])
-
-
-  const linkIfAddress = (value: string) => {
-    if (ethers.utils.isAddress(value))
-      return (
-        <Link
-          href={`${ETHERSCAN_BASEURL}/address/${value}`}
-          rel="noopener noreferrer"
-          target="_blank"
-          className="text-skin-highlighted underline"
-        >
-          {value}
-        </Link>
-      );
-
-    return value;
-  };
-
-  return (
-    <div className="w-full">
-      <div className="break-words">
-        {linkIfAddress(target)}
-        <span>{`.${data?.functionName || "transfer"}(`}</span>
-      </div>
-      {!data?.decoded && !valueBN.isZero() && (
-        <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
-      )}
-      {data?.decoded?.map((decoded, index) => (
-        <div className="ml-4" key={index}>
-          {linkIfAddress(decoded)}
-        </div>
-      ))}
-      <div>{")"}</div>
-    </div>
-  );
-};
 
 const VoteButton = ({
   proposal,

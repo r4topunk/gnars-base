@@ -40,7 +40,7 @@ const NewsItem = ({ news }: NewsItemProps) => {
 
                 <Image
                     onLoad={() => setImageLoaded(true)}
-                    className="w-full h-32 lg:h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     src={news.thumbnail}
                     alt="news thumbnail"
                     width={400}
