@@ -34,7 +34,7 @@ export const getStaticProps = async (): Promise<
 > => {
   // Get token and auction info
   const tokenContract = process.env
-    .NEXT_PUBLIC_TOKEN_CONTRACT! as `0x${string}`;
+    .NEXT_PUBLIC_TOKEN_CONTRACT! as `0x${string}` || "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17";
 
   const addresses = await getAddresses({ tokenAddress: tokenContract });
 
