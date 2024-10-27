@@ -31,7 +31,7 @@ export const ProposedTransactions = ({
   );
   const valueBN = BigNumber.from(value);
 
-  console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
+  // console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
 
   if (calldata !== "0x" && (!data || error)) return <Fragment />;
 
