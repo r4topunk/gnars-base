@@ -67,7 +67,7 @@ const NewsItem = ({ news }: NewsItemProps) => {
                             width={8}
                             height={8}
                         />
-                        <p className="text-sm lg:text-md text-white group-hover:text-black font-normal max-w-full transition duration-300">
+                        <p className="text-sm lg:text-md text-white group-hover:text-black max-w-full transition duration-300">
                             {news.title}
                         </p>
                     </div>
