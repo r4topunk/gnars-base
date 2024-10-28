@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDAOAddresses, useGetAllProposals } from "hooks/fetch";
 import { TOKEN_CONTRACT } from "constants/addresses";
 import Image from "next/image";
@@ -10,20 +11,18 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useEnsName } from "wagmi";
 import { shortenAddress } from "@/utils/shortenAddress";
 import { getProposalDescription } from "@/utils/getProposalDescription";
-import ModalWrapper from "@/components/ModalWrapper";
-import VoteModal from "@/components/VoteModal";
-import { Fragment, useEffect, useState } from "react";
-import { Proposal } from "@/services/nouns-builder/governor";
-import useSWR from "swr";
-import { ETHERSCAN_BASEURL, ETHER_ACTOR_BASEURL } from "constants/urls";
-import { BigNumber, ethers } from "ethers";
-import { useUserVotes } from "@/hooks/fetch/useUserVotes";
+import { ETHERSCAN_BASEURL } from "constants/urls";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { ProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
 import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
+import { VoteButton } from "@/components/DAO/VoteButton";
+import ProgressBar from "@/components/DAO/ProgressBar";
+import { getTime } from "@/utils/getTime";
+import VoteList, { SubGraphProposal } from "@/components/DAO/voteList";
+import { useFetchProposalVotes } from "@/hooks/fetch/useFetchProposalVotes";
 
 export default function ProposalComponent() {
   const { data: addresses } = useDAOAddresses({
@@ -32,20 +31,21 @@ export default function ProposalComponent() {
   const { data: proposals } = useGetAllProposals({
     governorContract: addresses?.governor,
   });
+  const { query: { proposalid } } = useRouter();
 
-  const {
-    query: { proposalid },
-  } = useRouter();
-
+  const proposal = proposals?.find((x) => x.proposalId === proposalid);
   const proposalNumber = proposals
     ? proposals.length - proposals.findIndex((x) => x.proposalId === proposalid)
     : 0;
 
-  const proposal = proposals?.find((x) => x.proposalId === proposalid);
-
   const { data: ensName } = useEnsName({
     address: proposal?.proposal.proposer,
   });
+
+  const { votes, loading } = useFetchProposalVotes(proposal?.proposalId || "");
+  const completeProposal = { ...proposal, votes };
+
+  const [selectedTab, setSelectedTab] = useState("Description");
 
   if (!proposal)
     return (
@@ -56,8 +56,7 @@ export default function ProposalComponent() {
       </Layout>
     );
 
-  const { forVotes, againstVotes, abstainVotes, voteEnd, voteStart } =
-    proposal?.proposal || {};
+  const { forVotes, againstVotes, abstainVotes, voteEnd, voteStart } = proposal?.proposal || {};
 
   const getVotePercentage = (votes: number) => {
     if (!proposal || !votes) return 0;
@@ -75,15 +74,6 @@ export default function ProposalComponent() {
     return `${month} ${date.getDate()}, ${date.getFullYear()}`;
   };
 
-  const getTime = (timestamp: number) => {
-    const date = new Date(timestamp * 1000);
-
-    const hours = date.getHours() % 12;
-    const minutes = date.getMinutes();
-
-    return `${hours}:${minutes} ${date.getHours() >= 12 ? "PM" : "AM"}`;
-  };
-
   return (
     <div className="max-w-[800px] mx-auto mt-4">
       <div className="flex flex-col sm:flex-row items-baseline justify-between">
@@ -94,7 +84,6 @@ export default function ProposalComponent() {
           >
             <ArrowLeftIcon className="h-4" />
           </Link>
-
           <div className="">
             <div className="flex items-center">
               <div className="font-heading text-2xl text-skin-muted mr-4 break-words">
@@ -118,7 +107,6 @@ export default function ProposalComponent() {
             </div>
           </div>
         </div>
-
         <VoteButton proposal={proposal} proposalNumber={proposalNumber} />
       </div>
 
@@ -148,7 +136,6 @@ export default function ProposalComponent() {
           />
         </div>
       </div>
-
       <div className="items-center w-full grid sm:grid-cols-3 gap-4 mt-4">
         <div className="w-full border border-skin-stroke rounded-xl p-6 flex justify-between items-center sm:items-baseline">
           <div className="font-heading text-xl text-skin-muted">Threshold</div>
@@ -176,130 +163,62 @@ export default function ProposalComponent() {
           </div>
         </div>
       </div>
-
-      <div className="mt-12">
-        <div className="text-2xl font-heading text-skin-base font-bold">
+      {/* TABS */}
+      <div className="mt-8 flex gap-4 justify-center">
+        <div
+          onClick={() => setSelectedTab("Description")}
+          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Description" ? "text-skin-base underline" : "text-skin-muted"
+            }`}
+        >
           Description
         </div>
-
-        <ReactMarkdown
-          className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-full"
-          rehypePlugins={[rehypeRaw, rehypeSanitize]}
-          remarkPlugins={[remarkGfm]}
+        <div
+          onClick={() => setSelectedTab("Voting History")}
+          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Voting History" ? "text-skin-base underline" : "text-skin-muted"
+            }`}
         >
-          {getProposalDescription(proposal.description)}
-        </ReactMarkdown>
+          Voting History
+        </div>
       </div>
 
-      <div className="text-2xl font-heading text-skin-base mt-8 font-bold">
-        Proposed Transactions
-      </div>
+      {/* Tab Content */}
+      {selectedTab === "Description" && (
+        <div className="mt-12">
+          <ReactMarkdown
+            className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-full"
+            rehypePlugins={[rehypeRaw, rehypeSanitize]}
+            remarkPlugins={[remarkGfm]}
+          >
+            {getProposalDescription(proposal.description)}
+          </ReactMarkdown>
+          <div className="text-2xl font-heading text-skin-base mt-8 font-bold">Proposed Transactions</div>
+          <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
+            {proposal.targets.map((_, index) =>
+              [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS].includes(proposal.targets[index]) ? (
+                <TransferTransaction
+                  key={index}
+                  target={proposal.targets[index]}
+                  value={proposal.values[index]}
+                  calldata={proposal.calldatas[index]}
+                />
+              ) : (
+                <ProposedTransactions
+                  key={index}
+                  target={proposal.targets[index]}
+                  value={proposal.values[index]}
+                  calldata={proposal.calldatas[index]}
+                />
+              )
+            )}
+          </div>
+        </div>
+      )}
 
-      <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
-        {proposal.targets.map((_, index) => (
-          [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS].includes(proposal.targets[index]) ?
-            <TransferTransaction
-              key={index}
-              target={proposal.targets[index]}
-              value={proposal.values[index]}
-              calldata={proposal.calldatas[index]}
-            /> :
-            <ProposedTransactions
-              key={index}
-              target={proposal.targets[index]}
-              value={proposal.values[index]}
-              calldata={proposal.calldatas[index]}
-            />
-        ))}
-      </div>
+      {selectedTab === "Voting History" && (
+        <div className="mt-12">
+          <VoteList proposal={{ ...proposal, votes } as unknown as SubGraphProposal} />
+        </div>
+      )}
     </div>
   );
 }
-
-const VoteButton = ({
-  proposal,
-  proposalNumber,
-}: {
-  proposal: Proposal;
-  proposalNumber: number;
-}) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const { data: userVotes } = useUserVotes({
-    timestamp: proposal.proposal.timeCreated,
-  });
-
-  if (proposal.state !== 1 || !userVotes || userVotes < 1) return <Fragment />;
-
-  return (
-    <Fragment>
-      <ModalWrapper
-        className="w-full max-w-lg bg-skin-muted"
-        open={modalOpen}
-        setOpen={setModalOpen}
-      >
-        <VoteModal
-          proposal={proposal}
-          proposalNumber={proposalNumber}
-          setOpen={setModalOpen}
-        />
-      </ModalWrapper>
-      <button
-        className="bg-skin-button-accent text-skin-inverted rounded-xl px-4 py-3 font-semibold w-full sm:w-auto mt-8 sm:mt-0"
-        onClick={() => setModalOpen(true)}
-      >
-        Submit vote
-      </button>
-    </Fragment>
-  );
-};
-
-const ProgressBar = ({
-  label,
-  type,
-  value,
-  percentage,
-}: {
-  label: string;
-  value: number;
-  percentage: number;
-  type: "success" | "danger" | "muted";
-}) => {
-  let textColor;
-  let baseColor;
-  let bgColor;
-
-  switch (type) {
-    case "success":
-      textColor = "text-skin-proposal-success";
-      baseColor = "bg-skin-proposal-success";
-      bgColor = "bg-skin-proposal-success bg-opacity-10";
-      break;
-    case "danger":
-      textColor = "text-skin-proposal-danger";
-      baseColor = "bg-skin-proposal-danger";
-      bgColor = "bg-skin-proposal-danger bg-opacity-10";
-      break;
-    case "muted":
-      textColor = "text-skin-proposal-muted";
-      baseColor = "bg-skin-proposal-muted";
-      bgColor = "bg-skin-proposal-muted bg-opacity-10";
-      break;
-  }
-
-  return (
-    <div className="w-full">
-      <div className="flex flex-col items-center sm:items-start sm:flex-row justify-between mb-1">
-        <div className={`${textColor} font-heading text-xl`}>{label}</div>
-        <div className="font-semibold text-xl mt-4 sm:mt-0 text-center sm:text-left">
-          {value}
-        </div>
-      </div>
-      <div className={`w-full ${bgColor} rounded-full h-4 mt-4 sm:mt-0`}>
-        <div
-          className={`${baseColor} h-4 rounded-full`}
-          style={{ width: `${percentage}%` }}
-        ></div>
-      </div>
-    </div>
-  );
-};
