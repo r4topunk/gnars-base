@@ -7,12 +7,11 @@ import {
 } from "wagmi";
 import { useDAOAddresses } from "../hooks";
 import { GovernorABI } from "@buildersdk/sdk";
-import { BigNumber } from "ethers";
 import { useState } from "react";
 import Image from "next/image";
 import { useUserVotes } from "@/hooks/fetch/useUserVotes";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-
+import { BigNumber } from "ethers";
 export default function VoteModal({
   proposal,
   proposalNumber,
@@ -46,10 +45,6 @@ export default function VoteModal({
           ? [proposal.proposalId, BigNumber.from(support), reason] // Pass reason as plain string
           : [proposal.proposalId, BigNumber.from(support)],
         chainId: 8453,
-        overrides: {
-          gasLimit: BigNumber.from("2000000"), // Set a high gas limit manually
-          from: "0x41CB654D1F47913ACAB158a8199191D160DAbe4A"
-        },
       }
       : undefined
   );
