@@ -79,7 +79,7 @@ export const getProposalDetails = async ({
     quorumVotes,
     executed,
     canceled,
-    vetoed,
+    vetoed
   } = await governor({ address }).getProposal(proposalId);
 
   return {
