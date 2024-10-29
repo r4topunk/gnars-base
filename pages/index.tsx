@@ -15,9 +15,13 @@ import { useIsMounted } from "hooks/useIsMounted";
 import { GetStaticPropsResult, InferGetStaticPropsType } from "next";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
+import head from "next/head";
 import path from "path";
-import { Fragment, useState } from "react";
+import { title } from "process";
+import { createElement, Fragment, SyntheticEvent, useState } from "react";
+import style from "styled-jsx/style";
 import { SWRConfig } from "swr";
+import { width, height } from "tailwindcss/defaultTheme";
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 
@@ -32,7 +36,7 @@ export const getStaticProps = async (): Promise<
     faqSources: MarkdownSource[];
   }>
 > => {
-  // Get token and auction info
+  // Fetch data as before
   const tokenContract = process.env
     .NEXT_PUBLIC_TOKEN_CONTRACT! as `0x${string}` || "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17";
 
@@ -48,8 +52,6 @@ export const getStaticProps = async (): Promise<
     address: tokenContract,
     tokenid: tokenId,
   });
-
-  // Get description and faq markdown
 
   const templateDirectory = path.join(process.cwd(), "templates");
   const descFile = await fs.readFile(
@@ -82,7 +84,7 @@ export const getStaticProps = async (): Promise<
       )
     );
   } catch {
-    //Do Nothing (no FAQ directory)
+    // No FAQ directory
   }
 
   if (!contract.image) contract.image = "";
@@ -124,46 +126,63 @@ export default function SiteComponent({
         },
       }}
     >
-      <div className="flex flex-col flex-grow">
-        <span className="text-4xl lg:text-5xl mb-2 mt-4 md:mt-0">Discover</span>
+      <div className="flex flex-col flex-grow text-skin-base">
+        <span className="text-4xl lg:text-5xl mb-2 mt-4 md:mt-0 font-heading text-skin-base">Discover</span>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           <IframeLoader src="https://zora.co/collect/base:0xf9a6470c704e391a64d1565ba4d50ad9c456b1dc/12/embed?referrer=0x41CB654D1F47913ACAB158a8199191D160DAbe4A" />
-          <div className="col-span-1 rounded-xl border border-zinc-200 max-w-full">
+          <div className="col-span-1 rounded-xl border border-skin-stroke bg-skin-fill max-w-full">
             <Hero />
           </div>
         </div>
-        <span className="text-xl lg:text-3xl mt-8 mb-2">Props</span>
+        <span className="text-xl lg:text-3xl mt-8 mb-2 font-heading text-skin-highlighted">Props</span>
         <ProposalCards />
-        <span className="text-xl lg:text-3xl mt-8 mb-2">Propdates and News</span>
+        <span className="text-xl lg:text-3xl mt-8 mb-2 font-heading text-skin-highlighted">Propdates and News</span>
         <NewsCard />
       </div>
     </SWRConfig>
   );
 }
+const applyDarkModeToIframe = (iframe: any) => {
+  const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
+  if (iframeDocument) {
+    const style = iframeDocument.createElement("style");
+    style.textContent = `
+      .ImageWrapper_ImageRenderer {
+        background-color: black; /* Adjust color based on mode */
+      }
+    `;
+    iframeDocument.head.appendChild(style);
+  }
+};
 
 const IframeLoader = ({ src }: { src: string }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const isDarkMode = document.documentElement.classList.contains("dark");
 
   const handleLoad = () => {
-    setIsLoaded(true)
+    setIsLoaded(true);
   };
 
+  const iframeSrc = isDarkMode ? `${src}&theme=dark` : src;
+
   return (
-    <div className={`col-span-1 rounded-xl h-[400px] 2xl:h-auto relative ${isLoaded ? "" : "border border-zinc-200"}`}>
+    <div className={`col-span-1 rounded-xl h-[400px] 2xl:h-auto relative ${isLoaded ? "bg-skin-fill dark:bg-black" : "border border-skin-stroke dark:border-gray-800"}`}>
       {!isLoaded && (
-        <div className="absolute inset-0 flex justify-center items-center">
+        <div className="absolute inset-0 flex justify-center items-center bg-skin-fill dark:bg-black opacity-75">
           <Loading />
         </div>
       )}
       <iframe
-        src={src}
+        src={iframeSrc}
         onLoad={handleLoad}
         width="100%"
         height="100%"
         title="Zora iFrame"
-        className="allow-pointer-lock allow-same-origin allow-scripts allow-popups"
+        className="allow-pointer-lock allow-same-origin allow-scripts allow-popups rounded-xl"
         style={isLoaded ? {} : { display: "none" }}
       />
     </div>
   );
 };
+
+
