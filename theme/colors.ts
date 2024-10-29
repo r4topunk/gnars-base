@@ -32,12 +32,12 @@ export const lightColors: ThemeColors = {
 };
 
 export const darkColors: ThemeColors = {
-  fill: "0, 0, 0", // black background fill
+  fill: "15, 15, 15", // very dark gray background fill
   muted: "30, 30, 30", // very dark gray for muted backgrounds
   stroke: withRGB(colors.neutral["700"]), // darker border color for contrast
-  backdrop: "0, 0, 0", // black for the main background
+  backdrop: "15, 15, 15", // very dark gray for the main background
   "text-base": "255, 255, 255", // light text on dark background
-  "text-muted": "150, 150, 150", // muted text with low contrast on black
+  "text-muted": "150, 150, 150", // muted text with low contrast on dark gray
   "text-inverted": "0, 0, 0", // dark text for inverted scenarios
   "text-highlighted": withRGB(colors.blue["400"]), // softer blue for highlights
   "button-accent": "255, 255, 255", // white text on dark buttons
@@ -45,7 +45,7 @@ export const darkColors: ThemeColors = {
   "button-muted": "80, 80, 80", // subdued button color in dark mode
   "proposal-success": withRGB(colors.green["400"]), // lighter green for dark mode
   "proposal-danger": withRGB(colors.red["400"]), // lighter red for better contrast
-  "proposal-muted": "100, 100, 100", // muted proposal color on black
+  "proposal-muted": "100, 100, 100", // muted proposal color on dark gray
   "proposal-highlighted": withRGB(colors.blue["500"]), // slightly brightened blue
 };
 

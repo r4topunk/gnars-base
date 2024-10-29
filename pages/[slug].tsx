@@ -8,6 +8,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { promises as fs } from "fs";
 import path from "path";
 import Layout from "@/components/Layout";
+import { width } from "tailwindcss/defaultTheme";
 
 export const getStaticPaths = async () => {
   const templateDirectory = path.join(process.cwd(), "templates");
@@ -65,12 +66,17 @@ export default function SiteComponent(
   };
 
   return (
-      <div
-        className={`flex-col bg-skin-muted max-w-[800px] mx-auto w-full wrapper focus:outline-none break-words prose prose-skin prose-headings:font-heading prose-xl mt-4 sm:mt-0 ${getAlignment()}`}
-      >
-        {title ? <h1 className="mb-4">{title}</h1> : null }
-        <iframe src="https://www.youtube.com/embed/JQSmfSnRGVk" width={"100%"} className="aspect-video rounded-xl"/>
-        <MDXRemote {...data} />
-      </div>
+    <div
+      className={`flex-col bg-skin-muted text-black dark:text-white max-w-[800px] mx-auto w-full wrapper focus:outline-none break-words prose prose-skin dark:prose-invert prose-headings:font-heading prose-xl mt-4 sm:mt-0 ${getAlignment()}`}
+    >
+      {title ? <h1 className="mb-4 text-black dark:text-white">{title}</h1> : null}
+      <iframe
+        src="https://www.youtube.com/embed/JQSmfSnRGVk"
+        width="100%"
+        className="aspect-video rounded-xl bg-white dark:bg-black"
+      />
+      <MDXRemote {...data} />
+    </div>
   );
 }
+

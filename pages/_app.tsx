@@ -53,7 +53,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     >
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={themeConfig}>
-          <div className="bg-white dark:bg-black text-black dark:text-white h-screen flex">
+          <div className="bg-white dark:bg-[#0f0f0f] text-black dark:text-white h-screen flex">
             <Navbar />
             <div className="flex flex-col p-4 flex-grow h-full overflow-y-auto overflow-x-hidden">
               <div className="w-full pb-0 md:pb-4 flex justify-between gap-8">
