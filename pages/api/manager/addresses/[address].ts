@@ -1,12 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getAddresses } from "data/nouns-builder/manager";
+import { DAO_ADDRESS } from "constants/addresses";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { address } = req.query;
-
-  const daoAddresses = await getAddresses({
-    tokenAddress: address as `0x${string}`,
-  });
+  const daoAddresses = DAO_ADDRESS;
 
   const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
   res.setHeader(
