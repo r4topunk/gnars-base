@@ -3,6 +3,7 @@ import Loading from "@/components/Loading";
 import NewsCard from "@/components/News/NewsCard";
 import ProposalCards from "@/components/Proposals/ProposalCards";
 import { getAddresses } from "@/services/nouns-builder/manager";
+import { DAO_ADDRESS } from "constants/addresses";
 import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import {
   ContractInfo,
@@ -36,20 +37,18 @@ export const getStaticProps = async (): Promise<
     faqSources: MarkdownSource[];
   }>
 > => {
-  // Fetch data as before
-  const tokenContract = process.env
-    .NEXT_PUBLIC_TOKEN_CONTRACT! as `0x${string}` || "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17";
+  const addresses = DAO_ADDRESS;
 
-  const addresses = await getAddresses({ tokenAddress: tokenContract });
+  console.log(addresses.nft)
 
   const [contract, auction] = await Promise.all([
-    getContractInfo({ address: tokenContract }),
+    getContractInfo({ address: addresses.nft }),
     getCurrentAuction({ address: addresses.auction }),
   ]);
 
   const tokenId = auction.tokenId;
   const token = await getTokenInfo({
-    address: tokenContract,
+    address: addresses.nft,
     tokenid: tokenId,
   });
 
@@ -91,7 +90,7 @@ export const getStaticProps = async (): Promise<
 
   return {
     props: {
-      tokenContract,
+      tokenContract: addresses.nft,
       tokenId,
       contract,
       token,
