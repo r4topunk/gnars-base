@@ -6,10 +6,10 @@ import { request } from "graphql-request";
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { parse } from "graphql";
 import { GraphQLClient, gql } from "graphql-request";
-import { TOKEN_CONTRACT } from "constants/addresses";
 import { BigNumber } from "ethers";
 import { Address } from "wagmi";
 import { SUBGRAPH_ENDPOINT } from "constants/urls";
+import { DAO_ADDRESS } from "constants/addresses";
 
 //novo
 export type Bid = {
@@ -105,7 +105,7 @@ export async function getBidHistory({ tokenId }: { tokenId: BigNumber }) {
   `);
 
   const client = new GraphQLClient(SUBGRAPH_ENDPOINT);
-  const id = `${TOKEN_CONTRACT.toLocaleLowerCase()}:${tokenId}`;
+  const id = `${DAO_ADDRESS.nft.toLocaleLowerCase()}:${tokenId}`;
   const resp = await client.request({ document: query, variables: { id } });
 
   return (
