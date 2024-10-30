@@ -26,7 +26,6 @@ function Navbar() {
           <span className="text-3xl">Gnars</span>
         </div>
         <div className="w-[220px] flex flex-col mt-5">
-          <a>MENU</a>
           <div className="font-xl flex flex-col pt-4 gap-4">
             <NavbarItem
               href="/"

@@ -68,7 +68,7 @@ export const PlaceBid = ({
             value={bid}
             type="number"
             onChange={(e) => setBid(e.target.value)}
-            className="bg-gray text-skin-base placeholder:text-neutral-400 px-2 py-2 rounded-lg w-full text-xl mr-2 border border-neutral-400 focus:border-amber-400 focus:outline-none"
+            className="bg-gray-200 dark:bg-gray-800 text-skin-base placeholder:text-neutral-400 dark:placeholder:text-neutral-600 px-2 py-2 rounded-lg w-full text-xl mr-2 border border-neutral-400 dark:border-neutral-600 focus:border-amber-400 focus:outline-none"
             placeholder={
               nextBidAmount ? `Ξ ${utils.formatEther(nextBidAmount)} or more` : ""
             }
@@ -84,7 +84,7 @@ export const PlaceBid = ({
               openConnectModal?.();
             }
           }}
-          className="bg-skin-button-accent transition ease-in-out hover:scale-[1.04] text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 sm:mt-0 sm:w-40 flex items-center justify-around"
+          className="bg-skin-button-accent transition ease-in-out hover:scale-[1.04] text-skin-base rounded-lg text-xl w-full sm:h-auto h-12 sm:mt-0 sm:w-40 flex items-center justify-around border border-neutral-400 dark:border-neutral-600"
         >
           {isLoading ? (
             <Image src="/spinner.svg" height={24} width={24} alt="spinner" />

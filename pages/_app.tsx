@@ -53,19 +53,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     >
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains} theme={themeConfig}>
-          <div className="bg-white dark:bg-[#0f0f0f] text-black dark:text-white h-screen flex">
+          <div className="bg-white dark:bg-[#0f0f0f] text-black dark:text-yellow-200 h-screen flex">
             <Navbar />
             <div className="flex flex-col p-4 flex-grow h-full overflow-y-auto overflow-x-hidden">
               <div className="w-full pb-0 md:pb-4 flex justify-between gap-8">
                 {/* Search bar */}
-                <div className="flex w-full max-w-[450px] bg-gray-200 dark:bg-gray-700 rounded-lg pr-2 items-center">
+                {/* <div className="flex w-full max-w-[450px] bg-gray-200 dark:bg-gray-700 rounded-lg pr-2 items-center">
                   <input
                     type="text"
                     className="w-full h-[34px] border-none bg-transparent text-black dark:text-white text-sm font-medium pl-4 pr-2 shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none"
                     placeholder="Search..."
                   />
                   <MagnifyingGlassIcon className="text-gray-600 dark:text-gray-300" width={"18px"} />
-                </div>
+                </div> */}
 
                 {/* Right-aligned buttons */}
                 <div className="flex items-center gap-4 ml-auto">
