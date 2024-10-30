@@ -2,8 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { title } from "process";
+import { width, height } from "tailwindcss/defaultTheme";
 
-interface cast {
+interface Cast {
     title: string;
     description: string;
     type: string;
@@ -16,7 +18,7 @@ interface cast {
 }
 
 const Propdates = () => {
-    const DummyPropdatescasts: cast[] = [
+    const DummyPropdatescasts: Cast[] = [
         {
             title: "Rodrigo Panajotti Onboarding Proposal",
             description: "Final updates from Rodrigo's onboarding proposal.",
@@ -63,9 +65,9 @@ const Propdates = () => {
         },
     ];
 
-    const CastItem = ({ cast }: { cast: cast }) => {
+    const CastItem = ({ cast }: { cast: Cast }) => {
         return (
-            <div className="flex flex-col border-b border-gray-200 p-4">
+            <div className="flex flex-col border-b border-gray-200 dark:border-gray-700 p-4">
                 <div className="flex items-start">
                     <img
                         src={cast.proposerAvatar}
@@ -74,11 +76,11 @@ const Propdates = () => {
                     />
                     <div className="ml-4 flex-grow">
                         <div className="flex justify-between">
-                            <span className="font-bold text-gray-900">{cast.proposer}</span>
-                            <span className="text-gray-500 text-sm">3h ago about Proposal {cast.proposalId}1</span>
+                            <span className="font-bold text-gray-900 dark:text-gray-100">{cast.proposer}</span>
+                            <span className="text-gray-500 dark:text-gray-400 text-sm">3h ago about Proposal {cast.proposalId}</span>
                         </div>
-                        <p className="text-gray-600">{cast.title}</p>
-                        <div className="mt-2 border border-zinc-200 rounded-lg aspect-video overflow-hidden">
+                        <p className="text-gray-600 dark:text-gray-300">{cast.title}</p>
+                        <div className="mt-2 border border-zinc-200 dark:border-gray-600 rounded-lg aspect-video overflow-hidden">
                             <Link href={`/propdates/${cast.proposalId}/${cast.updateIndex}`}>
                                 <Image
                                     src={cast.thumbnail}
@@ -89,8 +91,8 @@ const Propdates = () => {
                                 />
                             </Link>
                         </div>
-                        <p className="text-gray-700 mt-2">{cast.description}</p>
-                        <div className="text-sm text-gray-500 mt-1">
+                        <p className="text-gray-700 dark:text-gray-400 mt-2">{cast.description}</p>
+                        <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                             {cast.updates} updates
                         </div>
                     </div>
@@ -100,14 +102,14 @@ const Propdates = () => {
     };
 
     return (
-        <div className="max-w-[800px] w-full mx-auto p-4">
+        <div className="max-w-[800px] w-full mx-auto p-4 text-gray-900 dark:text-gray-100">
             <h1 className="text-2xl font-bold mb-4">Propdates</h1>
-            <div className="border border-gray-300 rounded-lg p-3 mb-4">
+            <div className="border border-gray-300 dark:border-gray-700 rounded-lg p-3 mb-4">
                 <textarea
                     placeholder="What's happening?"
-                    className="w-full p-2 rounded-md border focus:outline-none"
+                    className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
-                <button className="bg-purple-500 text-white px-4 py-2 rounded-md mt-2">
+                <button className="bg-purple-500 text-white px-4 py-2 rounded-md mt-2 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-400">
                     Cast
                 </button>
             </div>

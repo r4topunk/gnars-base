@@ -75,18 +75,18 @@ export default function ProposalComponent() {
   };
 
   return (
-    <div className="max-w-[800px] mx-auto mt-4">
+    <div className="max-w-[800px] mx-auto mt-4 text-skin-base">
       <div className="flex flex-col sm:flex-row items-baseline justify-between">
         <div className="flex items-baseline">
           <Link
             href="/vote"
-            className="flex items-center border border-skin-stroke hover:bg-skin-muted rounded-full p-2 mr-4"
+            className="flex items-center border border-skin-stroke hover:bg-skin-muted dark:hover:bg-skin-muted-dark rounded-full p-2 mr-4"
           >
-            <ArrowLeftIcon className="h-4" />
+            <ArrowLeftIcon className="h-4 text-skin-muted dark:text-skin-muted-dark" />
           </Link>
-          <div className="">
+          <div>
             <div className="flex items-center">
-              <div className="font-heading text-2xl text-skin-muted mr-4 break-words">
+              <div className="font-heading text-2xl text-skin-muted dark:text-skin-muted-dark mr-4 break-words">
                 Proposal {proposalNumber}
               </div>
               <ProposalStatus proposal={proposal} />
@@ -94,13 +94,13 @@ export default function ProposalComponent() {
             <div className="mt-2 text-5xl font-heading text-skin-base font-semibold">
               {getProposalName(proposal.description)}
             </div>
-            <div className="mt-4 text-2xl font-heading text-skin-muted">
+            <div className="mt-4 text-2xl font-heading text-skin-muted dark:text-skin-muted-dark">
               Proposed by{" "}
               <Link
                 href={`${ETHERSCAN_BASEURL}/address/${proposal.proposal.proposer}`}
                 rel="noopener noreferrer"
                 target="_blank"
-                className="text-skin-highlighted underline"
+                className="text-skin-highlighted dark:text-skin-highlighted-dark underline"
               >
                 {ensName || shortenAddress(proposal.proposal.proposer)}
               </Link>
@@ -111,7 +111,7 @@ export default function ProposalComponent() {
       </div>
 
       <div className="items-center w-full grid grid-cols-3 gap-4 mt-12">
-        <div className="w-full bg-skin-muted border border-skin-stroke rounded-xl p-6">
+        <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="For"
             type="success"
@@ -119,7 +119,7 @@ export default function ProposalComponent() {
             percentage={getVotePercentage(forVotes)}
           />
         </div>
-        <div className="w-full bg-skin-muted border border-skin-stroke rounded-xl p-6">
+        <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="Against"
             type="danger"
@@ -127,7 +127,7 @@ export default function ProposalComponent() {
             percentage={getVotePercentage(againstVotes)}
           />
         </div>
-        <div className="w-full bg-skin-muted border border-skin-stroke rounded-xl p-6">
+        <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="Abstain"
             type="muted"
@@ -136,62 +136,58 @@ export default function ProposalComponent() {
           />
         </div>
       </div>
+
       <div className="items-center w-full grid sm:grid-cols-3 gap-4 mt-4">
-        <div className="w-full border border-skin-stroke rounded-xl p-6 flex justify-between items-center sm:items-baseline">
-          <div className="font-heading text-xl text-skin-muted">Threshold</div>
+        <div className="w-full border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6 flex justify-between items-center sm:items-baseline">
+          <div className="font-heading text-xl text-skin-muted dark:text-skin-muted-dark">Threshold</div>
           <div className="text-right">
-            <div className="text-skin-muted">Current Threshold</div>
-            <div className="font-semibold">
-              {proposal.proposal.quorumVotes || 1} Quorum
-            </div>
+            <div className="text-skin-muted dark:text-skin-muted-dark">Current Threshold</div>
+            <div className="font-semibold">{proposal.proposal.quorumVotes || 1} Quorum</div>
           </div>
         </div>
 
-        <div className="w-full border border-skin-stroke rounded-xl p-6 flex justify-between items-center sm:items-baseline">
-          <div className="font-heading text-xl text-skin-muted">Ends</div>
+        <div className="w-full border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6 flex justify-between items-center sm:items-baseline">
+          <div className="font-heading text-xl text-skin-muted dark:text-skin-muted-dark">Ends</div>
           <div className="text-right">
-            <div className="text-skin-muted">{getTime(voteEnd)}</div>
+            <div className="text-skin-muted dark:text-skin-muted-dark">{getTime(voteEnd)}</div>
             <div className="font-semibold">{getDate(voteEnd)}</div>
           </div>
         </div>
 
-        <div className="w-full border border-skin-stroke rounded-xl p-6 flex justify-between items-center sm:items-baseline">
-          <div className="font-heading text-xl text-skin-muted">Snapshot</div>
+        <div className="w-full border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6 flex justify-between items-center sm:items-baseline">
+          <div className="font-heading text-xl text-skin-muted dark:text-skin-muted-dark">Snapshot</div>
           <div className="text-right">
-            <div className="text-skin-muted">{getTime(voteStart)}</div>
+            <div className="text-skin-muted dark:text-skin-muted-dark">{getTime(voteStart)}</div>
             <div className="font-semibold">{getDate(voteStart)}</div>
           </div>
         </div>
       </div>
-      {/* TABS */}
+
       <div className="mt-8 flex gap-4 justify-center">
         <div
           onClick={() => setSelectedTab("Description")}
-          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Description" ? "text-skin-base underline" : "text-skin-muted"
-            }`}
+          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Description" ? "text-skin-base underline dark:text-skin-base-dark" : "text-skin-muted dark:text-skin-muted-dark"}`}
         >
           Description
         </div>
         <div
           onClick={() => setSelectedTab("Voting History")}
-          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Voting History" ? "text-skin-base underline" : "text-skin-muted"
-            }`}
+          className={`text-2xl font-heading font-bold cursor-pointer ${selectedTab === "Voting History" ? "text-skin-base underline dark:text-skin-base-dark" : "text-skin-muted dark:text-skin-muted-dark"}`}
         >
           Voting History
         </div>
       </div>
 
-      {/* Tab Content */}
       {selectedTab === "Description" && (
         <div className="mt-12">
           <ReactMarkdown
-            className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-full"
+            className="prose prose-skin mt-4 prose-img:w-auto break-words max-w-full dark:prose-invert"
             rehypePlugins={[rehypeRaw, rehypeSanitize]}
             remarkPlugins={[remarkGfm]}
           >
             {getProposalDescription(proposal.description)}
           </ReactMarkdown>
-          <div className="text-2xl font-heading text-skin-base mt-8 font-bold">Proposed Transactions</div>
+          <div className="text-2xl font-heading text-skin-base dark:text-skin-base-dark mt-8 font-bold">Proposed Transactions</div>
           <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
             {proposal.targets.map((_, index) =>
               [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS].includes(proposal.targets[index]) ? (
