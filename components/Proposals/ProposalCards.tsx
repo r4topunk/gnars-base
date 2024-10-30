@@ -19,10 +19,13 @@ const ProposalCards = () => {
         governorContract: addresses?.governor,
     });
 
+    // Filter out canceled proposals
+    const activeProposals = proposals ? proposals.filter(proposal => proposal.state !== 2) : [];
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
             {
-                proposals ? proposals.slice(0, 3).map((proposal, index) => (
+                activeProposals.length > 0 ? activeProposals.slice(0, 3).map((proposal, index) => (
                     <ProposalCard key={index} proposal={proposal} />
                 )) : [...Array(3)].map((_, index) => <ProposalCardLoading key={index} />)
             }
