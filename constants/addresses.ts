@@ -1,4 +1,3 @@
-export const TOKEN_CONTRACT = process.env.NEXT_PUBLIC_TOKEN_CONTRACT!;
 
 export const USDC_ADDRESS = "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
 
@@ -16,3 +15,5 @@ export const DAO_ADDRESS = {
   treasury: process.env.NEXT_PUBLIC_TREASURY as `0x${string}` || "0x72ad986ebac0246d2b3c565ab2a1ce3a14ce6f88",
   governor: process.env.NEXT_PUBLIC_GOVERNOR as `0x${string}` || "0x3dd4e53a232b7b715c9ae455f4e732465ed71b4c",
 };
+
+export const TOKEN_CONTRACT = DAO_ADDRESS.nft;

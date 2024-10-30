@@ -35,6 +35,8 @@ export const getStaticProps = async (): Promise<
 > => {
   const addresses = DAO_ADDRESS;
 
+  console.log(addresses.nft)
+
   const [contract, auction] = await Promise.all([
     getContractInfo({ address: addresses.nft }),
     getCurrentAuction({ address: addresses.auction }),
