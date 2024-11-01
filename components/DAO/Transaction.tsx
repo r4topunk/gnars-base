@@ -85,82 +85,80 @@ export function TransferTransaction({
   calldata: string;
 }) {
   const valueBN = BigNumber.from(value);
-
   const { data, error } = useSWR<EtherActorResponse>(
     calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
   );
   if (!data || error) return <Fragment />;
 
-  const toAddress = data.decoded[0] as Address
+  const toAddress = data.decoded[0] as Address;
 
   return (
-    <div className="flex max-w-72 w-full flex-col gap-2 bg-skin-muted border border-skin-stroke rounded-xl overflow-hidden">
-      {/* Function */}
-      <div className="text-xl w-full bg-skin-button-accent p-2 text-center">
+    <div className="flex max-w-72 w-full flex-col gap-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg">
+      {/* Header */}
+      <div className="text-xl w-full bg-[#FF5733] dark:bg-[#C70039] text-white p-2 text-center">
         {data?.functionName || "transfer"}
       </div>
-      <div className="flex flex-col ml-2 p-2 items-center">
-        {/* Token */}
-        <div className="flex gap-2">
-          <span className="">Token:</span>
+
+      {/* Details */}
+      <div className="flex flex-col p-4 text-gray-900 dark:text-gray-200">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="font-semibold">Token:</span>
           <TokenDataRender address={target} />
         </div>
-        <div className="flex gap-2">
-          <span className="">Value:</span>
-          {
-            data?.decoded?.length ? <TokenValueRender address={target} value={BigInt(data.decoded[1])} /> : !valueBN.isZero() && (
-              <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
-            )
-          }
 
+        <div className="flex items-center gap-2 mb-2">
+          <span className="font-semibold">Value:</span>
+          {data?.decoded?.length ? (
+            <TokenValueRender address={target} value={BigInt(data.decoded[1])} />
+          ) : (
+            !valueBN.isZero() && <span>{`${ethers.utils.formatEther(valueBN)} ETH`}</span>
+          )}
         </div>
-        {/* Params */}
-        <div>
-          <span className="mr-2 ">To:</span>
+
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">To:</span>
           <FormatedTransactionValue address={toAddress} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-function TokenValueRender({ address, value }: { address: string, value: bigint }) {
+function TokenValueRender({ address, value }: { address: string; value: bigint }) {
   if (address === BASE_USDC_TOKEN_ADDRESS) {
     return (
-      <div className="flex">
+      <div className="flex items-center gap-1">
         <span>$</span>
         <span>{formatUnits(value, 6)}</span>
       </div>
-    )
+    );
   } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
     return (
-      <div className="flex">
+      <div className="flex items-center gap-1">
         <span>↗</span>
         <span>{formatUnits(value, 14)}</span>
       </div>
-    )
+    );
   }
-
   return null;
 }
 
 function TokenDataRender({ address }: { address: string }) {
   if (address === BASE_USDC_TOKEN_ADDRESS) {
     return (
-      <div className="flex gap-1">
-        <Image className="object-contain" width={16} height={16} src={"/usdc-logo.png"} alt="usdc logo" />
+      <div className="flex items-center gap-1">
+        <Image className="object-contain" width={16} height={16} src="/usdc-logo.png" alt="USDC logo" />
         <span>USDC</span>
       </div>
-    )
+    );
   } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
     return (
-      <div className="flex gap-1">
-        <Image className="object-contain" width={16} height={16} src={"/sendit-logo.png"} alt="sendit logo" />
+      <div className="flex items-center gap-1">
+        <Image className="object-contain" width={16} height={16} src="/sendit-logo.png" alt="Sendit logo" />
         <span>Sendit</span>
       </div>
-    )
+    );
   }
-
   return null;
 }
 
@@ -169,11 +167,11 @@ const FormatedTransactionValue = ({ address }: { address: Address }) => {
 
   if (ensName?.ensName) {
     return (
-      <div className="flex items-center mb-2">
+      <div className="flex items-center">
         <UserAvatar address={address} className="rounded-full" diameter={18} />
-        <p className="ml-2 text-sm">{ensName?.ensName || shortenAddress(address, 4)}</p>
+        <p className="ml-2">{ensName?.ensName || shortenAddress(address, 4)}</p>
       </div>
-    )
+    );
   }
 
   if (ethers.utils.isAddress(address))
@@ -182,7 +180,7 @@ const FormatedTransactionValue = ({ address }: { address: Address }) => {
         href={`${ETHERSCAN_BASEURL}/address/${address}`}
         rel="noopener noreferrer"
         target="_blank"
-        className="text-skin-highlighted underline"
+        className="text-blue-500 underline"
       >
         {shortenAddress(address, 4)}
       </Link>
