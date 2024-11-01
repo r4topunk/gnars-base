@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Proposal } from "@/services/nouns-builder/governor";
-import { TOKEN_CONTRACT } from "constants/addresses";
+import { TOKEN_CONTRACT, BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS } from "constants/addresses";
 import Link from "next/link";
 import { useDAOAddresses, useGetAllProposals, useTreasuryBalance } from "hooks";
 import { getProposalName } from "@/utils/getProposalName";
@@ -17,6 +17,7 @@ import { useUserVotes } from "@/hooks/fetch/useUserVotes";
 import { useCurrentThreshold } from "@/hooks/fetch/useCurrentThreshold";
 import Loading from "@/components/Loading";
 import { extractImageUrl } from "@/utils/getProposalImage";
+import { TokenDataRender } from "@/components/DAO/Transaction";
 
 export const getStaticProps = async (): Promise<
   GetStaticPropsResult<{
@@ -58,6 +59,12 @@ export default function Vote({
 
   const [selectedTab, setSelectedTab] = useState<"all" | "onboarding">("all");
 
+  const tokenAddresses = [
+    { address: BASE_USDC_TOKEN_ADDRESS, name: "USDC" },
+    { address: BASE_SENDIT_TOKEN_ADDRESS, name: "SENDIT" },
+    { address: BASE_WETH_TOKEN_ADDRESS, name: "WETH" },
+  ];
+
   const getProposalNumber = (i: number) => {
     if (!proposals) return 0;
     return proposals.length - i;
@@ -88,12 +95,23 @@ export default function Vote({
         )}
       </div>
       <div className="border border-skin-stroke rounded-2xl py-6 sm:py-0 px-6 mt-6 flex flex-col sm:flex-row sm:items-center justify-between sm:h-32">
-        <div className="sm:py-6 h-full">
+        <div className="sm:py-6 h-full flex gap-4">
           <div className="font-heading text-2xl text-skin-muted">Treasury</div>
-          <div className="text-4xl font-bold font-heading mt-2 text-skin-base">
+          {/* <div className="text-4xl font-bold font-heading mt-2 text-skin-base"> */}
             {/* Ξ {treasuryBalance ? formatTreasuryBalance(treasuryBalance) : "0"} + 117k USD */}
-            Total USD value: {treasuryBalance?.totalBalance.toFixed(2)} USD
-            
+            {/* Total USD value: {treasuryBalance?.totalBalance.toFixed(2)} USD */}
+            <div className="mt-1">
+              {treasuryBalance?.tokens.map((tokenData) => {
+                const token = tokenData.token
+                return (
+                  <div key={token.address}>
+                    <div className="text-base">
+                      {token.name} {token.balance}
+                    </div>
+                  </div>
+                )
+              })}
+            {/* </div> */}
           </div>
         </div>
         <div className="sm:w-1/3 mt-4 sm:mt-0 sm:border-l border-skin-stroke sm:pl-6 h-full flex items-center text-skin-muted">
@@ -101,7 +119,6 @@ export default function Vote({
           the long-term growth and prosperity of the project.
         </div>
       </div>
-
       <div className="mt-12">
         {/* Tab navigation */}
         <div className="flex items-center justify-between">

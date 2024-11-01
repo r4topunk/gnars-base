@@ -144,7 +144,7 @@ function TokenValueRender({ address, value }: { address: string, value: bigint }
   return null;
 }
 
-function TokenDataRender({ address }: { address: string }) {
+export function TokenDataRender({ address }: { address: string }) {
   if (address === BASE_USDC_TOKEN_ADDRESS) {
     return (
       <div className="flex gap-1">

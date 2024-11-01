@@ -7,7 +7,7 @@ export const useTreasuryBalance = ({
 }: {
   treasuryContract?: string;
 }) => {
-  return useSWR<{ tokens: TokenData, totalBalance: number }>(
+  return useSWR<{ tokens: TokenData[], totalBalance: number }>(
     treasuryContract ? `/api/treasury/${treasuryContract}` : undefined
   );
 };
