@@ -16,6 +16,8 @@ import {
   useState
 } from "react";
 import { useBalance } from "wagmi";
+import FarcasterIcon from "./FarcasterIcon";
+import { TokenData } from "../pages/api/treasury/[address]";
 
 function Navbar() {
   return (
@@ -124,51 +126,20 @@ function NavbarItem(props: NavbarItemProps) {
 function TreasureBoxItem() {
   const [treasureBalance, setTreasureBalance] = useState(0);
 
-  const { data: usdcData } = useBalance({
-    address: DAO_ADDRESS.treasury,
-    token: USDC_ADDRESS,
-  });
-  const { data: senditData } = useBalance({
-    address: DAO_ADDRESS.treasury,
-    token: BASE_SENDIT_TOKEN_ADDRESS,
-  });
-  const { data: wethData } = useBalance({
-    address: DAO_ADDRESS.treasury,
-    token: BASE_WETH_TOKEN_ADDRESS,
-  });
-  const { data: ethData } = useBalance({
-    address: DAO_ADDRESS.treasury,
-  });
-
   useEffect(() => {
-    async function fetchPrices() {
+    async function fetchTreasureBalance() {
       try {
-        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum,sendit&vs_currencies=usd`);
-        const prices = await response.json();
-
-        const ethPrice = prices.ethereum.usd;
-        const senditPrice = prices.sendit.usd;
-
-        const usdcAmount = Number(usdcData?.value) / 10 ** Number(usdcData?.decimals);
-        const ethAmount = Number(ethData?.value) / 10 ** Number(ethData?.decimals);
-        const senditAmount = Number(senditData?.value) / 10 ** Number(senditData?.decimals);
-        const wethAmount = Number(wethData?.value) / 10 ** Number(wethData?.decimals);
-
-        const usdcBalance = usdcAmount; // Assuming USDC is already in USD
-        const ethBalance = ethAmount * ethPrice;
-        const wethBalance = wethAmount * ethPrice;
-        const senditBalance = senditAmount * senditPrice;
-
-        const totalBalance = usdcBalance + ethBalance + senditBalance + wethBalance;
-
-        setTreasureBalance(totalBalance);
+        const response = await fetch('/api/treasury/' + DAO_ADDRESS.treasury);
+        const data: { tokens: TokenData[] } = await response.json();
+        console.log({data})
+        // setTreasureBalance(data.totalBalance);
       } catch (error) {
-        console.error("Failed to fetch prices:", error);
+        console.error("Failed to fetch treasure balance:", error);
       }
     }
 
-    fetchPrices();
-  }, [usdcData, senditData, ethData]);
+    fetchTreasureBalance();
+  }, []);
 
   return (
     <Link href={"/treasure"}>
@@ -186,12 +157,3 @@ function TreasureBoxItem() {
 }
 
 export default Navbar;
-
-
-function FarcasterIcon({ width, height, color }: { width?: number, height?: number, color?: string }) {
-  return (<svg width={width} height={height} viewBox={`0 0 1000 1000`} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M257.778 155.556H742.222V844.445H671.111V528.889H670.414C662.554 441.677 589.258 373.333 500 373.333C410.742 373.333 337.446 441.677 329.586 528.889H328.889V844.445H257.778V155.556Z" fill={color} />
-    <path d="M128.889 253.333L157.778 351.111H182.222V746.667C169.949 746.667 160 756.616 160 768.889V795.556H155.556C143.283 795.556 133.333 805.505 133.333 817.778V844.445H382.222V817.778C382.222 805.505 372.273 795.556 360 795.556H355.556V768.889C355.556 756.616 345.606 746.667 333.333 746.667H306.667V253.333H128.889Z" fill={color} />
-    <path d="M675.556 746.667C663.282 746.667 653.333 756.616 653.333 768.889V795.556H648.889C636.616 795.556 626.667 805.505 626.667 817.778V844.445H875.556V817.778C875.556 805.505 865.606 795.556 853.333 795.556H848.889V768.889C848.889 756.616 838.94 746.667 826.667 746.667V351.111H851.111L880 253.333H702.222V746.667H675.556Z" fill={color} />
-  </svg>)
-}

@@ -91,7 +91,9 @@ export default function Vote({
         <div className="sm:py-6 h-full">
           <div className="font-heading text-2xl text-skin-muted">Treasury</div>
           <div className="text-4xl font-bold font-heading mt-2 text-skin-base">
-            Ξ {treasuryBalance ? formatTreasuryBalance(treasuryBalance) : "0"} + 117k USD
+            {/* Ξ {treasuryBalance ? formatTreasuryBalance(treasuryBalance) : "0"} + 117k USD */}
+            Total USD value: {treasuryBalance?.totalBalance.toFixed(2)} USD
+            
           </div>
         </div>
         <div className="sm:w-1/3 mt-4 sm:mt-0 sm:border-l border-skin-stroke sm:pl-6 h-full flex items-center text-skin-muted">
