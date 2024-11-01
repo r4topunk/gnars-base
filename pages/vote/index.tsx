@@ -170,7 +170,7 @@ const ProposalPlacard = ({
     >
       <div className="flex flex-col items-start pr-4 w-full">
         <div className="flex items-center pr-4">
-          <div className="text-xl font-semibold text-skin-base flex items-center mb-3">
+          <div className="text-xl text-skin-base flex items-center mb-3">
             {showThumbnail && imageUrl ? (
               <img
                 src={imageUrl}

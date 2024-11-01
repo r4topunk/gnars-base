@@ -114,7 +114,7 @@ export default function ProposalComponent() {
         <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="For"
-            type="success"
+            type="success" // Green for "For"
             value={forVotes}
             percentage={getVotePercentage(forVotes)}
           />
@@ -122,7 +122,7 @@ export default function ProposalComponent() {
         <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="Against"
-            type="danger"
+            type="danger" // Red for "Against"
             value={againstVotes}
             percentage={getVotePercentage(againstVotes)}
           />
@@ -130,12 +130,13 @@ export default function ProposalComponent() {
         <div className="w-full bg-skin-muted dark:bg-skin-muted-dark border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6">
           <ProgressBar
             label="Abstain"
-            type="muted"
+            type="muted" // Muted color for "Abstain"
             value={abstainVotes}
             percentage={getVotePercentage(abstainVotes)}
           />
         </div>
       </div>
+
 
       <div className="items-center w-full grid sm:grid-cols-3 gap-4 mt-4">
         <div className="w-full border border-skin-stroke dark:border-skin-stroke-dark rounded-xl p-6 flex justify-between items-center sm:items-baseline">

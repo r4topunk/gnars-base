@@ -15,19 +15,19 @@ const ProgressBar = ({
 
     switch (type) {
         case "success":
-            textColor = "text-skin-proposal-success";
-            baseColor = "bg-skin-proposal-success";
-            bgColor = "bg-skin-proposal-success bg-opacity-10";
+            textColor = "text-green-700 dark:text-green-400";
+            baseColor = "bg-green-500 dark:bg-green-600";
+            bgColor = "bg-green-100 dark:bg-green-800";
             break;
         case "danger":
-            textColor = "text-skin-proposal-danger";
-            baseColor = "bg-skin-proposal-danger";
-            bgColor = "bg-skin-proposal-danger bg-opacity-10";
+            textColor = "text-red-700 dark:text-red-400";
+            baseColor = "bg-red-500 dark:bg-red-600";
+            bgColor = "bg-red-100 dark:bg-red-800";
             break;
         case "muted":
-            textColor = "text-skin-proposal-muted";
-            baseColor = "bg-skin-proposal-muted";
-            bgColor = "bg-skin-proposal-muted bg-opacity-10";
+            textColor = "text-gray-700 dark:text-gray-400";
+            baseColor = "bg-gray-400 dark:bg-gray-500";
+            bgColor = "bg-gray-100 dark:bg-gray-800";
             break;
     }
 
@@ -50,3 +50,5 @@ const ProgressBar = ({
 };
 
 export default ProgressBar;
+
+

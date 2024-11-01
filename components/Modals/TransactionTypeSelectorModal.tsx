@@ -10,40 +10,40 @@ const TransactionTypeSelectorModal = ({
 }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
-            <div className="bg-white p-8 rounded-md relative z-[1100] w-96 h-96">
+            <div className="bg-white dark:bg-black p-8 rounded-xl shadow-lg relative z-[1100] w-96 h-96 text-skin-base dark:text-white border-2 border-black dark:border-yellow-200">
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 z-[1200]"
+                    className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300"
                 >
-                    <XMarkIcon className="h-6 w-6" />
+                    <XMarkIcon className="h-6" />
                 </button>
-                <div className="text-2xl font-bold text-skin-base">Select Type</div>
-                <div className="mt-4">
+                <div className="text-2xl font-bold dark:text-yellow-200">Select Type</div>
+                <div className="mt-4 space-y-2">
                     <button
                         onClick={() => {
                             arrayHelpers.push({ address: "", valueInETH: 0 });
-                            onClose(); // Close modal after adding
+                            onClose();
                         }}
-                        className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around z-[1100] hover:bg-amber-500"
+                        className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600"
                     >
                         SEND ETH
                     </button>
                     <button
                         onClick={() => {
                             arrayHelpers.push({ address: "0x41CB654D1F47913ACAB158a8199191D160DAbe4A", valueInUSDC: 0, transactionType: "USDC" });
-                            onClose(); // Close modal after adding
+                            onClose();
                         }}
-                        className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500"
+                        className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600"
                     >
                         SEND USDC
                     </button>
-                    <button className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500">
+                    <button className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600">
                         <div>SEND GNAR (SOON)</div>
                     </button>
-                    <button className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500">
+                    <button className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600">
                         <div>AIRDROP RANDOM GNAR (SOON)</div>
                     </button>
-                    <button className="bg-skin-muted text-skin-base rounded-lg text-md w-full h-12 flex items-center justify-around mt-2 z-[1100] hover:bg-amber-500">
+                    <button className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600">
                         <div>DROPOSAL MINT</div>
                     </button>
                 </div>
