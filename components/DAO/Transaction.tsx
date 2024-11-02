@@ -1,13 +1,11 @@
-import { Address, formatUnits } from "viem";
-import { BigNumber, ethers } from "ethers";
+import { Address } from "viem";
+import { BigNumber } from "ethers";
 import useSWR from "swr";
 import { ETHER_ACTOR_BASEURL, ETHERSCAN_BASEURL } from "constants/urls";
-import FormatedTransactionValue from "./Transactions/FormatedTransactionValue";
-import TokenDataRender from "./Transactions/TokenDataRender";
-import TokenValueRender from "./Transactions/TokenValueRender";
 import Skeleton from "./Transactions/Skeleton";
-import Link from "next/link";
-import { Fragment } from "react";
+import NFTTransferTransaction from "./Transactions/NFTTransferTransaction";
+import TransferTransaction from "./Transactions/TransferTransaction";
+import EthTransferTransaction from "./Transactions/EthTransferTransaction";
 
 type EtherActorResponse = {
   name: string;
@@ -22,108 +20,31 @@ export function ProposedTransactions({
   calldata,
 }: {
   target: string;
-  value: number;
+  value: BigInt;
   calldata: string;
 }) {
   const { data, error } = useSWR<EtherActorResponse>(
     calldata && calldata !== "0x" ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null
   );
 
-  console.log(data);
-
   if (!data && calldata && calldata !== "0x") return <Skeleton />;
   if (error) return <div>Error loading transaction data</div>;
 
-  const valueBN = BigNumber.from(value);
   const functionName = data?.functionName || "transfer";
-
-  const toAddress = data?.decoded?.[0] as Address | undefined;
-  console.log({ toAddress }, { data }, { valueBN });
-  console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
-  const linkIfAddress = (value: string) => {
-    if (ethers.utils.isAddress(value))
-      return (
-        <Link
-          href={`${ETHERSCAN_BASEURL}/address/${value}`}
-          rel="noopener noreferrer"
-          target="_blank"
-          className="text-skin-highlighted underline"
-        >
-          {value}
-        </Link>
-      );
-    return value;
-  };
-
-  return (
-    <div className="transaction-card">
-      <div className="transaction-header">{functionName}</div>
-      <div className="transaction-content">
-        <div className="transaction-detail">
-          {linkIfAddress(target)}
-          <span>{`.${functionName}(`}</span>
-        </div>
-        {data?.decoded?.length ? (
-          data.decoded.map((decoded, index) => (
-            <div className="ml-4" key={index}>
-              {linkIfAddress(decoded)}
-            </div>
-          ))
-        ) : (
-          !valueBN.isZero() && (
-            <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
-          )
-        )}
-        <div>{")"}</div>
-      </div>
-    </div>
-  );
-}
-
-export function TransferTransaction({
-  target,
-  value,
-  calldata,
-}: {
-  target: string;
-  value: number;
-  calldata: string;
-}) {
-  const valueBN = BigNumber.from(value);
-  const { data, error } = useSWR<EtherActorResponse>(
-    calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null
-  );
-  if (!data && calldata && calldata !== "0x") return <Skeleton />;
-  if (error) return <div>Error loading transaction data</div>;
   const toAddress = data?.decoded?.[0] as Address | undefined;
 
-  console.log(target)
-  return (
-    <div className="transaction-card">
-      <div className="transaction-header">{data?.functionName || "transfer"}</div>
-      <div className="transaction-content">
-        <div className="transaction-detail">
-          <TokenDataRender address={target} />
-        </div>
-        <div className="transaction-detail">
-          <span className="font-semibold">Value:</span>
-          {data?.decoded?.length ? (
-            <TokenValueRender address={target} value={BigInt(data.decoded[1])} />
-          ) : (
-            !valueBN.isZero() && <span>{` ${ethers.utils.formatEther(valueBN)} ETH`}</span>
-          )}
-        </div>
-        <div className="transaction-detail">
-          <span className="font-semibold">To:</span>
-          {toAddress ? (
-            <FormatedTransactionValue address={toAddress} />
-          ) : (
-            <span className="text-gray-500">{` ${target}`}</span>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  // Determine the type of transaction to render
+  if (calldata === "0x") {
+    // Render EthTransferTransaction for ETH transfers without calldata
+    console.log("ProposedTransactions", { target, value, calldata, data });
+    return <EthTransferTransaction toAddress={target as `0x${string}`} value={value} />;
+  } else if (functionName === "transferFrom") {
+    // Render NFTTransferTransaction for NFT transfers
+    return <NFTTransferTransaction target={target} decoded={data?.decoded || []} calldata={calldata} />;
+  } else {
+    // Render TransferTransaction for other transfers
+    return <TransferTransaction target={target} value={Number(value)} calldata={calldata} />;
+  }
 }
 
-export default TransferTransaction;
+export default ProposedTransactions;

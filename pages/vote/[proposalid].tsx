@@ -189,7 +189,7 @@ export default function ProposalComponent() {
             {getProposalDescription(proposal.description)}
           </ReactMarkdown>
           <div className="text-2xl font-heading text-skin-base dark:text-skin-base-dark mt-8 font-bold">Proposed Transactions</div>
-          <div className="mt-4 max-w-[75vw] flex flex-col gap-4">
+          <div className="mt-4 max-w-[75vw] grid grid-cols-1 sm:grid-cols-2 gap-4">
             {proposal.targets.map((_, index) =>
               [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS].includes(proposal.targets[index]) ? (
                 <TransferTransaction
@@ -202,7 +202,7 @@ export default function ProposalComponent() {
                 <ProposedTransactions
                   key={index}
                   target={proposal.targets[index]}
-                  value={proposal.values[index]}
+                  value={proposal.values[index] as any}
                   calldata={proposal.calldatas[index]}
                 />
               )
