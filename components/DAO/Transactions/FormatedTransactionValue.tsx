@@ -7,7 +7,7 @@ import UserAvatar from "@/components/UserAvatar";
 import { ethers } from "ethers";
 const FormatedTransactionValue = ({ address }: { address: Address }) => {
     const { data: ensName } = useEnsName(address);
-
+    console.log("FormatedTransactionValue", { address }, { ensName });
     if (ensName?.ensName) {
         return (
             <div className="flex items-center">

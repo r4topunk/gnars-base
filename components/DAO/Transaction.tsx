@@ -38,7 +38,8 @@ export function ProposedTransactions({
   const functionName = data?.functionName || "transfer";
 
   const toAddress = data?.decoded?.[0] as Address | undefined;
-
+  console.log({ toAddress }, { data }, { valueBN });
+  console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
   const linkIfAddress = (value: string) => {
     if (ethers.utils.isAddress(value))
       return (
@@ -96,14 +97,12 @@ export function TransferTransaction({
   if (error) return <div>Error loading transaction data</div>;
   const toAddress = data?.decoded?.[0] as Address | undefined;
 
-  console.log({ toAddress }, { data }, { valueBN });
-
+  console.log(target)
   return (
     <div className="transaction-card">
       <div className="transaction-header">{data?.functionName || "transfer"}</div>
       <div className="transaction-content">
         <div className="transaction-detail">
-          <span className="font-semibold">Token:</span>
           <TokenDataRender address={target} />
         </div>
         <div className="transaction-detail">
@@ -111,7 +110,7 @@ export function TransferTransaction({
           {data?.decoded?.length ? (
             <TokenValueRender address={target} value={BigInt(data.decoded[1])} />
           ) : (
-            !valueBN.isZero() && <span>{`${ethers.utils.formatEther(valueBN)} ETH`}</span>
+            !valueBN.isZero() && <span>{` ${ethers.utils.formatEther(valueBN)} ETH`}</span>
           )}
         </div>
         <div className="transaction-detail">
@@ -119,7 +118,7 @@ export function TransferTransaction({
           {toAddress ? (
             <FormatedTransactionValue address={toAddress} />
           ) : (
-            <span className="text-gray-500">Address not available</span>
+            <span className="text-gray-500">{` ${target}`}</span>
           )}
         </div>
       </div>
