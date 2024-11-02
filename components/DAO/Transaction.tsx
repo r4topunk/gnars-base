@@ -1,14 +1,13 @@
-import { shortenAddress } from "@/utils/shortenAddress";
-import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
-import { ETHERSCAN_BASEURL, ETHER_ACTOR_BASEURL } from "constants/urls";
+import { Address, formatUnits } from "viem";
 import { BigNumber, ethers } from "ethers";
+import useSWR from "swr";
+import { ETHER_ACTOR_BASEURL, ETHERSCAN_BASEURL } from "constants/urls";
+import FormatedTransactionValue from "./Transactions/FormatedTransactionValue";
+import TokenDataRender from "./Transactions/TokenDataRender";
+import TokenValueRender from "./Transactions/TokenValueRender";
+import Skeleton from "./Transactions/Skeleton";
 import Link from "next/link";
 import { Fragment } from "react";
-import useSWR from "swr";
-import { Address, formatUnits } from "viem";
-import UserAvatar from "../UserAvatar";
-import useEnsName from "@/hooks/fetch/useEnsName";
-import Image from "next/image";
 
 type EtherActorResponse = {
   name: string;
@@ -17,7 +16,7 @@ type EtherActorResponse = {
   isVerified: boolean;
 };
 
-export const ProposedTransactions = ({
+export function ProposedTransactions({
   target,
   value,
   calldata,
@@ -25,15 +24,20 @@ export const ProposedTransactions = ({
   target: string;
   value: number;
   calldata: string;
-}) => {
+}) {
   const { data, error } = useSWR<EtherActorResponse>(
-    calldata && calldata !== "0x" ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
+    calldata && calldata !== "0x" ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null
   );
+
+  console.log(data);
+
+  if (!data && calldata && calldata !== "0x") return <Skeleton />;
+  if (error) return <div>Error loading transaction data</div>;
+
   const valueBN = BigNumber.from(value);
+  const functionName = data?.functionName || "transfer";
 
-  // console.log("ProposedTransactions", { data }, { error }, { calldata }, valueBN, value, ethers.utils.formatEther(valueBN))
-
-  if (calldata !== "0x" && (!data || error)) return <Fragment />;
+  const toAddress = data?.decoded?.[0] as Address | undefined;
 
   const linkIfAddress = (value: string) => {
     if (ethers.utils.isAddress(value))
@@ -47,18 +51,18 @@ export const ProposedTransactions = ({
           {value}
         </Link>
       );
-
     return value;
   };
 
   return (
-    <div className="w-full">
-      <div className="break-words">
-        {linkIfAddress(target)}
-        <span>{`.${data?.functionName || "transfer"}(`}</span>
-      </div>
-      {
-        data?.decoded.length ? (
+    <div className="transaction-card">
+      <div className="transaction-header">{functionName}</div>
+      <div className="transaction-content">
+        <div className="transaction-detail">
+          {linkIfAddress(target)}
+          <span>{`.${functionName}(`}</span>
+        </div>
+        {data?.decoded?.length ? (
           data.decoded.map((decoded, index) => (
             <div className="ml-4" key={index}>
               {linkIfAddress(decoded)}
@@ -68,12 +72,12 @@ export const ProposedTransactions = ({
           !valueBN.isZero() && (
             <div className="ml-4">{`${ethers.utils.formatEther(valueBN)} ETH`}</div>
           )
-        )
-      }
-      <div>{")"}</div>
+        )}
+        <div>{")"}</div>
+      </div>
     </div>
   );
-};
+}
 
 export function TransferTransaction({
   target,
@@ -86,27 +90,23 @@ export function TransferTransaction({
 }) {
   const valueBN = BigNumber.from(value);
   const { data, error } = useSWR<EtherActorResponse>(
-    calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : undefined
+    calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null
   );
-  if (!data || error) return <Fragment />;
+  if (!data && calldata && calldata !== "0x") return <Skeleton />;
+  if (error) return <div>Error loading transaction data</div>;
+  const toAddress = data?.decoded?.[0] as Address | undefined;
 
-  const toAddress = data.decoded[0] as Address;
+  console.log({ toAddress }, { data }, { valueBN });
 
   return (
-    <div className="flex max-w-72 w-full flex-col gap-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg">
-      {/* Header */}
-      <div className="text-xl w-full bg-[#FF5733] dark:bg-[#C70039] text-white p-2 text-center">
-        {data?.functionName || "transfer"}
-      </div>
-
-      {/* Details */}
-      <div className="flex flex-col p-4 text-gray-900 dark:text-gray-200">
-        <div className="flex items-center gap-2 mb-2">
+    <div className="transaction-card">
+      <div className="transaction-header">{data?.functionName || "transfer"}</div>
+      <div className="transaction-content">
+        <div className="transaction-detail">
           <span className="font-semibold">Token:</span>
           <TokenDataRender address={target} />
         </div>
-
-        <div className="flex items-center gap-2 mb-2">
+        <div className="transaction-detail">
           <span className="font-semibold">Value:</span>
           {data?.decoded?.length ? (
             <TokenValueRender address={target} value={BigInt(data.decoded[1])} />
@@ -114,77 +114,17 @@ export function TransferTransaction({
             !valueBN.isZero() && <span>{`${ethers.utils.formatEther(valueBN)} ETH`}</span>
           )}
         </div>
-
-        <div className="flex items-center gap-2">
+        <div className="transaction-detail">
           <span className="font-semibold">To:</span>
-          <FormatedTransactionValue address={toAddress} />
+          {toAddress ? (
+            <FormatedTransactionValue address={toAddress} />
+          ) : (
+            <span className="text-gray-500">Address not available</span>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function TokenValueRender({ address, value }: { address: string; value: bigint }) {
-  if (address === BASE_USDC_TOKEN_ADDRESS) {
-    return (
-      <div className="flex items-center gap-1">
-        <span>$</span>
-        <span>{formatUnits(value, 6)}</span>
-      </div>
-    );
-  } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
-    return (
-      <div className="flex items-center gap-1">
-        <span>↗</span>
-        <span>{formatUnits(value, 14)}</span>
-      </div>
-    );
-  }
-  return null;
-}
-
-function TokenDataRender({ address }: { address: string }) {
-  if (address === BASE_USDC_TOKEN_ADDRESS) {
-    return (
-      <div className="flex items-center gap-1">
-        <Image className="object-contain" width={16} height={16} src="/usdc-logo.png" alt="USDC logo" />
-        <span>USDC</span>
-      </div>
-    );
-  } else if (address === BASE_SENDIT_TOKEN_ADDRESS) {
-    return (
-      <div className="flex items-center gap-1">
-        <Image className="object-contain" width={16} height={16} src="/sendit-logo.png" alt="Sendit logo" />
-        <span>Sendit</span>
-      </div>
-    );
-  }
-  return null;
-}
-
-const FormatedTransactionValue = ({ address }: { address: Address }) => {
-  const { data: ensName } = useEnsName(address);
-
-  if (ensName?.ensName) {
-    return (
-      <div className="flex items-center">
-        <UserAvatar address={address} className="rounded-full" diameter={18} />
-        <p className="ml-2">{ensName?.ensName || shortenAddress(address, 4)}</p>
-      </div>
-    );
-  }
-
-  if (ethers.utils.isAddress(address))
-    return (
-      <Link
-        href={`${ETHERSCAN_BASEURL}/address/${address}`}
-        rel="noopener noreferrer"
-        target="_blank"
-        className="text-blue-500 underline"
-      >
-        {shortenAddress(address, 4)}
-      </Link>
-    );
-
-  return <span>{address}</span>;
-};
+export default TransferTransaction;

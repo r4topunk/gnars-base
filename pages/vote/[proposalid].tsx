@@ -16,14 +16,14 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import { ProposedTransactions, TransferTransaction } from "@/components/DAO/Transaction";
 import { BASE_SENDIT_TOKEN_ADDRESS, BASE_USDC_TOKEN_ADDRESS } from "constants/gnarsDao";
 import { VoteButton } from "@/components/DAO/VoteButton";
 import ProgressBar from "@/components/DAO/ProgressBar";
 import { getTime } from "@/utils/getTime";
 import VoteList, { SubGraphProposal } from "@/components/DAO/voteList";
 import { useFetchProposalVotes } from "@/hooks/fetch/useFetchProposalVotes";
-
+import { TransferTransaction } from "@/components/DAO/Transactions/TransferTransaction";
+import ProposedTransactions from "@/components/DAO/Transaction";
 export default function ProposalComponent() {
   const { data: addresses } = useDAOAddresses({
     tokenContract: TOKEN_CONTRACT,
