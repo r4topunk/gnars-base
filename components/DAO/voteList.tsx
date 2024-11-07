@@ -53,31 +53,32 @@ const VoteItem = ({
     const votePercentage = totalWeight > 0 ? ((weight / totalWeight) * 100).toFixed(2) : "0.00";
 
     return (
-        <div className="flex mb-4 p-4 border border-skin-stroke rounded-md items-center">
+        <div className="flex mb-4 p-4 pt-3 border !border-opacity-10 rounded-md items-center group">
             <img
                 src={ensAvatar || "/sktloading.gif"}
                 alt="ENS Avatar"
-                className="w-8 h-8 rounded-full mr-4"
+                className="w-8 h-8 rounded-full mr-2 place-self-start"
             />
-            <div>
+            <div className="w-full">
                 <div className="flex items-center">
                     <span className="font-bold">{displayName}</span>
-                    <span className="ml-2 text-skin-muted">voted</span>
+                    <span className="ml-1 text-skin-muted">voted</span>
                     <span
-                        className={`ml-2 ${support === "FOR"
+                        className={`ml-1 ${support === "FOR"
                             ? "text-green-500"
                             : "text-red-500"
                             }`}
                     >
                         {support}
                     </span>
-                    <span className="ml-2">with {weight} votes</span>
-                    <span className="ml-2 text-blue-500">{votePercentage}%</span>
+                    <span className="ml-1">with<span className="text-blue-400 mx-1">{weight}</span>votes</span>
+                    <span className="ml-1 text-blue-500 hidden group-hover:block">({votePercentage}%)</span>
                 </div>
-                <div>
-                    <span className="font-semibold">Reason:</span>{" "}
-                    {reason || "No reason provided"}
-                </div>
+                {reason && (
+                    <div className="bg-black dark:bg-white bg-opacity-5 dark:bg-opacity-10 rounded-xl p-4 mt-2 w-full">
+                        {reason}
+                    </div>
+                )}
             </div>
         </div>
     );
