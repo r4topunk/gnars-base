@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { shortenAddress } from "@/utils/shortenAddress";
 import useEnsName from "@/hooks/fetch/useEnsName";
 import useEnsAvatar from "@/hooks/fetch/useEnsAvatar";
@@ -66,7 +67,9 @@ const VoteItem = ({
                     <span
                         className={`ml-1 ${support === "FOR"
                             ? "text-green-500"
-                            : "text-red-500"
+                            : support === "AGAINST"
+                            ? "text-red-500"
+                            : "text-gray-500"
                             }`}
                     >
                         {support}
@@ -85,15 +88,31 @@ const VoteItem = ({
 };
 
 const VoteList = ({ proposal }: VoteListProps) => {
+    const [filter, setFilter] = useState<string>("All");
     const totalWeight = proposal.votes.reduce((sum, vote) => sum + vote.weight, 0);
 
-    console.log({ proposal });
+    const supportOptions = ["All", ...Array.from(new Set(proposal.votes.map(vote => vote.support)))];
+
+    const filteredVotes = filter === "All" ? proposal.votes : proposal.votes.filter(vote => vote.support === filter);
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-4">Votes</h2>
-            {proposal.votes.length > 0 ? (
-                proposal.votes
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold">Votes</h2>
+                <select 
+                    value={filter} 
+                    onChange={(e) => setFilter(e.target.value)} 
+                    className="border rounded px-2 py-1 text-center focus:outline-none"
+                >
+                    {supportOptions.map(option => (
+                        <option key={option} value={option}>
+                            {option.charAt(0).toUpperCase() + option.slice(1).toLowerCase()}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            {filteredVotes.length > 0 ? (
+                filteredVotes
                     .sort((a, b) => b.weight - a.weight)
                     .map((vote, index) => (
                         <VoteItem
