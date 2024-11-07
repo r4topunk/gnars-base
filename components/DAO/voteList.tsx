@@ -24,7 +24,7 @@ export type SubGraphProposal = {
     voteEnd: number;
     votes: {
         voter: string;
-        support: boolean;
+        support: "FOR" | "AGAINST" | "ABSTAIN";
         weight: number;
         reason: string;
     }[];
@@ -38,7 +38,7 @@ const VoteItem = ({
     totalWeight,
 }: {
     voter: string;
-    support: boolean;
+    support: "FOR" | "AGAINST" | "ABSTAIN";
     weight: number;
     reason: string;
     totalWeight: number;
@@ -51,7 +51,6 @@ const VoteItem = ({
     const ensAvatar = ensAvatarData?.ensAvatar;
 
     const votePercentage = totalWeight > 0 ? ((weight / totalWeight) * 100).toFixed(2) : "0.00";
-    const supportText = support ? "FOR" : "AGAINST";
 
     return (
         <div className="flex mb-4 p-4 border border-skin-stroke rounded-md items-center">
@@ -65,12 +64,12 @@ const VoteItem = ({
                     <span className="font-bold">{displayName}</span>
                     <span className="ml-2 text-skin-muted">voted</span>
                     <span
-                        className={`ml-2 ${supportText === "FOR"
+                        className={`ml-2 ${support === "FOR"
                             ? "text-green-500"
                             : "text-red-500"
                             }`}
                     >
-                        {supportText}
+                        {support}
                     </span>
                     <span className="ml-2">with {weight} votes</span>
                     <span className="ml-2 text-blue-500">{votePercentage}%</span>
@@ -86,6 +85,8 @@ const VoteItem = ({
 
 const VoteList = ({ proposal }: VoteListProps) => {
     const totalWeight = proposal.votes.reduce((sum, vote) => sum + vote.weight, 0);
+
+    console.log({ proposal });
 
     return (
         <div>
