@@ -55,7 +55,7 @@ const VoteItem = ({
     return (
         <div className="flex mb-4 p-4 pt-3 border !border-opacity-10 rounded-md items-center group">
             <img
-                src={ensAvatar || "/sktloading.gif"}
+                src={ensAvatar || "/default_user.png"}
                 alt="ENS Avatar"
                 className="w-8 h-8 rounded-full mr-2 place-self-start"
             />
