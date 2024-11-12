@@ -22,18 +22,18 @@ const TransactionItem = ({
             <Field
                 name={`transactions[${index}].address`}
                 placeholder="0x04bfb0034F24E..."
-                className="bg-gray-100 dark:bg-opacity-5 text-skin-base placeholder:text-skin-muted px-3 py-3 rounded-lg w-full text-md mt-2 focus:outline-none"
+                className="bg-gray-100 dark:bg-opacity-5 text-skin-base placeholder:text-gray-500 px-3 py-3 rounded-lg w-full text-md mt-2 focus:outline-none"
             />
             <label className="text-sm mt-4">Value</label>
             <div className="flex items-center mt-2">
                 <Field
-                    name={`transactions[${index}].${values.transactions[index].transactionType === 'USDC' ? 'valueInUSDC' : 'valueInETH'}`}
+                    name={`transactions[${index}].value`}
                     placeholder={values.transactions[index].transactionType === "USDC" ? "100 (USDC)" : "0.1 (ETH)"}
                     type="number"
-                    className="bg-gray-100 dark:bg-opacity-5 text-skin-base placeholder:text-skin-muted px-3 py-3 rounded-l-lg w-full text-md focus:outline-none"
+                    className="bg-gray-100 dark:bg-opacity-5 text-skin-base placeholder:text-gray-500 px-3 py-3 rounded-l-lg w-full text-md focus:outline-none"
                 />
                 <label className="bg-gray-100 dark:bg-opacity-5 rounded-r-lg h-12 flex items-center border-l px-4">
-                    {values.transactions[index].transactionType === "USDC" ? "USDC" : "ETH"}
+                    {values.transactions[index].transactionType}
                 </label>
             </div>
 

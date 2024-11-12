@@ -21,7 +21,7 @@ const TransactionTypeSelectorModal = ({
                 <div className="mt-4 space-y-2">
                     <button
                         onClick={() => {
-                            arrayHelpers.push({ address: "", valueInETH: 0 });
+                            arrayHelpers.push({ address: "", transactionType: "ETH" });
                             onClose();
                         }}
                         className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600"
@@ -30,7 +30,7 @@ const TransactionTypeSelectorModal = ({
                     </button>
                     <button
                         onClick={() => {
-                            arrayHelpers.push({ address: "0x41CB654D1F47913ACAB158a8199191D160DAbe4A", valueInUSDC: 0, transactionType: "USDC" });
+                            arrayHelpers.push({ address: "", transactionType: "USDC" });
                             onClose();
                         }}
                         className="bg-skin-backdrop dark:bg-gray-700 hover:bg-skin-muted dark:hover:bg-gray-600 text-skin-muted dark:text-gray-300 rounded-xl py-2 w-full border border-skin-stroke dark:border-gray-600"

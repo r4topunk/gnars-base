@@ -1,6 +1,5 @@
 'use client';
 import { useFormikContext } from "formik";
-import { parseEther } from "ethers/lib/utils";
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
 import { useDAOAddresses } from "@/hooks/fetch";
@@ -15,16 +14,20 @@ import { ethers } from "ethers";
 import { GovernorABI } from "@buildersdk/sdk";
 import USDC_ABI from "constants/USDC_ABI";
 import { BigNumber } from "ethers";
+import { Interface, parseEther } from "ethers/lib/utils.js";
+import { parseUnits } from "ethers/lib/utils.js";
 export interface FormTransaction {
     address: string;
-    valueInETH?: number;  // For ETH transactions
-    valueInUSDC?: number; // For USDC transactions
+    value: number; // Use a single 'value' field
     transactionType: "ETH" | "USDC";
 }
 
 const SubmitButton = () => {
     const { values: formValues } = useFormikContext<{ transactions: FormTransaction[]; title: string; summary: string }>();
     const { transactions, title, summary } = formValues || {};
+
+    // console.log("Form Values:", formValues); // Debugging statement
+
     const { data: addresses } = useDAOAddresses({
         tokenContract: TOKEN_CONTRACT,
     });
@@ -33,36 +36,38 @@ const SubmitButton = () => {
         governorContract: addresses?.governor,
     });
 
-    // Separate ETH and USDC transactions
-    const ethTransactions = transactions.filter((t) => t.transactionType === "ETH");
-    const usdcTransactions = transactions.filter((t) => t.transactionType === "USDC");
+    // Simplify transaction preparation
+    const { targets, values, callDatas } = useMemo(() => {
+        if (!transactions) return { targets: [], values: [], callDatas: [] };
 
-    // Memoize USDC Call Data to avoid re-calculations on each render
-    const usdcCallDatas = useMemo(() => {
-        if (!usdcTransactions.length) return [];
+        const usdcInterface = new Interface(USDC_ABI);
 
-        const usdcTargets = usdcTransactions.map((t) => t.address as `0x${string}`);
-        const usdcValues = usdcTransactions.map((t) => ethers.utils.parseUnits(t.valueInUSDC?.toString() || "0", 6));
+        const preparedTransactions = transactions
+            .filter(t => t.address && t.value > 0 && t.transactionType) // Filter out incomplete or zero-value transactions
+            .map((t) => {
+                const target = t.address as `0x${string}`;
+                let value = BigNumber.from(0);
+                let callData: `0x${string}` = "0x";
 
-        return usdcTransactions.map((_, index) => {
-            const usdcInterface = new ethers.utils.Interface(USDC_ABI);
-            return usdcInterface.encodeFunctionData("transfer", [
-                usdcTargets[index],  // Ensure this is a valid Ethereum address (0x...)
-                usdcValues[index]    // Ensure this is a valid uint256 value parsed to 6 decimals
-            ]);
-        });
-    }, [usdcTransactions]);  // Dependency array ensures recalculation only when usdcTransactions change
+                if (t.transactionType === "ETH") {
+                    value = parseEther(t.value.toString());
+                } else if (t.transactionType === "USDC") {
+                    const amount = parseUnits(t.value.toString(), 6);
+                    callData = usdcInterface.encodeFunctionData("transfer", [target, amount]) as `0x${string}`;
+                }
 
-    // Prepare ETH transactions
-    const ethTargets: readonly `0x${string}`[] = ethTransactions.map((t) => t.address as `0x${string}`);
-    const ethValues: readonly BigNumber[] = ethTransactions.map((t) => t.valueInETH ? parseEther(t.valueInETH.toString()) : parseEther("0"));
+                // console.log("Prepared Transaction:", { target, value: value.toString(), callData, tValue: t.value }); // Debugging statement
 
-    const ethCallDatas = ethTransactions?.map(() => "0x" as `0x${string}`) || [];
+                return { target, value, callData };
+            });
 
-    // Combine ETH and USDC transactions
-    const targets: readonly `0x${string}`[] = [...ethTargets, ...usdcTransactions.map(t => t.address as `0x${string}`)];
-    const values: readonly BigNumber[] = [...ethValues, ...Array(usdcTransactions.length).fill(ethers.BigNumber.from(0))]; // USDC has no native value transfer
-    const callDatas = [...ethCallDatas, ...usdcCallDatas] as readonly `0x${string}`[];
+        return {
+            targets: preparedTransactions.map(pt => pt.target) as readonly `0x${string}`[],
+            values: preparedTransactions.map(pt => pt.value) as readonly BigNumber[],
+            callDatas: preparedTransactions.map(pt => pt.callData) as readonly `0x${string}`[],
+        };
+    }, [transactions]);
+
     const description = `${title}&&${summary}`;
 
     // Ensure args are properly typed
@@ -72,6 +77,8 @@ const SubmitButton = () => {
         callDatas,
         description
     ];
+
+    // console.log("Args:", args); // Debugging statement
 
     const debouncedArgs = useDebounce(args);
 
@@ -90,10 +97,10 @@ const SubmitButton = () => {
 
     return (
         <AuthWrapper
-            className={`${write ? "bg-skin-button-accent hover:bg-skin-button-accent-hover" : "bg-skin-button-muted"
-                } text-skin-inverted rounded-lg text-md w-full h-12 mt-4 flex items-center justify-around`}
+            className=""
         >
             <button
+                className={`bg-amber-500 text-amber-950 font-bold disabled:bg-gray-200 tracking-wide rounded-lg text-md w-full h-12 mt-4 flex items-center justify-center gap-2`}
                 onClick={() => write?.()}
                 disabled={!hasBalance || !write || isSuccess || isLoading}
                 type="button"

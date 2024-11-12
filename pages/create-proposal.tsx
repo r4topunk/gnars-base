@@ -1,18 +1,33 @@
+"use client";
+
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import TransactionList from "@/components/Transactions/TransactionList";
 import HTMLTextEditor from "@/components/HTMLTextEditor";
-import SubmitButton from "@/components/SubmitButton";
+import SubmitButton, { FormTransaction } from "@/components/SubmitButton";
 import { Formik, Form, Field } from "formik";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { Transaction } from "ethers";
 import { title } from "process";
-export interface Values {  // <--- Add 'export' here
+import { useState, useEffect } from "react";
+
+export interface Values {
   title: string;
   summary: string;
-  transactions: Transaction[];
+  transactions: FormTransaction[]; // Use the updated FormTransaction interface
 }
+
 export default function Create() {
+  const [initialValues, setInitialValues] = useState<Values | null>(null);
+
+  useEffect(() => {
+    setInitialValues({ title: "My New Proposal", transactions: [], summary: "" });
+  }, []);
+
+  if (!initialValues) {
+    return null;
+  }
+
   return (
     <Layout>
       <div className="flex flex-col items-center">
@@ -31,7 +46,7 @@ export default function Create() {
           </div>
 
           <Formik
-            initialValues={{ title: "", transactions: [], summary: "" }}
+            initialValues={initialValues}
             onSubmit={() => { }}
           >
             {({ values }) => (
@@ -43,7 +58,7 @@ export default function Create() {
                 <Field
                   name="title"
                   type="text"
-                  placeholder="My New Proposal"
+                  // placeholder="My New Proposal"
                   className="bg-skin-muted text-skin-base placeholder:text-skin-muted px-3 py-3 rounded-lg w-full text-md mt-2 border-amber-400 border "
                 />
 
