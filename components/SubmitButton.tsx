@@ -43,7 +43,7 @@ const SubmitButton = () => {
             .filter(t => t.address && t.value > 0 && t.transactionType) // Filter out incomplete or zero-value transactions
             .map((t) => {
                 let value = BigNumber.from(0);
-                let target:Address = "0x";
+                let target: Address = "0x";
                 let callData: Address = "0x";
 
                 if (t.transactionType === "ETH") {
