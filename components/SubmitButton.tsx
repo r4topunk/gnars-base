@@ -1,32 +1,29 @@
 'use client';
-import { useFormikContext } from "formik";
-import { useDebounce } from "@/hooks/useDebounce";
-import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
-import { useDAOAddresses } from "@/hooks/fetch";
-import { TOKEN_CONTRACT, USDC_ADDRESS } from "constants/addresses";
-import { useUserVotes } from "@/hooks/fetch/useUserVotes";
-import { useCurrentThreshold } from "@/hooks/fetch/useCurrentThreshold";
 import AuthWrapper from "@/components/AuthWrapper";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
-import { Fragment, useMemo } from "react";
-import { ethers } from "ethers";
+import { useDAOAddresses } from "@/hooks/fetch";
+import { useCurrentThreshold } from "@/hooks/fetch/useCurrentThreshold";
+import { useUserVotes } from "@/hooks/fetch/useUserVotes";
+import { useDebounce } from "@/hooks/useDebounce";
 import { GovernorABI } from "@buildersdk/sdk";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { TOKEN_CONTRACT, USDC_ADDRESS } from "constants/addresses";
 import USDC_ABI from "constants/USDC_ABI";
 import { BigNumber } from "ethers";
-import { Interface, parseEther } from "ethers/lib/utils.js";
-import { parseUnits } from "ethers/lib/utils.js";
+import { Interface, parseEther, parseUnits } from "ethers/lib/utils.js";
+import { useFormikContext } from "formik";
+import Image from "next/image";
+import { useMemo } from "react";
+import { Address, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+
 export interface FormTransaction {
     address: string;
-    value: number; // Use a single 'value' field
+    value: number;
     transactionType: "ETH" | "USDC";
 }
 
 const SubmitButton = () => {
     const { values: formValues } = useFormikContext<{ transactions: FormTransaction[]; title: string; summary: string }>();
     const { transactions, title, summary } = formValues || {};
-
-    // console.log("Form Values:", formValues); // Debugging statement
 
     const { data: addresses } = useDAOAddresses({
         tokenContract: TOKEN_CONTRACT,
@@ -45,33 +42,32 @@ const SubmitButton = () => {
         const preparedTransactions = transactions
             .filter(t => t.address && t.value > 0 && t.transactionType) // Filter out incomplete or zero-value transactions
             .map((t) => {
-                const target = t.address as `0x${string}`;
                 let value = BigNumber.from(0);
-                let callData: `0x${string}` = "0x";
+                let target:Address = "0x";
+                let callData: Address = "0x";
 
                 if (t.transactionType === "ETH") {
                     value = parseEther(t.value.toString());
+                    target = t.address as Address;
                 } else if (t.transactionType === "USDC") {
+                    target = USDC_ADDRESS as Address;
                     const amount = parseUnits(t.value.toString(), 6);
-                    callData = usdcInterface.encodeFunctionData("transfer", [target, amount]) as `0x${string}`;
+                    callData = usdcInterface.encodeFunctionData("transfer", [t.address, amount]) as Address;
                 }
-
-                // console.log("Prepared Transaction:", { target, value: value.toString(), callData, tValue: t.value }); // Debugging statement
-
                 return { target, value, callData };
             });
 
         return {
-            targets: preparedTransactions.map(pt => pt.target) as readonly `0x${string}`[],
+            targets: preparedTransactions.map(pt => pt.target) as readonly Address[],
             values: preparedTransactions.map(pt => pt.value) as readonly BigNumber[],
-            callDatas: preparedTransactions.map(pt => pt.callData) as readonly `0x${string}`[],
+            callDatas: preparedTransactions.map(pt => pt.callData) as readonly Address[],
         };
     }, [transactions]);
 
     const description = `${title}&&${summary}`;
 
     // Ensure args are properly typed
-    const args: readonly [readonly `0x${string}`[], readonly BigNumber[], readonly `0x${string}`[], string] = [
+    const args: readonly [readonly Address[], readonly BigNumber[], readonly Address[], string] = [
         targets,
         values,
         callDatas,
