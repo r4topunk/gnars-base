@@ -48,6 +48,13 @@ export default function ProposalComponent() {
 
   const [selectedTab, setSelectedTab] = useState("Description");
 
+  useEffect(() => {
+    const internalBody = document.getElementById("internal-body");
+    if (internalBody) {
+      internalBody.scrollTo(0, 0);
+    }
+  }, []);
+
   if (!proposal)
     return (
       <Layout>
@@ -74,13 +81,6 @@ export default function ProposalComponent() {
     const month = date.toLocaleString("default", { month: "long" });
     return `${month} ${date.getDate()}, ${date.getFullYear()}`;
   };
-
-  useEffect(() => {
-    const internalBody = document.getElementById("internal-body");
-    if (internalBody) {
-      internalBody.scrollTo(0, 0);
-    }
-  }, []);
 
   return (
     <div className="max-w-[800px] mx-auto mt-4 text-skin-base">
