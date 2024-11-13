@@ -3,6 +3,7 @@ import Loading from "@/components/Loading";
 import NewsCard from "@/components/News/NewsCard";
 import ProposalCards from "@/components/Proposals/ProposalCards";
 import { DAO_ADDRESS } from "constants/addresses";
+import { ZORA_FEATURED_URL } from "constants/urls";
 import { AuctionInfo, getCurrentAuction } from "data/nouns-builder/auction";
 import {
   ContractInfo,
@@ -121,9 +122,8 @@ export default function SiteComponent({
       }}
     >
       <div className="flex flex-col flex-grow text-skin-base">
-        {/* <span className="text-4xl lg:text-5xl mb-2 mt-4 md:mt-0 font-heading text-skin-base">Discover</span> */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <IframeLoader src="https://zora.co/collect/base:0xd2f21a72730259512f6edc60cfd182a79420dae6/embed?referrer=0x41CB654D1F47913ACAB158a8199191D160DAbe4A" />
+          <IframeLoader src={ZORA_FEATURED_URL} />
           <div className="col-span-1 rounded-xl border border-skin-stroke bg-skin-fill max-w-full">
             <Hero />
           </div>

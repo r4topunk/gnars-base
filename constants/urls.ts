@@ -19,3 +19,4 @@ export const SUBGRAPH_ENDPOINT = {
 export const ETHER_ACTOR_BASEURL = "https://ether.actor";
 export const IPFS_GATEWAY =
   process.env.NEXT_PUBLIC_IPFS_GATEWAY || "https://gateway.pinata.cloud/ipfs/";
+export const ZORA_FEATURED_URL = process.env.NEXT_PUBLIC_ZORA_FEATURED_URL || "https://zora.co/collect/base:0xd2f21a72730259512f6edc60cfd182a79420dae6/embed?referrer=0x41CB654D1F47913ACAB158a8199191D160DAbe4A";
