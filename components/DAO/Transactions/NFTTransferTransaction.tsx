@@ -1,21 +1,43 @@
 import { Address } from "viem";
+import { BigNumber } from "ethers";
+import useSWR from "swr";
+import { ETHER_ACTOR_BASEURL, ETHERSCAN_BASEURL } from "constants/urls";
+// import Skeleton from "./Transactions/Skeleton";
+// import { Address } from "viem";
 import { useTokenInfo } from "@/hooks/fetch";
 import Skeleton from "./Skeleton";
 import FormatedTransactionValue from "./FormatedTransactionValue";
 import TransactionCardWrapper from "./TransactionCardWrapper";
 
+type EtherActorResponse = {
+    name: string;
+    decoded: string[];
+    functionName: string;
+    isVerified: boolean;
+  };
+
 const NFTTransferTransaction = ({
     target,
-    decoded,
+    // decoded,
     calldata,
 }: {
     target: string;
-    decoded: string[];
+    // decoded: string[];
     calldata: string;
 }) => {
+    const { data, error } = useSWR<EtherActorResponse>(
+        calldata && calldata !== "0x" ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null
+    );
+
+    if (!data && calldata && calldata !== "0x") return <Skeleton />;
+    if (error) return <div>Error loading transaction data</div>;
+
+    const functionName = data?.functionName || "transfer";
+    const toAddress = data?.decoded?.[0] as Address | undefined;
+
     const tokenId = decoded?.[2];
     const fromAddress = decoded?.[0] as Address | undefined;
-    const toAddress = decoded?.[1] as Address | undefined;
+    // const toAddress = decoded?.[1] as Address | undefined;
     const { data: tokenInfo, error: tokenError } = useTokenInfo({ tokenId });
 
     console.log("NFTTransferTransaction", { target, decoded, tokenId, fromAddress, toAddress, tokenInfo, tokenError });
