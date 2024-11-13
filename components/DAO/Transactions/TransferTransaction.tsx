@@ -1,17 +1,10 @@
-import { Address, formatUnits } from "viem";
 import { BigNumber, ethers } from "ethers";
+import { AbiCoder, hexDataSlice } from "ethers/lib/utils.js";
+import { Address } from "viem";
 import FormatedTransactionValue from "./FormatedTransactionValue";
 import TokenDataRender from "./TokenDataRender";
 import TokenValueRender from "./TokenValueRender";
-import Skeleton from "./Skeleton";
-import useSWR from "swr";
-import { ETHER_ACTOR_BASEURL } from "constants/urls";
 import TransactionCardWrapper from "./TransactionCardWrapper";
-
-type EtherActorResponse = {
-    functionName: string;
-    decoded: string[];
-};
 
 export function TransferTransaction({
     target,
@@ -22,24 +15,21 @@ export function TransferTransaction({
     value: number;
     calldata: string;
 }) {
-    const swrKey = calldata ? `${ETHER_ACTOR_BASEURL}/decode/${target}/${calldata}` : null;
-    const { data, error } = useSWR<EtherActorResponse>(swrKey);
-
-    if (!data && !error) return <Skeleton />;
-    if (error) return <div>Error loading transaction data</div>;
-
-    const toAddress = data?.decoded?.[0] as Address | undefined;
+    const abiCoder = new AbiCoder();
+    const decodedData = abiCoder.decode(["address", "uint256"], hexDataSlice(calldata, 4));
+    const toAddress = decodedData[0] as Address;
+    const transferValue = BigInt(decodedData[1]);
 
     return (
-        <TransactionCardWrapper title={data?.functionName || "Transfer"}>
+        <TransactionCardWrapper title="Transfer">
             <div className="transaction-detail">
                 <span className="font-semibold">Token:</span>
                 <TokenDataRender address={target} />
             </div>
             <div className="transaction-detail">
                 <span className="font-semibold">Value:</span>
-                {data?.decoded && data.decoded.length > 1 ? (
-                    <TokenValueRender address={target} value={BigInt(data.decoded[1])} />
+                {calldata ? (
+                    <TokenValueRender address={target} value={transferValue} />
                 ) : (
                     value && <span>{`${ethers.utils.formatEther(BigNumber.from(value))} ETH`}</span>
                 )}
