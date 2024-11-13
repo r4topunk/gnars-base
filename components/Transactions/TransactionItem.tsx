@@ -1,15 +1,16 @@
-import { Field, useFormikContext } from "formik";
+import { Field, FieldArrayRenderProps, useFormikContext } from "formik";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { FormTransaction } from "../SubmitButton";
 
 const TransactionItem = ({
     index,
     arrayHelpers,
 }: {
     index: number;
-    arrayHelpers: any;
+    arrayHelpers: FieldArrayRenderProps;
 }) => {
     // Access form values using useFormikContext
-    const { values } = useFormikContext<{ transactions: any[] }>(); // Type your form values accordingly
+    const { values } = useFormikContext<{ transactions: FormTransaction[] }>(); // Type your form values accordingly
 
     return (
         <div className="mb-4 border p-4 rounded-md flex flex-col">
@@ -21,7 +22,7 @@ const TransactionItem = ({
             </div>
             <Field
                 name={`transactions[${index}].address`}
-                placeholder="0x04bfb0034F24E..."
+                placeholder="0x04bf..."
                 className="bg-gray-100 dark:bg-opacity-5 text-skin-base placeholder:text-gray-500 px-3 py-3 rounded-lg w-full text-md mt-2 focus:outline-none"
             />
             <label className="text-sm mt-4">Value</label>
