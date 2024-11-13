@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { Proposal } from "@/services/nouns-builder/governor";
 import { TOKEN_CONTRACT } from "constants/addresses";
@@ -162,6 +162,13 @@ const ProposalPlacard = ({
     totalVotes > 0 ? (againstVotes / totalVotes) * 100 : 0;
   const abstainPercentage =
     totalVotes > 0 ? (abstainVotes / totalVotes) * 100 : 0;
+
+  useEffect(() => {
+    const internalBody = document.getElementById("internal-body");
+    if (internalBody) {
+      internalBody.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <Link

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDAOAddresses, useGetAllProposals } from "hooks/fetch";
 import { TOKEN_CONTRACT } from "constants/addresses";
 import Image from "next/image";
@@ -24,6 +24,7 @@ import VoteList, { SubGraphProposal } from "@/components/DAO/voteList";
 import { useFetchProposalVotes } from "@/hooks/fetch/useFetchProposalVotes";
 import { TransferTransaction } from "@/components/DAO/Transactions/TransferTransaction";
 import ProposedTransactions from "@/components/DAO/Transaction";
+
 export default function ProposalComponent() {
   const { data: addresses } = useDAOAddresses({
     tokenContract: TOKEN_CONTRACT,
@@ -73,6 +74,13 @@ export default function ProposalComponent() {
     const month = date.toLocaleString("default", { month: "long" });
     return `${month} ${date.getDate()}, ${date.getFullYear()}`;
   };
+
+  useEffect(() => {
+    const internalBody = document.getElementById("internal-body");
+    if (internalBody) {
+      internalBody.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <div className="max-w-[800px] mx-auto mt-4 text-skin-base">
@@ -216,6 +224,14 @@ export default function ProposalComponent() {
           <VoteList proposal={{ ...proposal, votes } as unknown as SubGraphProposal} />
         </div>
       )}
+
+      <Link
+        href="/vote"
+        className="mt-4 flex w-fit gap-2 px-4 items-center border border-skin-stroke hover:bg-skin-muted dark:hover:bg-skin-muted-dark rounded-full p-2 mr-4"
+      >
+        <ArrowLeftIcon className="h-4 text-skin-muted dark:text-skin-muted-dark" />
+        Proposals
+      </Link>
     </div>
   );
 }

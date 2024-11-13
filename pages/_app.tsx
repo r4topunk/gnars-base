@@ -55,7 +55,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <RainbowKitProvider chains={chains} theme={themeConfig}>
           <div className="bg-white dark:bg-[#0f0f0f] text-black dark:text-yellow-200 h-screen flex">
             <Navbar />
-            <div className="flex flex-col p-4 flex-grow h-full overflow-y-auto overflow-x-hidden">
+            <div id="internal-body" className="flex flex-col p-4 flex-grow h-full overflow-y-auto overflow-x-hidden">
               <div className="w-full pb-0 md:pb-4 flex justify-between gap-8">
                 {/* Search bar */}
                 {/* <div className="flex w-full max-w-[450px] bg-gray-200 dark:bg-gray-700 rounded-lg pr-2 items-center">
