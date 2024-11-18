@@ -53,14 +53,14 @@ export default function Header() {
             )}
           </Link>
 
-          <Link
+          {/* <Link
             rel="noreferer noopener noreferrer"
             target="_blank"
             href={`${ETHERSCAN_BASEURL}/address/${addresses?.treasury}`}
             className="ml-4 border hover:bg-skin-button-accent-hover transition ease-in-out hover:scale-110 font-semibold rounded-xl px-6 h-10 flex items-center justify-around text-skin-base border-skin-stroke text-xl"
           >
             Ξ {treasury ? formatTreasuryBalance(treasury) : "0"}
-          </Link>
+          </Link> */}
         </div>
 
         <div className="items-center hidden sm:flex">

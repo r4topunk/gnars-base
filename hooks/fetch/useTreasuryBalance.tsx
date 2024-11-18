@@ -1,4 +1,5 @@
 import { BigNumber } from "ethers";
+import { TokenData } from "pages/api/treasury/[address]";
 import useSWR from "swr";
 
 export const useTreasuryBalance = ({
@@ -6,7 +7,7 @@ export const useTreasuryBalance = ({
 }: {
   treasuryContract?: string;
 }) => {
-  return useSWR<BigNumber>(
+  return useSWR<{ tokens: TokenData[], totalBalance: number }>(
     treasuryContract ? `/api/treasury/${treasuryContract}` : undefined
   );
 };
